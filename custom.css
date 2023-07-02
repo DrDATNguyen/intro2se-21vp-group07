@@ -8,6 +8,8 @@
     font-family: "Poppins", sans-serif;
 }
 
+
+
 body
 {
     background: #dfe9f5;
@@ -78,11 +80,8 @@ a:hover
 {
     background: #eee;
 }
-nav:hover
-{
-    width: 280px;
-    transition: all 0.5s ease;
-}
+
+
 
 .logout
 {
@@ -90,7 +89,113 @@ nav:hover
     bottom: 0;
 }
 
+
+header
+{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
 .main-content
 {
     margin-left: 90px;
+}
+main
+{
+    margin-top: 85px;
+    padding: 2rem 1.5rem;
+    min-height: calc(100vh - 90px);
+}
+
+.cards
+{
+    margin-left: 90px;
+}
+
+.cards
+{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 2rem;
+}
+.card-single
+{
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 2px;
+}
+.card-single:hover
+{
+    background: #eee;
+}
+.fa
+{
+    font-size: 3rem;
+}
+
+.user-wrapper
+{
+    position: absolute;
+    top:0;
+    right:0;
+    display: flex;
+    margin-right: 1rem;
+}
+.user-wrapper img
+{
+    border-radius: 50%;
+    margin-right: 1rem;
+}
+.user-wrapper small
+{
+    display: inline-block;
+    color: var(--text-grey);
+    margin-top: -10px !important;
+}
+
+.recent-grid
+{
+    margin-left: 90px;
+    margin-top: 3.5rem;
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: 50% auto;
+}
+.plate
+{
+    background: #fff;
+}
+.plate-header, .plate-body
+{
+    padding: 1rem;
+}
+.plate-header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    background-color: #FFC0CB;
+}
+table
+{
+    border-collapse: collapse;
+}
+td,tr
+{
+    justify-content: space-between;
+    padding: 2rem;
+    border-radius: 2px;
+}
+
+/*asdsaasd*/
+
+.main1
+{
+    margin-top: 85px;
+    padding: 2rem 1.5rem;
+    min-height: calc(100vh - 90px);
 }

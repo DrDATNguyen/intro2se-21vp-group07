@@ -6,17 +6,18 @@
         <link rel="stylesheet" href="custom.css">
         <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <script src="buton.js"></script>
         
     </head>
-    <body>
-        <nav>
+    <body onload="defaultScreen()">
+        <nav id="sides">
 
         <div class="sidebar">
             <div class="sidebar-brand">
                 <h1>
                     <a href="#" class="logo">
-                        <img src="./img/animalworld.png" width="90px" height="90px">
-                        <span class="nav-item">admin</span>
+                        <img src="./img/animalworld.png" width="90px" height="90px"  onclick="displayside()">
+                        <span class="nav-item">Animal_World</span>
                     </a> 
                 </h1>
             </div>
@@ -25,16 +26,17 @@
                 <ul>
 
                     <li>
-                        <a href="#">
+                        <a href="#" onclick="changeTongquan()">
                           <i class="fas fa-home" ></i>
-                          <span class="nav-item">Trang chính</span>
+                          <span class="nav-item">Tổng quan</span>
                         </a>
                     </li>
                     
                     <li>
-                        <a href="#">
+                        <a href="#"  onclick="changeTimkiem()">
                           <i class="fas fa-search" ></i>
                           <span class="nav-item">Tìm kiếm</span>
+                          
                         </a>
                     </li>
 
@@ -86,18 +88,140 @@
 
         </nav>
 
-        <div class="main-content">
-            <header>
-                <h1>
-                    <label for="">
-                        <span class="fas fa-bars"></span>
-                    </label>
-                    Trang chính
-                </h1>
+        <header>
+            <div class="user-wrapper">
+                <img src="img/admin.png" width="40px" height="40px" alt="">
+                <div>
+                    <h4>Nguyễn Tuấn Kiệt</h4>
+                    <small>Admin</small>
+                </div>
+            </div>
+    
+            <div class="main-content" id="cotant">
+    
+                <p id="test"></p>
+               
+            </div>
+        </header>
+        
+        <show id="show">
+            
+        </show>
 
+        <main id="board1"  style="display: none">
+            <div class="cards">
+
+                <div class="card-single" id="box1">
+                    <div onclick="doinoidung()">
+                        <h1>54</h1>
+                        <span>Người dùng</span>
+                    </div>
+                    <div>
+                        <span class="fa fa-user"></span>
+                    </div>
+                </div>
+
+                <div class="card-single" id="box2">
+                    <div>
+                        <h1>152</h1>
+                        <span>Bài viết</span>
+                    </div>
+                    <div>
+                        <span class="fa fa-clipboard"></span>
+                    </div>
+                </div>
+
+                <div class="card-single">
+                    <div>
+                        <h1>10</h1>
+                        <span>Yêu cầu xử lý</span>
+                    </div>
+                    <div>
+                        <span class="fa fa-bug"></span>
+                    </div>
+                </div>
                 
-            </header>
-        </div>
+                <div class="card-single">
+                    <div>
+                        <h1>1</h1>
+                        <span>Tin nhắn</span>
+                    </div>
+                    <div>
+                        <span class="fa fa-envelope"></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="recent-grid">
+
+                <div class="recent-post">
+                    <div class="plate">
+                        <div class="plate-header">
+                            <h3>Bài viết gần đây</h3>
+                            <button>
+                                Chi tiết
+                            </button>
+                        </div>
+                        <div class="plate-body">
+                            <table>
+                                <thread>
+                                    <tr>
+                                        <td style="width:50%;max-width:300px;"><b>Tên bài viết</b></td>
+                                        <td><b>Phân Loại</b></td>
+                                        <td><b>Trạng Thái</b></td>
+                                    </tr>
+                                </thread>
+                                <tbody>
+                                    <tr>
+                                        <td>Con cá chà bặc</td>
+                                        <td>Thảo luận </td>
+                                        <td>Đang chờ duyệt</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="recent-activity">
+                    <div class="plate">
+                        <div class="plate-header">
+                            <h3>Hoạt động gần đây</h3>
+                            <button>
+                                Chi tiết
+                            </button>
+                        </div>
+                        <div class="plate-body">
+                            <table>
+                                <thread>
+                                    <tr>
+                                        <td><b>Tên tài khoản</b></td>
+                                        <td><b>Hoạt động gần nhất</b></td>
+                                        <td><b>Thời gian</b></td>
+                                    </tr>
+                                </thread>
+                                <tbody>
+                                    <tr>
+                                        <td>Thị Văn Thị</td>
+                                        <td>Đăng bình luận</td>
+                                        <td>05:20AM 1/1/2023</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+        </main>
+
+        <main1 id="board2" style="display: none">
+            <h1> this is a title </h1>
+        </main1>
 
     </body>
 </html>
