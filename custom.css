@@ -191,11 +191,8 @@ td,tr
     border-radius: 2px;
 }
 
-/*asdsaasd*/
-
 .main1
 {
-    margin-top: 85px;
-    padding: 2rem 1.5rem;
-    min-height: calc(100vh - 90px);
+    margin-left: 90px;
 }
+
