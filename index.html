@@ -3,7 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <title>admin</title>
+        <link rel="stylesheet" href="sidebar.css">
         <link rel="stylesheet" href="custom.css">
+        <link rel="stylesheet" href="custom1.css">
         <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <script src="buton.js"></script>
@@ -204,7 +206,7 @@
                                 </thread>
                                 <tbody>
                                     <tr>
-                                        <td>Thị Văn Thị</td>
+                                        <td>thivanthi1994</td>
                                         <td>Đăng bình luận</td>
                                         <td>05:20AM 1/1/2023</td>
                                     </tr>
@@ -240,11 +242,12 @@
                         <div class="checkbox3">
                             <input type="checkbox" id="checkbox3">
                             <label for="checkbox3">Loại bài viết</label>
-                            <a>
-                              <a href="#">Link 1</a>
-                              <a href="#">Link 2</a>
-                              <a href="#">Link 3</a>
-                            </a>
+                            <select name="postType" id="pType">
+								<option value="any">Bất kì</option>
+								<option value="discussion">Thảo Luận</option>
+								<option value="news">Tin Tức</option>
+								<option value="wikia">Bách Khoa</option>
+                            </select>
                         </div>
                         <input type="submit">
                     </div>
