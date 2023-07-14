@@ -110,7 +110,11 @@
             
         </show>
 
-        <main id="board1"  style="display: none">
+        <main style="display: none">
+		</main>
+		
+		<div id="board1"  style="display: none">
+			<div>
             <div class="cards">
 
                 <div class="card-single" id="box1">
@@ -216,7 +220,7 @@
                         </div>
                     </div>
                 </div>
-                
+            </div>
             </div>
 
             <div id="board2" style="display: none">
@@ -229,16 +233,19 @@
 
                         <div class="checkbox1">
                             <input type="checkbox" id="checkbox1" name="dmy">
-                            <label for="checkbox1">Bắt đầu sau ngày</label>
+                            <label for="checkbox1">Trong khoảng sau ngày</label>
                             <input type="date" id="rangeTop" name="rangeTop">
                         </div>
                         
                         <div class="checkbox2">
                             <input type="checkbox" id="checkbox2" name="dmy">
-                            <label for="checkbox2">Bắt đầu trước ngày</label>
+                            <label for="checkbox2">Trong khoảng trước ngày</label>
                             <input type="date" id="rangeBottom" name="rangeBottom">
                         </div>
                         
+                        <div>
+							Từ bài viết hoặc/và comment
+                        </div>
                         <div class="checkbox3">
                             <input type="checkbox" id="checkbox3">
                             <label for="checkbox3">Loại bài viết</label>
@@ -247,14 +254,37 @@
 								<option value="discussion">Thảo Luận</option>
 								<option value="news">Tin Tức</option>
 								<option value="wikia">Bách Khoa</option>
+								<option value="wikia">Khác</option>
                             </select>
                         </div>
+                       
+                       <div class="checkbox3.5">
+						   <input type="checkbox">
+						   <label for="checkbox3.5">Từ user ID:</label>
+                       </div>
+                        
+                        <div  class="checkbox4">
+							<input type="checkbox" id="checkbox4">
+                            <label for="checkbox4">Từ user ID:</label>
+                            <input type="text">
+                        </div>
+                        
+                        <div  class="checkbox4.5.">
+							<input type="checkbox" id="checkbox4">
+                            <label for="checkbox4.5">Có nhắc đến user:</label>
+                            <input type="text">
+                        </div>      
+                            
+                        <div>
+							
+                        </div>
+                        
                         <input type="submit">
                     </div>
 
                 </div>
             </div>
-        </main>
+		</div>
 
 
 
