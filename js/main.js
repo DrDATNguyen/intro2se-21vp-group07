@@ -101,7 +101,7 @@ $('.move-up span').click(function () {
 //     videoSlides[navIndex].classList.add("active");
 //   }
 // });
-const videos = ["./assets/video/tiger.mp4", "./assets/video/leopard.mp4", "./assets/video/wolf.mp4"];
+const videos = ["./assets/video/tiger.mp4", "./assets/video/leopard.mp4", "./assets/video/wolf.mp4","./assets/video/lion.mp4","./assets/video/swimming_with_shark.mp4"];
 let currentvideo = 0;
 
 function changevideo() {
@@ -113,3 +113,37 @@ function changevideo() {
 document.addEventListener('DOMContentLoaded', () => {
   setInterval(changevideo, 15000);
 });
+const viewBtn = document.querySelector(".container.btn-share"),
+    popup = document.querySelector(".popup"),
+    close = popup.querySelector(".close"),
+    field = popup.querySelector(".field"),
+    input = field.querySelector("input"),
+    copy = field.querySelector("button");
+
+    viewBtn.onclick = ()=>{
+      popup.classList.toggle("show");
+    }
+    close.onclick = ()=>{
+      viewBtn.click();
+    }
+
+    copy.onclick = ()=>{
+    navigator.clipboard.writeText(input.value)
+    .then(() => {
+        field.classList.add("active");
+        copy.innerText = "Copied";
+        setTimeout(() => {
+        window.getSelection().removeAllRanges();
+        field.classList.remove("active");
+        copy.innerText = "Copy";
+        }, 3000);
+    })
+
+    .catch((error) => {
+        console.error("Copy failed:", error);
+    });
+}
+// var btnShare = document.querySelector(".btn-share");
+//         btnShare.addEventListener("click", function() {
+//             alert("Bạn đã click vào nút Share!");
+//         });
