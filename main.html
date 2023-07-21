@@ -20,8 +20,18 @@
      <link rel="stylesheet" href="./css/owl.theme.default.min.css">
  
     <!-- Custom Style   -->
-    <link rel="stylesheet" href="./css/Style.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
+
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/StyleComment">
+    <link rel="stylesheet" href="./css/Style.css">
+
     </head>
 <body>
   <!--------- Navigation ---------->
@@ -41,7 +51,7 @@
                     <a href="main.html">Home</a>
                 </li>
                 <li class="nav-link">
-                    <a href="login.html">Login</a>
+                    <a href="login1.html">Login</a>
                 </li>
                 <li class="nav-link">
                     <a href="#">Animal</a>
@@ -73,10 +83,10 @@
                     <a href="MenuUser2.html">My Page</a>
                 </li>
                 <li class="nav-link">
-                    <a href="AboutUs.html">About us</a>
+                    <a href="about.html">About us</a>
                 </li>
                 <li class="nav-link">
-                    <a href="#">Contact Us</a>
+                    <a href="font-users/index.html">Contact Us</a>
                 </li>
             </ul>
         </div>
@@ -99,6 +109,7 @@
         </section> -->
         
     </div>
+
      <!------------------------ Site Title ---------------------->
     <section class="home">
         
@@ -177,7 +188,7 @@
                             <img src="./assets/chuot.jpg" alt="post-1">
                             <div class="blog-title">
                                 <h3>Con chuột đáng yêu chỉ với 20k</h3>
-                                <button class="btn btn-blog">Mua ngay</button>
+                                <button onclick="window.location.href = 'CheckOut.html';" class="btn btn-blog">Mua ngay</button>
                                   <span>2 minutes</span>
                             </div>
                         </div>                 
@@ -185,7 +196,7 @@
                             <img src="./assets/chuot.jpg" alt="post-1">
                             <div class="blog-title">
                                 <h3>Con chuột đáng yêu chỉ với 20k</h3>
-                                <button class="btn btn-blog">Mua ngay</button>
+                                <button onclick="window.location.href = 'CheckOut.html';" class="btn btn-blog">Mua ngay</button>
                                 <span>2 minutes</span>
                             </div>
                         </div>
@@ -201,7 +212,7 @@
                             <img src="./assets/chuot.jpg" alt="post-1">
                             <div class="blog-title">
                                 <h3>Con chuột đáng yêu chỉ với 20k</h3>
-                                <button class="btn btn-blog">Mua ngay</button>
+                                <button onclick="window.location.href = 'CheckOut.html';" class="btn btn-blog">Mua ngay</button>
                                 <span>2 minutes</span>
                             </div>
                         </div>
@@ -228,10 +239,13 @@
                             </div>
                             <div class="post-info flex-row">
                                 <!-- &nbsp dùng tạo khoảng trắng giữa các phần tử hoặc các từ trong văn bảng -->
-                                <span><i class="fa-solid fa-thumbs-up"></i>&nbsp;&nbsp;150</span>
+                                      
+                              <span><i class="fa-solid fa-thumbs-up"></i>&nbsp;&nbsp;150</span>
                                 <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;Admin</span>
                                 <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14, 2019</span>
+                                <button class="btn-cmt">
                                 <span>2 Commets</span>
+                                </button>
                                 <button class="btn-share">
                                 <span><i class="fa-solid fa-share"></i></i>&nbsp;&nbsp;25</span>
                                 </button>
@@ -257,10 +271,12 @@
                                 <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;Olivia Gomez</span>
                                 </a>
                                 <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14, 2019</span>
-                                <span>2 Commets</span>
-                                <a href="share.html">
-                                <span><i class="fa-solid fa-share"></i></i>&nbsp;&nbsp;25</span>
-                                </a>
+                                <button class="btn-cmt">
+                                    <span>2 Commets</span>
+                                    </button>
+                                <button class="btn-share">
+                                    <span><i class="fa-solid fa-share"></i></i>&nbsp;&nbsp;25</span>
+                                </button>
                             </div>
                         </div>
                         <div class="post-title">
@@ -280,10 +296,12 @@
                                 <span><i class="fa-solid fa-thumbs-up"></i>&nbsp;&nbsp;150</span>
                                 <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;Admin</span>
                                 <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14, 2019</span>
-                                <span>2 Commets</span>
-                                <a href="share.html">
-                                <span><i class="fa-solid fa-share"></i></i>&nbsp;&nbsp;25</span>
-                                </a>
+                                <button class="btn-cmt">
+                                    <span>2 Commets</span>
+                                    </button>
+                                <button class="btn-share">
+                                    <span><i class="fa-solid fa-share"></i></i>&nbsp;&nbsp;25</span>
+                                    </button>
                             </div>
                         </div>
                         <div class="post-title">
@@ -302,10 +320,12 @@
                                 <span><i class="fa-solid fa-thumbs-up"></i>&nbsp;&nbsp;150</span>
                                 <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;Admin</span>
                                 <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14, 2019</span>
-                                <span>2 Commets</span>
-                                <a href="share.html">
-                                <span><i class="fa-solid fa-share"></i></i>&nbsp;&nbsp;25</span>
-                                </a>
+                                <button class="btn-cmt">
+                                    <span>2 Commets</span>
+                                    </button>
+                                <button class="btn-share">
+                                    <span><i class="fa-solid fa-share"></i></i>&nbsp;&nbsp;25</span>
+                                    </button>
                             </div>
                         </div>
                         <div class="post-title">
@@ -345,6 +365,60 @@
                         </div>
                         </div>
                     </div>
+                <div class="comments-container">
+                    <div class="close1"><i class="uil uil-times"></i></div>
+                     <div class="container1 mt-5 mb-5">
+                        
+                        <div class="d-flex justify-content-center row">
+                            <div class="d-flex flex-column col-md-8">
+                                <div class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white border-bottom px-4">
+                                    <div class="profile-image"><img class="rounded-circle" src="./assets/imagesMenuUser/profile.jpg" width="70"></div>
+                                    <div class="d-flex flex-column ml-3">
+                                        <div class="d-flex flex-row post-title">
+                                            <h5>Is sketch 3.9.1 stable?</h5><span class="ml-2">(Jesshead)</span></div>
+                                        <div class="d-flex flex-row align-items-center align-content-center post-title"><span class="bdge mr-1">video</span><span class="mr-2 comments">13 comments&nbsp;</span><span class="mr-2 dot"></span><span>6 hours ago</span></div>
+                                    </div>
+                                </div>
+                                <div class="coment-bottom bg-white p-2 px-4">
+                                    <div class="d-flex flex-row add-comment-section mt-4 mb-4"><img class="img-fluid img-responsive rounded-circle mr-2" src="./assets/imagesMenuUser/profile2.jpg" width="38"><input type="text" class="form-control mr-3" placeholder="Add comment"><button class="btn btn-primary" type="button">Comment</button></div>
+                                    <div
+                                        class="commented-section mt-2">
+                                        <div class="d-flex flex-row align-items-center commented-user">
+                                            <h5 class="mr-2">Corey oates</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">4 hours ago</span></div>
+                                        <div class="comment-text-sm"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></div>
+                                        <div
+                                            class="reply-section">
+                                            <div class="d-flex flex-row align-items-center voting-icons"><i class="fa-solid fa-thumbs-up"></i><span class="ml-2">10</span><span class="dot ml-2"></span>
+                                                <h6 class="ml-2 mt-1">Reply</h6>
+                                            </div>
+                                </div>
+                            </div>
+                            <div class="commented-section mt-2">
+                                <div class="d-flex flex-row align-items-center commented-user">
+                                    <h5 class="mr-2">Samoya Johns</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">5 hours ago</span></div>
+                                <div class="comment-text-sm"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..</span></div>
+                                <div class="reply-section">
+                                    <div class="d-flex flex-row align-items-center voting-icons"><i class="fa-solid fa-thumbs-up"></i><span class="ml-2">10</span><span class="dot ml-2"></span>
+                                        <h6 class="ml-2 mt-1">Reply</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="commented-section mt-2">
+                                <div class="d-flex flex-row align-items-center commented-user">
+                                    <h5 class="mr-2">Makhaya andrew</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">10 hours ago</span></div>
+                                <div class="comment-text-sm"><span>Nunc sed id semper risus in hendrerit gravida rutrum. Non odio euismod lacinia at quis risus sed. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Enim facilisis gravida neque convallis a. In mollis nunc sed id. Adipiscing elit pellentesque habitant morbi tristique senectus et netus. Ultrices mi tempus imperdiet nulla malesuada pellentesque.</span></div>
+                                <div
+                                    class="reply-section">
+                                    <div class="d-flex flex-row align-items-center voting-icons"><i class="fa-solid fa-thumbs-up"></i><span class="ml-2">10</span><span class="dot ml-2"></span>
+                                        <h6 class="ml-2 mt-1">Reply</h6>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div> 
+                </div>
             <!-- --------------------------- Share ---------------------------------------- -->
                 </div>
                 <aside class="sidebar">

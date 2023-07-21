@@ -96,7 +96,7 @@ button.btn{
     background: white;
     padding: 0 0rem;
     height: 52rem;
-    min-height: 10vh;
+    min-height: 40vh;
     /* là thuộc tính giúp đặt giá trị tối thiểu cho chiều cao của phần tử. Trong trường hợp này, nó được đặt là 10% của chiều cao của viewport. */
     overflow: hidden;
     /* chỉ định cách xử lý khi nội dung của phần tử vượt quá kích thước được cho phép. Giá trị "hidden" trong trường hợp này sẽ giấu những phần vượt quá phần tử cha. */
@@ -106,6 +106,7 @@ button.btn{
 }
 
 .nav .nav-menu{    
+    display: flex;
     justify-content: space-between;
     /* các thành phần sẽ được canh chỉnh sao cho có khoảng cách ngang đồng đều giữa chúng. Thêm vào đó, thành phần đầu tiên sẽ được đặt ở đầu container, và thành phần cuối cùng sẽ được đặt ở cuối container. */
 }
@@ -290,7 +291,7 @@ button.btn{
     z-index: 77;
     content: "";
     position: relative;
-    background: rgba(3, 96, 251, 0.3);
+    background: #fff;
     width: 100%;
     height: 100%;
     top:0;
@@ -589,6 +590,7 @@ main .site-content .post-content > .post-image .post-info{
     Ví dụ, giá trị "50vw" sẽ tương ứng với 50% chiều rộng của viewport, 100vw tương ứng với toàn bộ chiều rộng viewport. */
     left: 20vw;
     border-radius: 3rem;
+    
 }
 
 main .site-content .post-content > .post-image > div{
@@ -638,14 +640,121 @@ main .post-content .post-title a{
     background: var(--text-gray);
     color: var(--white);
 }
+/* .comments-container
+{
+    position: fixed;
+    top: 2rem;
+    right: 20px;
+    z-index: 9999;
+    background-color: #eee;
+    width: 80%;
+    height: 80%;
+    
+    display: none;
+}
+.comments-container.show
+{
+    display: inline-block;
 
+}
+.container1{
+    
+    width: 100%;
+    height: 86%;
+    overflow: hidden; 
+    overflow-y: auto;
+
+} */
+
+/* .container1.show{
+    top: 50%;
+    opacity: 1;
+    pointer-events: auto;
+    transform:translate(-50%, -50%) scale(1);
+    transition: top 0s 0s ease-in-out,
+                opacity 0.2s 0s ease-in-out,
+                transform 0.2s 0s ease-in-out;
+  
+  } */
+ /* .ml-auto {
+    margin-left: auto !important;
+  }
+  
+  .col-md-8 {
+    width: 50%;
+  }  */
+  
+  /* .comment-top {
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+  }
+  
+  
+.bdge {
+    height: 21px;
+    background-color: orange;
+    color: #fff;
+    font-size: 11px;
+    padding: 8px;
+    border-radius: 4px;
+    line-height: 3px;
+    overflow: auto;
+  }
+  
+  .comments {
+    text-decoration: underline;
+    text-underline-position: under;
+    cursor: pointer;
+    overflow: auto;
+    position: relative;
+  }
+  
+  .dot {
+    height: 7px;
+    width: 7px;
+    margin-top: 3px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+  }
+   */
+  /* .hit-voting:hover {
+    color: blue;
+  } */
+  
+  /* .hit-voting {
+    cursor: pointer;
+  } */
+   /* .comments-container .close1{
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+  } 
+  .comments-container .close1{
+    color: #3e19d5;
+    font-size: 1rem;
+    background: #445f63;
+    height: 2rem;
+    width: 2rem;
+    cursor: pointer;
+  }
+  .comments-container .close1:hover{
+    background: #ebedf9;
+  } */
 /* --------------- Sharing ----------------------- */
-.container .posts .popup{
+.popup{
     background: #fff;
-    padding: 25px;
-    border-radius: 15px;
-    top: -150%;
-    max-width: 380px;
+    padding: 3rem;
+    border-radius: 1rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* transform: translate(-50%, -50%); */
+    /* margin-left: 30rem; */
+    max-width: 20rem;
     width: 100%;
     opacity: 0;
     pointer-events: none;
@@ -654,8 +763,12 @@ main .post-content .post-title a{
     transition: top 0s 0.2s ease-in-out,
                 opacity 0.2s 0s ease-in-out,
                 transform 0.2s 0s ease-in-out;
+    /* display: flex;
+    justify-content: space-between; */
+    z-index: 9999;
   }
-  .container.posts.popup.show{
+  
+  .popup.show{
     top: 50%;
     opacity: 1;
     pointer-events: auto;
@@ -665,133 +778,140 @@ main .post-content .post-title a{
                 transform 0.2s 0s ease-in-out;
   
   }
-  .container.posts .popup :is(header, .icons, .field){
+  
+.popup :is(header, .icons, .field){
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
-  .container.posts .popup header{
-    padding-bottom: 15px;
+.popup header{
+    padding-bottom: 1rem;
     border-bottom: 1px solid #ebedf9;
   }
-  .container.posts header span{
-    font-size: 21px;
+ header span{
+    font-size: 1.5rem;
     font-weight: 600;
   }
-  .container.posts header .close, .icons a{
+header .close, .icons a{
     display: flex;
     align-items: center;
     border-radius: 50%;
     justify-content: center;
     transition: all 0.3s ease-in-out;
   }
-  .container .postsheader .close{
+header .close{
     color: #878787;
-    font-size: 17px;
+    font-size: 1rem;
     background: #f2f3fb;
-    height: 33px;
-    width: 33px;
+    height: 2rem;
+    width: 2rem;
     cursor: pointer;
   }
-  .container.posts header .close:hover{
+header .close:hover{
     background: #ebedf9;
   }
-  .container.posts .popup .content{
-    margin: 20px 0;
+.popup .content{
+    margin: 1.1 0;
   }
-  .container.posts .popup .icons{
-    margin: 15px 0 20px 0;
+.popup .icons{
+    margin: 1rem 0 20px 0;
   }
-  .container.posts .content p{
-    font-size: 16px;
+.content p{
+    font-size: 1rem;
   }
-  .container.posts .content .icons a{
+ .content .icons a{
     height: 50px;
     width: 50px;
     font-size: 20px;
     text-decoration: none;
     border: 1px solid transparent;
   }
-  .container.posts .icons a i{
+ .icons a i{
     transition: transform 0.3s ease-in-out;
   }
-  .container.posts .icons a:nth-child(1){
+ .icons a:nth-child(1){
     color: #1877F2;
     border-color: #b7d4fb;
   }
-  .container.posts .icons a:nth-child(1):hover{
+  .icons a:nth-child(1):hover{
     background: #1877F2;
   }
-  .container.posts .icons a:nth-child(2){
+.icons a:nth-child(2){
     color: #46C1F6;
     border-color: #b6e7fc;
   }
-  .container.posts .icons a:nth-child(2):hover{
+.icons a:nth-child(2):hover{
     background: #46C1F6;
   }
-  .container.posts .icons a:nth-child(3){
+.icons a:nth-child(3){
     color: #e1306c;
     border-color: #f5bccf;
   }
-  .container.posts.icons a:nth-child(3):hover{
+.icons a:nth-child(3):hover{
     background: #e1306c;
   }
-  .container.posts .icons a:nth-child(4){
+ .icons a:nth-child(4){
     color: #25D366;
     border-color: #bef4d2;
   }
-  .container.posts .icons a:nth-child(4):hover{
+ .icons a:nth-child(4):hover{
     background: #25D366;
   }
-  .container.posts .icons a:nth-child(5){
+  .icons a:nth-child(5){
     color: #0088cc;
     border-color: #b3e6ff;
   }
-  .container.posts .icons a:nth-child(5):hover{
+  .icons a:nth-child(5):hover{
     background: #0088cc;
   }
-  .container.posts .icons a:hover{
+  .icons a:hover{
     color: #fff;
     border-color: transparent;
   }
-  .container.posts .icons a:hover i{
+   .icons a:hover i{
     transform: scale(1.2);
   }
-  .container.posts .content .field{
+   .content .field{
     margin: 12px 0 -5px 0;
     height: 45px;
     border-radius: 4px;
     padding: 0 5px;
     border: 1px solid #e1e1e1;
   }
-  .container.posts .field.active{
+   .field.active{
     border-color: #7d2ae8;
   }
-  .container.posts .field i{
-    width: 50px;
-    font-size: 18px;
+   .field i{
+    width: 3rem;
+    font-size: 1.1rem;
     text-align: center;
   }
-  .container.posts .field.active i{
+ .field.active i{
     color: #7d2ae8;
   }
-  .container.posts .field input{
+ .field input{
     width: 100%;
     height: 100%;
     border: none;
     outline: none;
     font-size: 15px;
   }
-  .container.posts .field button{
+  .field button{
     color: #fff;
-    padding: 5px 18px;
+    padding: 0.4rem 1.1rem;
     background: #7d2ae8;
   }
-  .container.posts .field button:hover{
+   .field button:hover{
     background: #8d39fa;
   }
   .container .post-content .btn-share{
-    /* background-color: var(--sky); */
+    background-color: var(--sky);
+    
+    border: none;
+    cursor: pointer;
+  } 
+  .container .post-content .btn-cmt{
+    background-color: var(--sky);
     
     border: none;
     cursor: pointer;
@@ -833,6 +953,7 @@ main .post-content .post-title a{
     left: 1.5rem !important;
     border-radius: 0rem !important;
     background: white !important;
+    /* margin-left: 9rem; */
     /* "!important" là một khai báo rõ ràng khiến thuộc tính được ưu tiên áp dụng hơn bất kỳ quy tắc nào khác, cho dù có ghi đè lên những quy tắc đã được định nghĩa trước đó */
 }
 

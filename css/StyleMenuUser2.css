@@ -82,13 +82,17 @@ nav .logo-name{
     display: flex;
     align-items: center;
 }
+nav .logo-name a{
+    text-decoration: none;
+}
 nav .logo-image{
+    margin-top: 2rem;
     display: flex;
     justify-content: center;
     min-width: 45px;
 }
 nav .logo-image img{
-    width: 40px;
+    width: 7rem;
     object-fit: cover;
     border-radius: 50%;
 }
@@ -105,8 +109,8 @@ nav.close .logo_name{
     pointer-events: none;
 }
 nav .menu-items{
-    margin-top: 40px;
-    height: calc(100% - 90px);
+    margin-top: 1rem;
+    height: calc(100% - 15rem);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -117,7 +121,7 @@ nav .menu-items{
 .menu-items li a{
     display: flex;
     align-items: center;
-    height: 50px;
+    height: 3rem;
     text-decoration: none;
     position: relative;
 }
@@ -161,7 +165,7 @@ body.dark .nav-links li a:hover .link-name{
     color: var(--text-color);
 }
 .menu-items .logout-mode{
-    padding-top: 10px;
+    padding-top: 1rem;
     border-top: 1px solid var(--border-color);
 }
 .menu-items .mode{
@@ -359,6 +363,74 @@ nav.close ~ .dashboard .top{
     margin-top: 20px;
     white-space: nowrap;
     color: var(--text-color);
+}
+/* .dashboard .user-link:hover{
+    background-color: var(--midnight);
+}
+.dashboard .user-link:hover .sub-menu-1{
+    display:block;
+    position: absolute;
+    background-color: var(--midnight);
+    z-index: 9999;
+    margin-top: 1rem;
+    margin-left: -1rem;
+} */
+.logo-name{
+    display: flex;
+    flex-direction: column;
+
+}
+.logo-name .user-link .sub-menu-1 ul li{
+    list-style: none;
+}
+.logo-name .user-link .sub-menu-1 ul li .btn-post{
+    border: none;
+    border-radius: 2rem;
+    padding: 0.5rem 0.5rem;
+    font-size: 1rem;
+    background-color: blue;
+    font-family: var(--Livvic);
+    cursor: pointer;
+    display:none
+}
+.logo-name .user-link:hover .sub-menu-1{
+    display:block;
+    position: absolute;
+    background-color: var(--midnight);
+    z-index: 9999; 
+    margin-top: 7rem;
+    margin-left: -1rem;
+    /* display: inline-block;   */
+}
+.logo-name .user-link:hover .sub-menu-1 ul{
+    display:block;
+    margin: 0; /* Thay đổi giá trị margin thành 0 */
+    background: var(--midnight); /* Thêm thuộc tính background */
+}
+.logo-name .user-link:hover .sub-menu-1 ul li .btn-post{
+    width: 8rem;
+    padding: 0.5rem;
+     border-bottom: 1px dotted #fff; 
+    background-color: var(--box1-color);
+    border-radius: 2rem;
+    text-align: center; 
+    transition: background-color 0.3s;
+    display: inline-block;  
+}
+.logo-name .user-link:hover .sub-menu-1 ul li .btn-post:hover{
+    background-color: var(--box3-color);
+    color:while;
+    display: inline-block; 
+}
+.logo-name .user-link:hover .sub-menu-1 ul li .btn-post:last-child{
+    border-bottom: none;
+}
+.logo-name .user-link{
+    display: flex;
+    flex-direction: column;
+}
+.logo-name .user-link h2{
+   margin-top:-1rem;
 }
 
 @media (max-width: 1000px) {

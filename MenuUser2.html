@@ -11,17 +11,46 @@
      
     <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://fontawesome.com/icons/thumbs-up?f=sharp&s=solid"> -->
 
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="./css/all.css">
+    <link rel="stylesheet" href="./css/fontawesome.css">
+    <link rel="stylesheet" href="./css/fontawesome.min.css">
     <title>Admin Dashboard Panel</title> 
 </head>
 <body>
     <nav>
         <div class="logo-name">
-            <div class="logo-image">
+            <!-- <div class="logo-image">
                 <img src="./assets/imagesMenuUser/logo2.png" alt="">
+            </div> -->
+            <a href="#">
+                <i class="fa-brands fa-wolf-pack-battalion fa-bounce fa-2xl"></i>
+                <span class="logo_name">Animal World</span>
+            </a>
+            <div class="user-link">
+                <div class="logo-image"><a href="#"></a><img src="./assets/imagesMenuUser/profile2.jpg" alt=""></a>
+                    <div class = "sub-menu-1">
+                        <ul>
+                        <li>
+                        <button class="btn-post">
+                            <span>Dratf an aticle&nbsp;&nbsp;<i class="fa-solid fa-pen"></i></span>
+                        </button>
+                        </li>
+                        <li>
+                            <button onclick="window.location.href = 'ProfileSetting.html';" class="btn-post">
+                                <span>Edit profile&nbsp;&nbsp;<i class="fa-solid fa-user"></i></span>
+                            </button>
+                        </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="logo-image">
+                    <h2>khang lol</h2>
+                </div>
             </div>
-
-            <span class="logo_name">CodingLab</span>
         </div>
 
         <div class="menu-items">
@@ -32,23 +61,23 @@
                 </a></li>
                 <li><a href="#">
                     <i class="uil uil-files-landscapes"></i>
-                    <span class="link-name">Content</span>
+                    <span class="link-name">Bookmark</span>
                 </a></li>
                 <li><a href="#">
-                    <i class="uil uil-chart"></i>
-                    <span class="link-name">Analytics</span>
-                </a></li>
-                <li><a href="#">
-                    <i class="uil uil-thumbs-up"></i>
-                    <span class="link-name">Like</span>
+                    <i class="fa-regular fa-newspaper"></i>
+                    <span class="link-name">My articles</span>
                 </a></li>
                 <li><a href="#">
                     <i class="uil uil-comments"></i>
-                    <span class="link-name">Comment</span>
+                    <span class="link-name">Message</span>
+                </a></li>
+                <li><a href="#">
+                    <i class="fa-regular fa-user"></i>
+                    <span class="link-name">Following</span>
                 </a></li>
                 <li><a href="./Drag Drop Sortable List/index.html">
-                    <i class="uil uil-share"></i>
-                    <span class="link-name">Share</span>
+                    <i class="fa-brands fa-cc-discover"></i>
+                    <span class="link-name">Discover</span>
                 </a></li>
             </ul>
             
@@ -80,8 +109,24 @@
                 <i class="uil uil-search"></i>
                 <input type="text" placeholder="Search here...">
             </div>
-            
-            <img src="./assets/imagesMenuUser/profile2.jpg" alt="">
+            <div></div>
+        <!-- <div class="user-link">
+            <a href="#"></a><img src="./assets/imagesMenuUser/profile2.jpg" alt=""></a>
+            <div class = "sub-menu-1">
+                <ul>
+                <li>
+                <button class="btn-post">
+                    <span>Dratf an aticle&nbsp;&nbsp;<i class="fa-solid fa-pen"></i></span>
+                </button>
+                </li>
+                <li>
+                    <button class="btn-post">
+                        <span>Edit profile&nbsp;&nbsp;<i class="fa-solid fa-user"></i></span>
+                    </button>
+                </li>
+                </ul>
+            </div>
+        </div> -->
         </div>
 
         <div class="dash-content">
@@ -171,7 +216,8 @@
             </div>
         </div>
     </section>
-
+    <script src="./js/fontawesome.js"></script>
+    <script src="./js/fontawesome.min.js"></script>
     <script src="./js/MenuUser2.js"></script>
 </body>
 </html>
