@@ -1,5 +1,23 @@
-
 .main1
 {
     margin-left: 90px;
+}
+
+.ileft
+{
+    float: left;
+	width: 30%;
+	border-right: solid;
+	height: 100%;
+}
+
+.iright
+{
+	
+}
+
+.searchh
+{
+	padding: 0px 0px 0px 0px;
+	border-top:  solid;
 }

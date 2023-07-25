@@ -1,292 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8" />
         <title>admin</title>
-        <link rel="stylesheet" href="sidebar.css">
-        <link rel="stylesheet" href="custom.css">
-        <link rel="stylesheet" href="custom1.css">
-        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="sidebar.css" />
+        <link rel="stylesheet" href="custom.css" />
+        <link rel="stylesheet" href="custom1.css" />
+        <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <script src="buton.js"></script>
-        
+        <script src="search_relation.js"></script>
     </head>
     <body onload="defaultScreen()">
         <nav id="sides">
+            <div class="sidebar">
+                <div class="sidebar-brand">
+                    <h1>
+                        <a href="#" class="logo">
+                            <img src="./img/animalworld.png" width="90px" height="90px" onclick="displayside()" />
+                            <span class="nav-item">Animal_World</span>
+                        </a>
+                    </h1>
+                </div>
 
-        <div class="sidebar">
-            <div class="sidebar-brand">
-                <h1>
-                    <a href="#" class="logo">
-                        <img src="./img/animalworld.png" width="90px" height="90px"  onclick="displayside()">
-                        <span class="nav-item">Animal_World</span>
-                    </a> 
-                </h1>
+                <div class="sidebar-menu">
+                    <ul>
+                        <li>
+                            <a href="#" onclick="changeTongquan()">
+                                <i class="fas fa-home"></i>
+                                <span class="nav-item">Tổng quan</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" onclick="changeTimkiem()">
+                                <i class="fas fa-search"></i>
+                                <span class="nav-item">Tìm kiếm</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-comment-dots"></i>
+                                <span class="nav-item">Hỗ trợ</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-file-excel"></i>
+                                <span class="nav-item">Báo cáo vi phạm</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-user"></i>
+                                <span class="nav-item">Quản lý người dùng</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-folder-open"></i>
+                                <span class="nav-item">Quản lý bài viết</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-chart-bar"></i>
+                                <span class="nav-item">Thống kê</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="logout">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span class="nav-item">Đăng xuất</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-
-            <div class="sidebar-menu">
-                <ul>
-
-                    <li>
-                        <a href="#" onclick="changeTongquan()">
-                          <i class="fas fa-home" ></i>
-                          <span class="nav-item">Tổng quan</span>
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="#"  onclick="changeTimkiem()">
-                          <i class="fas fa-search" ></i>
-                          <span class="nav-item">Tìm kiếm</span>
-                          
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#">
-                          <i class="fas fa-comment-dots" ></i>
-                          <span class="nav-item">Hỗ trợ</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#">
-                          <i class="fas fa-file-excel" ></i>
-                          <span class="nav-item">Báo cáo vi phạm</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#">
-                          <i class="fas fa-user" ></i>
-                          <span class="nav-item">Quản lý người dùng</span>
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="#">
-                          <i class="fas fa-folder-open" ></i>
-                          <span class="nav-item">Quản lý bài viết</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#">
-                          <i class="fas fa-chart-bar" ></i>
-                          <span class="nav-item">Thống kê</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#" class="logout">
-                          <i class="fas fa-sign-out-alt" ></i>
-                          <span class="nav-item">Đăng xuất</span>
-                        </a>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-
         </nav>
 
         <header>
             <div class="user-wrapper">
-                <img src="img/admin.png" width="40px" height="40px" alt="">
+                <img src="img/admin.png" width="40px" height="40px" alt="" />
                 <div>
                     <h4>Nguyễn Tuấn Kiệt</h4>
                     <small>Admin</small>
                 </div>
             </div>
-    
+
             <div class="main-content" id="cotant">
-    
                 <p id="test"></p>
-               
             </div>
         </header>
-        
-        <show id="show">
-            
-        </show>
 
-        <main style="display: none">
-		</main>
-		
-		<div id="board1"  style="display: none">
-			<div>
-            <div class="cards">
+        <show id="show"> </show>
 
-                <div class="card-single" id="box1">
-                    <div onclick="doinoidung()">
-                        <h1>54</h1>
-                        <span>Người dùng</span>
-                    </div>
-                    <div>
-                        <span class="fa fa-user"></span>
-                    </div>
-                </div>
+        <main style="display: none;"></main>
 
-                <div class="card-single" id="box2">
-                    <div>
-                        <h1>152</h1>
-                        <span>Bài viết</span>
-                    </div>
-                    <div>
-                        <span class="fa fa-clipboard"></span>
-                    </div>
-                </div>
-
-                <div class="card-single">
-                    <div>
-                        <h1>10</h1>
-                        <span>Yêu cầu xử lý</span>
-                    </div>
-                    <div>
-                        <span class="fa fa-bug"></span>
-                    </div>
-                </div>
-                
-                <div class="card-single">
-                    <div>
-                        <h1>1</h1>
-                        <span>Tin nhắn</span>
-                    </div>
-                    <div>
-                        <span class="fa fa-envelope"></span>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="recent-grid">
-
-                <div class="recent-post">
-                    <div class="plate">
-                        <div class="plate-header">
-                            <h3>Bài viết gần đây</h3>
-                            <button>
-                                Chi tiết
-                            </button>
+        <div id="board1" style="display: none;">
+            <div>
+                <div class="cards">
+                    <div class="card-single" id="box1">
+                        <div onclick="doinoidung()">
+                            <h1>54</h1>
+                            <span>Người dùng</span>
                         </div>
-                        <div class="plate-body">
-                            <table>
-                                <thread>
-                                    <tr>
-                                        <td style="width:50%;max-width:300px;"><b>Tên bài viết</b></td>
-                                        <td><b>Phân Loại</b></td>
-                                        <td><b>Trạng Thái</b></td>
-                                    </tr>
-                                </thread>
-                                <tbody>
-                                    <tr>
-                                        <td>Con cá chà bặc</td>
-                                        <td>Thảo luận </td>
-                                        <td>Đang chờ duyệt</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div>
+                            <span class="fa fa-user"></span>
+                        </div>
+                    </div>
+
+                    <div class="card-single" id="box2">
+                        <div>
+                            <h1>152</h1>
+                            <span>Bài viết</span>
+                        </div>
+                        <div>
+                            <span class="fa fa-clipboard"></span>
+                        </div>
+                    </div>
+
+                    <div class="card-single">
+                        <div>
+                            <h1>10</h1>
+                            <span>Yêu cầu xử lý</span>
+                        </div>
+                        <div>
+                            <span class="fa fa-bug"></span>
+                        </div>
+                    </div>
+
+                    <div class="card-single">
+                        <div>
+                            <h1>1</h1>
+                            <span>Tin nhắn</span>
+                        </div>
+                        <div>
+                            <span class="fa fa-envelope"></span>
                         </div>
                     </div>
                 </div>
-                
 
-                <div class="recent-activity">
-                    <div class="plate">
-                        <div class="plate-header">
-                            <h3>Hoạt động gần đây</h3>
-                            <button>
-                                Chi tiết
-                            </button>
+                <div class="recent-grid">
+                    <div class="recent-post">
+                        <div class="plate">
+                            <div class="plate-header">
+                                <h3>Bài viết gần đây</h3>
+                                <button>
+                                    Chi tiết
+                                </button>
+                            </div>
+                            <div class="plate-body">
+                                <table>
+                                    <thread>
+                                        <tr>
+                                            <td style="width: 50%; max-width: 300px;"><b>Tên bài viết</b></td>
+                                            <td><b>Phân Loại</b></td>
+                                            <td><b>Trạng Thái</b></td>
+                                        </tr>
+                                    </thread>
+                                    <tbody>
+                                        <tr>
+                                            <td>Con cá chà bặc</td>
+                                            <td>Thảo luận</td>
+                                            <td>Đang chờ duyệt</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div class="plate-body">
-                            <table>
-                                <thread>
-                                    <tr>
-                                        <td><b>Tên tài khoản</b></td>
-                                        <td><b>Hoạt động gần nhất</b></td>
-                                        <td><b>Thời gian</b></td>
-                                    </tr>
-                                </thread>
-                                <tbody>
-                                    <tr>
-                                        <td>thivanthi1994</td>
-                                        <td>Đăng bình luận</td>
-                                        <td>05:20AM 1/1/2023</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    </div>
+
+                    <div class="recent-activity">
+                        <div class="plate">
+                            <div class="plate-header">
+                                <h3>Hoạt động gần đây</h3>
+                                <button>
+                                    Chi tiết
+                                </button>
+                            </div>
+                            <div class="plate-body">
+                                <table>
+                                    <thread>
+                                        <tr>
+                                            <td><b>Tên tài khoản</b></td>
+                                            <td><b>Hoạt động gần nhất</b></td>
+                                            <td><b>Thời gian</b></td>
+                                        </tr>
+                                    </thread>
+                                    <tbody>
+                                        <tr>
+                                            <td>thivanthi1994</td>
+                                            <td>Đăng bình luận</td>
+                                            <td>05:20AM 1/1/2023</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
 
-            <div id="board2" style="display: none">
-                <div  class ="main1" >
-                    <h1> Thanh tìm kiếm rộng </h1>
+        <div id="board2" style="display: none;">
+            <div class="main1">
+                <div class="ileft">
                     <div class="asearch">
                         <div class="searchbar">
-                            <input type="text" placeholder="Từ khóa">
+                            <input type="text" placeholder="Từ khóa" />
                         </div>
 
                         <div class="checkbox1">
-                            <input type="checkbox" id="checkbox1" name="dmy">
+                            <input type="checkbox" id="checkbox1" name="dmy" />
                             <label for="checkbox1">Trong khoảng sau ngày</label>
-                            <input type="date" id="rangeTop" name="rangeTop">
+                            <input type="date" id="rangeTop" name="rangeTop" />
                         </div>
-                        
+
                         <div class="checkbox2">
-                            <input type="checkbox" id="checkbox2" name="dmy">
+                            <input type="checkbox" id="checkbox2" name="dmy" />
                             <label for="checkbox2">Trong khoảng trước ngày</label>
-                            <input type="date" id="rangeBottom" name="rangeBottom">
+                            <input type="date" id="rangeBottom" name="rangeBottom" />
                         </div>
-                        
+
                         <div>
-							Từ bài viết hoặc/và comment
+                            Từ bài viết hoặc/và comment
                         </div>
                         <div class="checkbox3">
-                            <input type="checkbox" id="checkbox3">
+                            <input type="checkbox" id="checkbox3" />
                             <label for="checkbox3">Loại bài viết</label>
                             <select name="postType" id="pType">
-								<option value="any">Bất kì</option>
-								<option value="discussion">Thảo Luận</option>
-								<option value="news">Tin Tức</option>
-								<option value="wikia">Bách Khoa</option>
-								<option value="wikia">Khác</option>
+                                <option value="any">Bất kì</option>
+                                <option value="discussion">Thảo Luận</option>
+                                <option value="news">Tin Tức</option>
+                                <option value="wikia">Bách Khoa</option>
+                                <option value="wikia">Khác</option>
                             </select>
                         </div>
-                       
-                       <div class="checkbox3.5">
-						   <input type="checkbox">
-						   <label for="checkbox3.5">Từ user ID:</label>
-                       </div>
-                        
-                        <div  class="checkbox4">
-							<input type="checkbox" id="checkbox4">
-                            <label for="checkbox4">Từ user ID:</label>
-                            <input type="text">
-                        </div>
-                        
-                        <div  class="checkbox4.5.">
-							<input type="checkbox" id="checkbox4">
-                            <label for="checkbox4.5">Có nhắc đến user:</label>
-                            <input type="text">
-                        </div>      
-                            
-                        <div>
-							
-                        </div>
-                        
-                        <input type="submit">
-                    </div>
 
+                        <div class="checkbox3.5">
+                            <input type="checkbox" id="checkbox3.5" />
+                            <label for="checkbox3.5">Có kèm:</label>
+                            <select name="postType" id="pType">
+                                <option value="any">Bất kì</option>
+                                <option value="link">Link</option>
+                                <option value="file">File</option>
+                                <option value="image">Ảnh</option>
+                            </select>
+                        </div>
+
+                        <div class="checkbox4">
+                            <input type="checkbox" id="checkbox4" />
+                            <label for="checkbox4">Từ user ID:</label>
+                            <input type="text" />
+                        </div>
+
+                        <div class="checkbox4.5.">
+                            <input type="checkbox" id="checkbox4" />
+                            <label for="checkbox4.5">Có nhắc đến user:</label>
+                            <input type="text" />
+                        </div>
+
+                        <div>
+                            <input type="submit" onclick="gethistory()" />
+                        </div>
+
+                        <div class="searchh" id="searchh">
+                            bs
+                        </div>
+                    </div>
+                </div>
+
+                <div class="iright">
+                    <div>
+                        as
+                        as
+                    </div>
                 </div>
             </div>
-		</div>
-
-
-
+        </div>
     </body>
 </html>

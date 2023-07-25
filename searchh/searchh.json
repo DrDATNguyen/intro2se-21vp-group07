@@ -1,0 +1,11 @@
+{
+	"groupid": 1,
+	"group_detail": {
+		"after_date": [1, 1, 2002],
+		"before_date": [2, 2, 2002],
+		"post_type": 1,
+		"attachment": {},
+		"h_user": 111222,
+		"m_user": 222111
+	}
+}
