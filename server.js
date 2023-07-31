@@ -1,24 +1,53 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const Article = require('./models/article')
-const articleRouter = require('./routes/articles')
-const methodOverride = require('method-override')
-const app = express()
+const express = require('express');
 
-mongoose.connect('mongodb+srv://datG:Dat210903@cluster0.kgivcxs.mongodb.net/', {
-  useNewUrlParser: true, useUnifiedTopology: true, 
+//bring in mongoose
+const mongoose = require('mongoose');
+
+//bring in method override
+const methodOverride = require('method-override');
+
+const blogRouter = require('./routes/blogs');
+const Blog = require('./models/Blog');
+const app = express();
+const bodyParser = require('body-parser');
+const path = require('path');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+
+//connect to mongoose
+mongoose.connect('mongodb+srv://datG:Dat123456@cluster0.kgivcxs.mongodb.net/', {
+  useNewUrlParser: true, useUnifiedTopology: true,
   // useCreateIndex: true
 })
 
-app.set('view engine', 'ejs')
-app.use(express.urlencoded({ extended: false }))
-app.use(methodOverride('_method'))
+//set template engine
+app.set('view engine', 'ejs');
+// app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride('_method'));
+//route for the index
+app.set('views', path.join(__dirname, 'views'))
+app.set('public', path.join(__dirname, 'public'))
 
-app.get('/', async (req, res) => {
-  const articles = await Article.find().sort({ createdAt: 'desc' })
-  res.render('articles/index', { articles: articles })
-})
+// app.get('/', async (request, response) => {
+//   let blogs = await Blog.find().sort({ timeCreated: 'desc' });
 
-app.use('/articles', articleRouter)
+//   response.render('index', { blogs: blogs });
+// });
+app.get('/', async (request, response) => {
+  try {
+    let blogs = await Blog.find().sort({ createdAt: 'desc' });
 
-app.listen(5000)
+    response.render('index', { blogs: blogs });
+  } catch (error) {
+    // Xử lý lỗi nếu có
+    console.error(error);
+    response.status(500).send('Internal Server Error');
+  }
+});
+
+// app.use(express.static('public'));
+app.use('/blogs', blogRouter);
+
+//listen port
+app.listen(5001);
