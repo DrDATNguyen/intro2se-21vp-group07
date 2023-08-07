@@ -12,8 +12,9 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use(express.static(path.join(__dirname, 'css')));
 
 //connect to mongoose
 mongoose.connect('mongodb+srv://datG:Dat123456@cluster0.kgivcxs.mongodb.net/', {
@@ -27,7 +28,9 @@ app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
 //route for the index
 app.set('views', path.join(__dirname, 'views'))
+app.set('font-users', path.join(__dirname, 'font-users'))
 app.set('public', path.join(__dirname, 'public'))
+app.set('js', path.join(__dirname, 'js'))
 
 // app.get('/', async (request, response) => {
 //   let blogs = await Blog.find().sort({ timeCreated: 'desc' });
@@ -38,7 +41,7 @@ app.get('/', async (request, response) => {
   try {
     let blogs = await Blog.find().sort({ createdAt: 'desc' });
 
-    response.render('index', { blogs: blogs });
+    response.render('../font-users/index', { blogs: blogs });
   } catch (error) {
     // Xử lý lỗi nếu có
     console.error(error);

@@ -22,6 +22,9 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  introduction: {
+    type: String,
+  },
   description: {
     type: String,
   },
@@ -36,6 +39,14 @@ const blogSchema = new mongoose.Schema({
     data: Buffer,
     contentType: String,
   },
+  video: {
+    data: Buffer,
+    contentType: String,
+  },
+  tags: 
+    {
+      type: String,
+    },
   slug: { type: String, slug: 'title', unique: true, slug_padding_size: 2 },
 });
 
