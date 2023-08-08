@@ -34,7 +34,9 @@ const upload = multer({
 router.get('/new', (request, response) => {
   response.render('new');
 });
-
+// router.get('/index', (request, response) => {
+//   response.render('../font-users/index');
+// });
 //view route
 router.get('/:slug', async (request, response) => {
   let blog = await Blog.findOne({ slug: request.params.slug });
@@ -45,6 +47,11 @@ router.get('/:slug', async (request, response) => {
     response.redirect('/');
   }
 });
+router.get('/login', (req, res) => {
+  res.render('font-users/login');
+});
+
+
 // router.get('/upload-video', (req, res) => {
 //   res.sendFile(path.join(__dirname, 'upload-video.ejs'));
 // });

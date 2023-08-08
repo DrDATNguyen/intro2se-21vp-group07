@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 //bring in method override
 const methodOverride = require('method-override');
-
+const userRouter = require('./routes/userrouter');
 const blogRouter = require('./routes/blogs');
 const Blog = require('./models/Blog');
 const app = express();
@@ -41,7 +41,7 @@ app.get('/', async (request, response) => {
   try {
     let blogs = await Blog.find().sort({ createdAt: 'desc' });
 
-    response.render('../font-users/index', { blogs: blogs });
+    response.render('../font-users/main', { blogs: blogs });
   } catch (error) {
     // Xử lý lỗi nếu có
     console.error(error);
@@ -51,6 +51,6 @@ app.get('/', async (request, response) => {
 
 // app.use(express.static('public'));
 app.use('/blogs', blogRouter);
-
+app.use('/user', userRouter);
 //listen port
 app.listen(5001);

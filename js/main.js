@@ -100,7 +100,7 @@ $('.move-up span').click(function () {
 //     // Thêm lớp "active" cho phần tử video-slide tương ứng
 //     videoSlides[navIndex].classList.add("active");
 //   }
-// });
+//});
 // const videos = ["./assets/video/tiger.mp4", "./assets/video/leopard.mp4", "./assets/video/wolf.mp4","./assets/video/lion.mp4","./assets/video/swimming_with_shark.mp4"];
 // let currentvideo = 0;
 
@@ -125,17 +125,17 @@ $('.move-up span').click(function () {
 //           popup.classList.toggle("show");
 //         });
 //       });
-    // close.onclick = ()=>{
-    //   viewBtns.click();
-    // }
-    // close.addEventListener("click", function() {
-    //     popup.classList.remove("show");
-    //   });
-    // close.addEventListener("click", function() {
-    //     viewBtns.forEach(function(viewBtn) {
-    //       viewBtn.click();
-    //     });
-    //   });
+//     close.onclick = ()=>{
+//       viewBtns.click();
+//     }
+//     close.addEventListener("click", function() {
+//         popup.classList.remove("show");
+//       });
+//     close.addEventListener("click", function() {
+//         viewBtns.forEach(function(viewBtn) {
+//           viewBtn.click();
+//         });
+//       });
     // chúng ta sử dụng `document.querySelectorAll(".btn-share")` để lấy tất cả các phần tử có lớp `btn-share`. Sau đó, chúng ta sử dụng phương thức `forEach`
     // để lặp qua danh sách các phần tử và thêm sự kiện click cho mỗi phần tử. Bên trong hàm click, chúng ta sử dụng `popup.classList.toggle("show")` để thêm hoặc xóa class `show` của phần tử popup.
 
@@ -161,12 +161,12 @@ $('.move-up span').click(function () {
 //             alert("Bạn đã click vào nút Share!");
 //         });
 // const viewBtns = document.querySelectorAll(".btn-share"),
-$(document).ready(function() {
-    $('.close1').click(function() {
-     // $('.container1').hide(); // or you can use
-      $('.comments-container').fadeOut(); //for a fade effect
-    });
-  });
+// $(document).ready(function() {
+//     $('.close1').click(function() {
+//      // $('.container1').hide(); // or you can use
+//       $('.comments-container').fadeOut(); //for a fade effect
+//     });
+//   });
 //   const viewBtnCmts = document.querySelectorAll(".btn-cmt"),
 //     comment = document.querySelector(".comments-container")
     // viewBtnCmts.forEach(function(viewBtnCmt) {
@@ -184,20 +184,20 @@ $(document).ready(function() {
     //   });
 
 // Lấy tất cả các button có class .btn-cmt
-const buttons = document.querySelectorAll('.btn-cmt');
- container = document.querySelector('.comments-container');
- buttons.forEach(function(button) {
-    button.addEventListener("click", function() {
-        if (container.style.display === 'none') {
-                  // Nếu đã ẩn thì hiển thị .container-comment
-                  container.style.display = 'block';
-                } else {
-                  // Nếu đã hiển thị thì ẩn .container-comment
-                  container.style.display = 'none';
-                }
+// const buttons = document.querySelectorAll('.btn-cmt');
+//  container = document.querySelector('.comments-container');
+//  buttons.forEach(function(button) {
+//     button.addEventListener("click", function() {
+//         if (container.style.display === 'none') {
+//                   // Nếu đã ẩn thì hiển thị .container-comment
+//                   container.style.display = 'block';
+//                 } else {
+//                   // Nếu đã hiển thị thì ẩn .container-comment
+//                   container.style.display = 'none';
+//                 }
 
-    });
-  });
+//     });
+//   });
   
   /* ===================================================================
  * Abstract 2.0.0 - Main JS

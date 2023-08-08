@@ -85,6 +85,11 @@
 /* ------------------------------------------------------------------- 
  * ## fonts
  * ------------------------------------------------------------------- */
+
+ /* Mỗi trình duyệt có các triển vọng kỹ thuật và quy tắc sắp xếp riêng Điều này đồng nghĩa với việc dùng cùng một code cho tất cả các trình duyệt sẽ không được nhận dạng và sử dụng đúng những tính năng cụ thể của từng trình duyệt.
+
+ Bằng cách sử dụng các thuộc tính riêng cho từng trình duyệt, chúng ta đảm bảo rằng code CSS sẽ được thực thi đúng cách trên các trình duyệt khác nhau. Điều này giúp đảm bảo tính nhất quán và đúng đắn trong việc kiểm soát giao diện người dùng trên các trình duyệt khác nhau. */
+ 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
 :root {
     --font-1: "Roboto", sans-serif;
@@ -199,6 +204,7 @@
      */
     --base-size     : 62.5%;
     --base-font-size: 1.8rem;
+    /* định nghĩa khoảng cách giữa các phần tử  */
     --space         : 3.2rem;
 
     /* vertical spacing 
@@ -261,6 +267,8 @@
  */
 @media screen and (max-width: 600px) {
     :root {
+        /* `--base-font-size` là tên của biến tùy chỉnh, và `1.6rem` là giá trị của biến này. 
+        Có thể sử dụng `var(--base-font-size)` để lấy giá trị của biến này trong bất kỳ phần tử CSS nào khác. */
         --base-font-size: 1.6rem;
         --space: 2.8rem;
     }
@@ -519,6 +527,7 @@ legend {
 /* Add the correct vertical alignment in Chrome, Firefox, and Opera. */
 
 progress {
+    /* Giá trị "baseline" sẽ căn chỉnh phần tử theo đường cơ sở của văn bản. Đường cơ sở là đường ảo mà chữ viết trong văn bản nằm trên, nghĩa là cơ sở để "đặt" các phần tử vào căn chỉnh với văn bản. */
     vertical-align: baseline;
 }
 
@@ -530,7 +539,8 @@ textarea {
 
 /* 1. Add the correct box sizing in IE 10.
  * 2. Remove the padding in IE 10. */
-
+ /* -webkit-box-sizing: border-box` và `box-sizing: border-box` định nghĩa hộp đóng gói của các phần tử kiểm tra checkbox và radio, 
+ sao cho kích thước của chúng bao gồm cả độ dày của đường viền và lề. */
 [type="checkbox"], [type="radio"] {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -540,17 +550,20 @@ textarea {
 }
 
 /* Correct the cursor style of increment and decrement buttons in Chrome. */
-
+/* Selector `::-webkit-inner-spin-button` áp dụng cho nút tăng giá trị số bên trong ô nhập, trong khi `::-webkit-outer-spin-button` áp dụng cho nút giảm giá trị số bên ngoài ô nhập. 
+Bằng cách chỉnh sửa thuộc tính `height` thành `auto`, nút tăng/giảm sẽ được hiển thị theo cách mặc định của trình duyệt và không bị ghi đè bởi các giá trị tùy chỉnh khác. */
 [type="number"]::-webkit-inner-spin-button, [type="number"]::-webkit-outer-spin-button {
     height: auto;
 }
 
 /* 1. Correct the odd appearance in Chrome and Safari.
  * 2. Correct the outline style in Safari. */
-
+ /* [type="search"]` là một CSS selector được sử dụng để áp dụng quy tắc cho phần tử HTML có thuộc tính `type` là "search". Đoạn mã này sẽ chỉ áp dụng cho các phần tử `<input>` có `type="search"`. */
 [type="search"] {
+    /* đơn giản là cách hiển thị và giao diện của phần tử `<input>` với `type="search"`. Khi sử dụng `textfiield`, phần tử `<input>` được hiển thị như một ô chỉ nhập văn bản thông thường, giống với một ô nhập thông thường trong form HTML. */
     -webkit-appearance: textfield;
     /* 1 */
+    /* điều chỉnh khoảng cách giữa viền ngoài (`outline`) và phần tử. Trong trường hợp này, đoạn mã này thiết lập độ lệch của khoảng cách (offset) giữa viền và phần tử là -2px. Điều này có thể giúp điều chỉnh vị trí của viền khi phần tử được nhấn xuống hoặc có trạng thái focus. */
     outline-offset: -2px;
     /* 2 */
 }
@@ -584,7 +597,9 @@ details {
 /* Add the correct display in all browsers. */
 
 summary {
+    /* định dạng một phần tử HTML thành một mục danh sách. Khi áp dụng thuộc tính này cho một phần tử, nó sẽ hiển thị như một mục danh sách trong một danh sách không sắp xếp (unordered list - `ul`) hoặc một danh sách có thứ tự (ordered list - `ol`). */
     display: list-item;
+    /* Ví dụ, nếu bạn áp dụng `display: list-item;` cho một phần tử `div`, nó sẽ được hiển thị như một mục danh sách, với một kí hiệu đặc biệt (như dấu chấm, số, chữ cái) phía trước nội dung. */
 }
 
 /* ------------------------------------------------------------------- 
@@ -598,7 +613,7 @@ template {
 }
 
 /* Add the correct display in IE 10. */
-
+/* một đặc tả thuộc tính được sử dụng để chọn tất cả các phần tử HTML có thuộc tính `hidden`. Thuộc tính `hidden` trong HTML được sử dụng để ẩn các phần tử khỏi hiển thị trên trình duyệt. */
 [hidden] {
     display: none;
 }
@@ -610,24 +625,36 @@ template {
  *
  * ------------------------------------------------------------------- */
 html {
+    /* đặt kích thước font chữ của toàn bộ trang web thành 62.5% (tức là 10px nếu kích thước mặc định là 16px), giúp thiết lập các giá trị rem dễ dùng hơn trong các phần tử con. */
     font-size: 62.5%;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-
+/* Áp dụng cho tất cả các phần tử và pseudo-elements  (`::before` và `::after`)*/
 *, *::before, *::after {
+    /* kế thừa giá trị của `box-sizing` từ phần tử cha */
     -webkit-box-sizing: inherit;
+    /* được sử dụng để xác định cách tính toán kích thước và định dạng các phần tử. */
     box-sizing: inherit;
 }
 
 body {
+    /* Đặt độ đậm của font chữ thành bình thường (không đậm). */
     font-weight: normal;
+    /* Đặt chiều cao dòng của văn bản thành 1, */
     line-height: 1;
+    /* Đặt từng từ trong văn bản có thể được tràn xuống dòng mới nếu cần thiết. */
     word-wrap: break-word;
+    /* chỉ định cách dùng cho các font chữ trên trình duyệt Firefox (trình duyệt dựa trên Gecko). Khi áp dụng thuộc tính này, font chữ sẽ được làm mờ theo cách màu xám (grayscale),
+     tạo cho nó một mức độ mờ nhẹ hơn mà có thể làm cho nó trông mượt mà hơn, đặc biệt là khi sử dụng font chữ không in đậm. */
     -moz-font-smoothing: grayscale;
     -moz-osx-font-smoothing: grayscale;
+    /* nt chữ sẽ được làm mờ (anti-aliased) để làm cho răng cưa và làm mờ các đường viền quanh các ký tự. */
     -webkit-font-smoothing: antialiased;
+    /* Thay đổi cách cuộn nội dung trên các trình duyệt dựa trên WebKit 
+    khi sử dụng cử chỉ vuốt trên các thiết bị cảm ứng. */
     -webkit-overflow-scrolling: touch;
+    /* Ngăn chặn trình duyệt WebKit thay đổi kích thước font chữ tự động dựa trên cỡ chữ của thiết bị. */
     -webkit-text-size-adjust: none;
 }
 
@@ -649,6 +676,7 @@ div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, p, blockquote, t
 
 p {
     font-size: inherit;
+    /* nó áp dụng các kỹ thuật như tự động sửa lỗi chấm câu, điều chỉnh khoảng cách giữa các ký tự và phục hồi các đường nét của các ký tự để tạo ra một trải nghiệm đọc chữ tốt hơn. */
     text-rendering: optimizeLegibility;
 }
 
@@ -694,7 +722,8 @@ fieldset {
     margin: 0;
     padding: 0;
 }
-
+/* một giả lập lựa chọn phần tử CSS ngữ cảnh, áp dụng các thuộc tính sau đó cho các phần tử `<input>` có các loại (`type`) tương ứng là "email", "number", "search", "text", "tel", "url", "password" và các phần tử `<textarea>`.
+ Việc sử dụng giả lập lựa chọn phần tử này giúp áp dụng các thuộc tính chung cho nhiều loại phần tử theo một cách tiện lợi. */
 input[type="email"], 
 input[type="number"], 
 input[type="search"], 
@@ -706,6 +735,9 @@ textarea {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    /* Khi áp dụng giá trị "none" cho thuộc tính này, 
+    nó sẽ ghi đè lên các giá trị `-webkit-appearance` và `-moz-appearance` (nếu có) và làm cho giao diện người dùng (UI) mặc định không được hiển thị cho phần tử đó.
+    cho phép lập trình viên tự tuỳ chỉnh giao diện theo ý muốn. */
 }
 
 
@@ -728,10 +760,15 @@ textarea {
     margin: 0 auto;
     display: -ms-flexbox;
     display: -webkit-box;
+    /* Khi áp dụng thuộc tính này, phần tử và các phần tử con của nó sẽ tuân thủ các quy tắc linh hoạt (flexbox) để tự điều chỉnh và sắp xếp theo một cách linh hoạt. */
     display: flex;
+    /* áp dụng cho trình duyệt Microsoft Edge (Internet Explorer).Thuộc tính này giá trị gồm hai phần: 
+    "row" xác định phần tử con được sắp xếp theo chiều ngang và "wrap" đảm bảo các phần tử con có thể xuống dòng khi không đủ không gian. */
     -ms-flex-flow: row wrap;
+    /* iá trị "horizontal" xác định rằng các phần tử con sẽ được sắp xếp theo chiều ngang. */
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
+    /* tổng quát để xác định cả `flex-direction` và `flex-wrap`. giá trị "row wrap" xác định rằng các phần tử con sẽ được sắp xếp theo chiều ngang và các phần tử thừa sẽ xuống dòng khi không đủ không gian. */
     flex-flow: row wrap;
 }
 
@@ -760,6 +797,7 @@ textarea {
 .row.row-wrap {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    /* các phần tử con sẽ được tự động xuống dòng khi không còn đủ không gian trên hàng hiện tại */
 }
 
 .row.row-nowrap {
@@ -878,6 +916,12 @@ textarea {
 .large-1 {
     -ms-flex: 0 0 8.33333%;
     -webkit-box-flex: 0;
+    /* áp dụng cho các phần tử con trong container theo thứ tự: `flex-grow`, `flex-shrink`, `flex-basis`
+    `flex-grow`: Giá trị này xác định tỷ lệ tăng kích thước của phần tử con trong container khi có không gian dư thừa. Trong trường hợp này, giá trị là 0, nghĩa là phần tử không được phép dãn kích thước ở trục chính.
+
+    `flex-shrink`: Giá trị này xác định tỷ lệ co lại của phần tử con trong container khi không đủ không gian. Trong trường hợp này, giá trị cũng là 0, nghĩa là phần tử không được phép co lại kích thước ở trục chính.
+
+    `flex-basis`: Giá trị này xác định kích thước cơ bản ban đầu của phần tử con trước khi xử lý dãn và co lại. Trong trường hợp này, giá trị là 8.33333%, được tính dựa trên kích thước của container. Đây là một giá trị tương đối, thể hiện tỷ lệ phần trăm của container được sử dụng bởi phần tử con. */
     flex: 0 0 8.33333%;
     max-width: 8.33333%;
 }
@@ -1467,8 +1511,17 @@ textarea {
  * ------------------------------------------------------------------- */
 .h-group:after {
     content: "";
+    /* phần tử ảo sẽ được xem như một bảng. Điều này cho phép chúng ta sử dụng thuộc tính `clear` */
     display: table;
+    /* ác định vị trí mà phần tử không sẽ bị ảnh hưởng bởi các phần tử float. */
+    /* float là một kiểu hiển thị phần tử trong trình duyệt mà cho phép phần tử "lơ lửng" và di chuyển sang vị trí bên trái hoặc bên phải của khối chứa nó. Khi một phần tử được float, nó sẽ không còn là một phần của luồng chuẩn của văn bản, và các phần tử khác có thể chồng lên phần tử float. */
     clear: both;
+    /* Thuộc tính `clear` được sử dụng để xác định xem phần tử hiện tại có được phép chồng lên bất kỳ phần tử float nào hay không. Các giá trị của thuộc tính `clear` bao gồm:
+
+    `none`: Không có hiệu lực clear nào, phần tử có thể chồng lên phần tử float.
+    `left`: Phần tử sẽ không được chồng lên phần tử float bên trái.
+    `right`: Phần tử sẽ không được chồng lên phần tử float bên phải.
+    `both`: Phần tử sẽ không được chồng lên bất kỳ phần tử float nào ở cả hai bên. */
 }
 
 /* misc helper classes
@@ -1739,7 +1792,7 @@ blockquote {
         padding: var(--vspace-0_75) var(--vspace-0_75);
     }
 }
-
+/* được sử dụng để định dạng và hiển thị các trích dẫn dài từ một nguồn khác trong văn bản */
 blockquote p {
     font-family: var(--font-1);
     font-size: var(--text-lg);
@@ -1760,6 +1813,9 @@ blockquote cite {
 }
 
 blockquote cite:before {
+    /* Thuộc tính `content` xác định nội dung được chèn vào phần tử ảo trước `blockquote` được chọn. Trong trường hợp này, giá trị của `content` là `"\2014 \0020"`, đại diện cho hai ký tự Unicode.
+    `"\2014"` đại diện cho ký tự nén màu gạch ngang dài (`—`).
+    `"\0020"` đại diện cho ký tự trắng (dấu cách). */
     content: "\2014 \0020";
 }
 
@@ -1769,13 +1825,13 @@ blockquote cite a:visited {
     color: var(--color-text-light);
     border: none;
 }
-
+/* Thẻ `<figure>` dùng để định nghĩa một phần tử đóng gói (container) cho một hình ảnh, đồ họa hoặc media liên quan. Nó giúp nhóm các phần tử liên quan về nội dung trong một khung giao diện cụ thể. */
 figure {
     display: block;
     margin-left: 0;
     margin-right: 0;
 }
-
+/* Thẻ `<figcaption>` dùng để định nghĩa một chú thích hoặc mô tả cho phần tử `<figure>`. Nó được sử dụng để cung cấp thông tin bổ sung về nội dung trong bang hình ảnh hoặc đồ họa. */
 figure img+figcaption {
     margin-top: var(--vspace-1);
 }
@@ -1816,11 +1872,12 @@ pre>code {
     margin: 0;
     border: none;
 }
-
+/* Thẻ `<del>` được sử dụng để đánh dấu và chỉ ra rằng một phần tử hoặc một phần của văn bản đã bị xóa hoặc loại bỏ */
 del {
+    /* để gạch ngang văn bản */
     text-decoration: line-through;
 }
-
+/* Thẻ `<abbr>` được sử dụng để xác định viết tắt hoặc thuật ngữ trong văn bản. Khi chỉ định thuộc tính `title`, người dùng có thể di chuột qua viết tắt hoặc thuật ngữ và hiển thị chú thích hoặc mô tả của nó. */
 abbr {
     font-family: var(--font-1);
     font-weight: 400;
@@ -1831,6 +1888,7 @@ abbr {
 
 abbr[title], dfn[title] {
     border-bottom: 1px dotted;
+    /* cho thấy rằng có thông tin bổ sung hay mô tả có sẵn khi di chuột qua phần tử đó. */
     cursor: help;
     text-decoration: none;
 }
@@ -3020,21 +3078,31 @@ button::-moz-focus-inner, input::-moz-focus-inner {
  * ## close button for search and mobile navigation 
  * ------------------------------------------------------------------- */
 .s-header__overlay-close {
+    /* Tạo một vùng không chứa văn bản trong nút đóng. */
     font: 0/0 a;
+    /* Xóa bóng đổ văn bản trong nút đóng. */
     text-shadow: none;
+    /* Đặt màu của văn bản trong nút thành màu trong suốt. */
     color: transparent;
+    /* Hiển thị nút dưới dạng khối. */
     display: block;
     width: 46px;
     height: 46px;
     margin-left: -23px;
+    /* Thiết lập nút ở vị trí tuyệt đối để điều chỉnh tọa độ. */
     position: absolute;
+    /* Xác định vị trí đứng đầu của nút bằng biến `--vspace-1` */
     top: var(--vspace-1);
+    /* Canh chỉnh nút ở giữa theo chiều ngang. */
     left: 50%;
 }
-
+/* Chọn các phần trước và sau của nút đóng */
 .s-header__overlay-close::before, 
 .s-header__overlay-close::after {
+
+    /* Không có nội dung trong các phần trước và sau. */
     content: '';
+    /* Hiển thị các phần trước và sau theo dạng khối chữ */
     display: inline-block;
     width: 2px;
     height: 20px;
@@ -3043,9 +3111,11 @@ button::-moz-focus-inner, input::-moz-focus-inner {
     background-color: black;
     position: absolute;
 }
-
+/* Chọn phần trước. */
 .s-header__overlay-close::before {
+    /* Xoay phần trước 45 độ theo chiều kim đồng hồ. */
     -webkit-transform: rotate(45deg);
+    /* Xoay phần trước 45 độ theo chiều kim đồng hồ. */
     transform: rotate(45deg);
 }
 
@@ -3114,31 +3184,45 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 .bricks-wrapper .entry {
     margin-bottom: 4rem;
 }
-
+/* Áp dụng shadow (hiệu ứng bóng) cho phần thumb và phần text của bài viết. */
 .bricks-wrapper .entry__thumb, 
 .bricks-wrapper .entry__text {
+    /* Định nghĩa shadow cho trình duyệt webkit (như Chrome, Safari). */
     -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
+    /* Định nghĩa shadow cho các trình duyệt khác. */
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
 }
 
 .bricks-wrapper .entry__thumb {
+    /* Khi hình ảnh lớn hơn phần tử cha, ẩn phần bị tràn ra ngoài. */
     overflow: hidden;
+    /* Thiết lập phần tử thumb có vị trí tương đối. */
     position: relative;
 }
 
 .bricks-wrapper .entry__thumb img {
+    /* Canh chỉnh hình ảnh dọc theo dưới cùng. */
     vertical-align: bottom;
+    /* Tạo hiệu ứng transition (chuyển động) cho tất cả thuộc tính trong khoảng thời gian 0.3s dễ dàng. */
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
+    /* Xóa đi các khoảng trống xung quanh hình ảnh. */
     margin: 0;
 }
-
+/* Định dạng cho pseudo-element `before` của phần thumb-link trong bài viết. */
+/* ::before: Pseudo-element này cho phép bạn thêm nội dung vào phần tử trước nội dung chính
+ của phần tử được chọn.  */
 .bricks-wrapper .entry__thumb .thumb-link::before {
+    /* Thiết lập vị trí của phần tử trước thumb-link. */
     z-index: 1;
     content: "";
     display: block;
     background: rgba(0, 0, 0, 0.8);
+    /* Đặt màu nền của pseudo-element before thành màu đen trong suốt với độ mờ là 0.8. */
+    /* Điều chỉnh độ mờ của pseudo-element before thành 0 (không hiển thị). */
+
     opacity: 0;
+    /* Ẩn pseudo-element before. */
     visibility: hidden;
     width: 100%;
     height: 100%;
@@ -3249,14 +3333,22 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 }
 
 .f-slide {
+    /* Sử dụng khi làm việc với trình duyệt dựa trên WebKit, chẳng hạn như Chrome và Safari,
+     để thiết lập hiển thị thành box flex. Đây là một cách sắp xếp các phần tử con theo hướng ngang và dọc. */
     display: -webkit-box;
+    /* Được sử dụng khi làm việc với trình duyệt dựa trên Microsoft, như Internet Explorer và Microsoft Edge, để thiết lập hiển thị thành flexbox. */
     display: -ms-flexbox;
     display: flex;
+    /* Canh chỉnh các phần tử con theo trục dọc (theo chiều dọc) vào giữa trên trình duyệt Microsoft. */
     -ms-flex-align: center;
+    /* Canh chỉnh các phần tử con theo trục dọc vào giữa trên các trình duyệt WebKit (như Chrome, Safari). */
     -webkit-box-align: center;
+    /* Canh chỉnh các phần tử con theo trục dọc vào giữa trên các trình duyệt chuẩn. */
     align-items: center;
+    /* Canh chỉnh các phần tử con theo trục ngang (theo chiều ngang) vào giữa trên trình duyệt Microsoft. */
     -ms-flex-pack: center;
     -webkit-box-pack: center;
+    /* Canh chỉnh các phần tử con theo trục ngang vào giữa trên các trình duyệt chuẩn. */
     justify-content: center;
     height: 600px;
     width: 100%;
@@ -3267,9 +3359,13 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 }
 
 .f-slide__background {
+    /* Đặt kích thước của hình nền để phủ toàn bộ phần tử. Điều này đảm bảo rằng hình nền sẽ được co dãn hoặc phóng to để lấp đầy phần tử mà không bị biến dạng. */
     background-size: cover;
+    /* Căn chỉnh vị trí của hình nền trong phần tử vào giữa. Điều này đảm bảo rằng hình nền sẽ được hiển thị ở trung tâm của phần tử. */
     background-position: center;
+    /* Không lặp lại hình nền. Điều này ngăn hình nền được lặp lại trên cả chiều ngang và chiều dọc trong trường hợp kích thước hình nền nhỏ hơn kích thước của phần tử. */
     background-repeat: no-repeat;
+    /* Thiết lập phần tử có vị trí tuyệt đối. Điều này cho phép phần tử được đặt bất kỳ vị trí nào trên trang web, không phụ thuộc vào vị trí của các phần tử khác. */
     position: absolute;
     top: 0;
     left: 0;

@@ -14,7 +14,7 @@
     <title>New blog post</title>
 </head>
 
-<body>
+<!-- <body>
 
     <div class="container">
         <h1 class="mb-4 text-white">New blog post</h1>
@@ -40,7 +40,10 @@
                 <label for="image" class="text-white">Upload image</label>
                 <input type="file" name="image" id="image" class="form-control-file text-white">
             </div>
-
+            <div class="form-group">
+                <label for="video" class="text-white">Upload video</label>
+                <input type="file" name="video" id="video" class="form-control-file text-white">
+              </div>
             <div class="form-group">
                 <a href="/" class="btn btn-warning">Cancel</a>
                 <button type="submit" class="btn btn-primary">Save</button>
@@ -48,6 +51,54 @@
         </form>
     </div>
 
-</body>
+</body> -->
+<body>
+
+    <div class="container mt-5">
+        <h1 class="mb-4 text-white">New Blog Post</h1>
+
+        <form action="/blogs" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title" class="text-white">Title</label>
+                <input type="text" class="form-control" placeholder="Title" name="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="author" class="text-white">Author</label>
+                <input type="text" class="form-control" placeholder="Author" name="author" required>
+            </div>
+
+            <div class="form-group">
+                <label for="introduction" class="text-white">Introduction</label>
+                <textarea name="introduction" placeholder="Introduction" class="form-control"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="description" class="text-white">Description</label>
+                <textarea name="description" placeholder="Description" class="form-control"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image" class="text-white">Upload Image</label>
+                <input type="file" name="image" id="image" class="form-control-file text-white">
+            </div>
+            
+            <div class="form-group">
+                <label for="tags" class="text-white">Tags (separated by commas)</label>
+                <input type="text" class="form-control" placeholder="Tags" name="tags">
+            </div>
+
+            <!-- <div class="form-group">
+                <label for="video" class="text-white">Upload Video</label>
+                <input type="file" name="video" id="video" class="form-control-file text-white">
+            </div> -->
+
+            <div class="form-group">
+                <a href="/" class="btn btn-warning">Cancel</a>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+    </body>
 
 </html>

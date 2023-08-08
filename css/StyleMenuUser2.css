@@ -28,7 +28,7 @@
 
 body{
     min-height: 100vh;
-    background-color: var(--primary-color);
+    background-color: var( --panel-color);
 }
 body.dark{
     --primary-color: #3A3B3C;
@@ -210,11 +210,12 @@ body.dark .switch:before{
 .dashboard{
     position: relative;
     left: 250px;
-    background-color: var(--panel-color);
+    /* background-color: var(--panel-color); */
     min-height: 100vh;
     width: calc(100% - 250px);
     padding: 10px 14px;
     transition: var(--tran-05);
+    /* display: none; */
 }
 nav.close ~ .dashboard{
     left: 73px;
@@ -277,6 +278,7 @@ nav.close ~ .dashboard .top{
 }
 .dashboard .dash-content{
     padding-top: 50px;
+    /* display: none; */
 }
 .dash-content .title{
     display: flex;
@@ -432,7 +434,107 @@ nav.close ~ .dashboard .top{
 .logo-name .user-link h2{
    margin-top:-1rem;
 }
+/* .book mark{
 
+} */
+
+
+  .bookmark{
+    display: flex;
+    /* flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start; */
+    /* align-items: center;
+    justify-content: space-between; */
+    flex-wrap: nowrap;
+
+    /* border-radius: 12px; */
+    /* width: 60vh; */
+    width: 85vw;
+    height: 90vh;
+    padding: 15px 20px;
+    background-color: var( --toggle-color);
+    transition: var(--tran-05);
+    margin-top:5rem;
+    /* overflow: auto; */
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    /* margin-left: 1rem; */
+    display: none;
+}
+/* .bookmark > * {
+    display: none;
+  }
+  
+  .bookmark > img {
+    display: initial;
+  } */
+/* .bookmark .post-title,
+.bookmark .btn,
+.bookmark .img {
+    display: none;
+} */
+
+/* .bookmark:target .post-title,
+.bookmark:target .btn,
+.bookmark:target .img {
+    display: block;
+} */
+/* .bookmark .post-title{
+    margin-left: 3rem;
+} */
+ .post-title a{
+    font-size: 2rem;
+    color: var(--text-color);
+    margin-bottom: 1rem; /* Khoảng cách giữa title và p */
+    text-decoration:none;
+    white-space: wrap;
+    /* display: none; */
+}
+ .post-title p{
+    white-space: wrap;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-color);
+    /* display: none; */
+}
+
+ .img{
+    width: 80vw; /* Đặt chiều rộng của ảnh bằng 30% chiều rộng của bookmark */
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* display: none; */
+    
+}
+ .img img{
+    max-width: 100%;
+    max-height: 100%;
+}
+.btn{
+    border: none;
+    border-radius: 0.5rem;
+    padding: 1rem 1rem;
+    font-size: 1rem;
+    background-color: blue;
+    font-family: var(--Livvic);
+    margin-left: 1rem;
+    cursor: pointer;
+    /* display: none; */
+}
+.btn:hover{
+    background-color: var(--box3-color);
+    color:while;
+    display: inline-block; 
+}
+/* #dashboard {
+    display: none;
+}
+
+#dashboard:target {
+    display: block;
+} */
 @media (max-width: 1000px) {
     nav{
         width: 73px;

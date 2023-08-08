@@ -1,109 +1,364 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html class="no-js" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>A blog</title>
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Abstract</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+   <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/vendor.css">
+
+    <!-- script
+    ================================================== -->
+    <script src="/modernizr.js"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/img-favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img-favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img-favicon/favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
 
 </head>
 
-<body>
-    <div class="container">
-        <div class="m-4 text-center">
-            <img src="/images/logo.svg" alt="">
-            <p class="text-white">Lifestyle | Fashion | Travel</p>
-
-        </div>
-        <div class="row mb-3">
-            <a href="blogs/new" class="btn btn-success d-flex align-items-center"><i
-                    class="material-icons mr-2">add_circle</i>
-                New Blog</a>
-        </div>
-
-        <div class="row">
-
-            <% if(blogs.length<1){%>
-
-            <p class="text-white">No posts yet, create a new one</p>
-
-            <%  } %>
+<body id="top">
 
 
-            <% blogs.forEach(blog=>{ %>
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader">
+        <div id="loader"></div>
+    </div>
 
 
-            <div class="col-lg-6 card mt-2 mr-0">
-                <div class="row p-2">
+    <!-- header
+    ================================================== -->
+    <header class="s-header">
 
-                    <div class="col-5 overflow-hidden">
-                        <img src="/uploads/images/<%= blog.img %>" class="card-img" alt="...">
+        <div class="row s-header__content">
 
-                    </div>
-
-                    <div class="col-7">
-                        <div class="d-flex align-items-start">
-                            <h5 class="w-100"><b> <%= blog.title %> </b></h5>
-
-                            <!-- display more button -->
-                            <div class="more position-relative" style="cursor: pointer;">
-
-
-                                <i class="material-icons p-2">more_vert</i>
-                                <!-- options list -->
-                                <div class="d-none options card rounded-pill shadow-sm p-1 position-absolute">
-                                    <a href="blogs/edit/<%= blog.id %> " class="rounded-circle p-2 mb-2"
-                                        style="background:blue;">
-                                        <i class="material-icons" style="color:white">create</i>
-                                    </a>
-                                    <form action="/blogs/<%=blog.id%>?_method=DELETE" method="POST">
-                                        <button class="rounded-circle p-2 bg-danger">
-                                            <i class="material-icons" style="color:white">delete</i>
-
-                                        </button>
-                                    </form>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <span class="align-self-stretch "><%= blog.snippet %>
-
-                        </span>
-                        <div class="d-flex align-items-end">
-                            <div class="mr-2">
-                                <img src="/uploads/images/<%= blog.img %>" class="rounded-circle"
-                                    style="width: 40px; height: 40px;">
-                            </div>
-                            <div class=" flex-grow-1">
-                                <h5 class="" style="font-size: 14px; line-height: 0.5rem;">
-                                    <span><b><%= blog.author%></b></span></h5>
-                                <p style="font-size: 8px; line-height: 0.2rem;">
-                                    <%= blog.timeCreated.toLocaleDateString() %></p>
-                            </div>
-                            <a href="blogs/<%=blog.slug %> " class=" align-self-end">
-                                <i class='material-icons ml-3 text-black'>send</i>
-                            </a>
-                        </div>
-
-                    </div>
-                </div>
-
+            <div class="s-header__logo">
+                <a class="logo" href="index.html">
+                    <img src="/images/logo.svg" alt="Homepage">
+                </a>
             </div>
 
+            <nav class="s-header__nav-wrap">
 
-            <% }) %>
+                <h2 class="s-header__nav-heading h6">Site Navigation</h2>
+
+                <ul class="s-header__nav">
+                    <li class="current"><a href="index.html" title="">Home</a></li>
+                    <li class="has-children">
+                        <a href="#0" title="">Animal</a>
+                        <ul class="sub-menu">
+                            <li><a href="category.html">Động vật có vú</a></li>
+                            <li><a href="category.html">Động vật có vỏ</a></li>
+                            <li><a href="category.html">Động vật không có xương sống</a></li>
+                            <li><a href="category.html">Chim</a></li>
+                            <li><a href="category.html">Cá</a></li>
+                            <li><a href="category.html">Lưỡng Cư</a></li>
+                            <li><a href="category.html">Côn Trùng</a></li>
+                            <li><a href="category.html">Giáp Xác</a></li>
+                            
+                        </ul>
+                    </li>
+                    <li class="has-children">
+                        <a href="#0" title="">Blog</a>
+                        <ul class="sub-menu">
+                        <li><a href="single-video.html">Video Post</a></li>
+                        <li><a href="single-audio.html">Audio Post</a></li>
+                        <li><a href="single-gallery.html">Gallery Post</a></li>
+                        <li><a href="single-standard.html">Standard Post</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="blogs/new" title="">New Blog</a></li>
+                    <li><a href="MenuUser2.html" title="">Profile</a></li>
+                    <li><a href="about.html" title="">About</a></li>
+                    <li><a href="contact.html" title="">Contact</a></li>
+                </ul> <!-- end header__nav -->
+
+                <a href="#0" title="Close Menu" class="s-header__overlay-close close-mobile-menu">Close</a>
+
+            </nav> <!-- end header__nav-wrap -->
+            
+            <a class="s-header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+            
+            <div class="s-header__search">
+                    
+                <form role="search" method="get" class="s-header__search-form" action="#">
+                    <label>
+                        <span class="hide-content">Search for:</span>
+                        <input type="search" class="s-header__search-field" placeholder="Type Your Keywords" value="" name="s" title="Search for:" autocomplete="off">
+                    </label>
+                    <input type="submit" class="s-header__search-submit" value="Search">
+                </form>
+
+                <a href="#0" title="Close Search" class="s-header__overlay-close">Close</a>
+
+            </div> <!-- end search wrap -->	
+
+            <a class="s-header__search-trigger" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 18a7.952 7.952 0 004.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0018 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path></svg>
+            </a>
+
+        </div> <!-- end s-header__content -->
+
+    </header> <!-- end header -->
 
 
+    <!-- masonry
+    ================================================== -->
+   
+    <section class="s-bricks">
+
+        <div class="masonry">
+            <div class="bricks-wrapper h-group">
+ 
+                <div class="grid-sizer"></div>
+
+                <div class="brick entry featured-grid animate-this">
+                    <div class="entry__content">
+
+                        <div class="featured-post-slider">
+                            
+                            <div class="featured-post-slide">
+                                <div class="f-slide">
+                                    
+                                    <div class="f-slide__background" style="background-image:url('../assets/images/thumbs/featured/featured-1.jpg');"></div>
+                                    <div class="f-slide__overlay"></div>
+
+                                    <div class="f-slide__content">
+                                        <ul class="f-slide__meta">
+                                            <li>September 06, 2020</li> 
+                                            <li><a href="#" >Naruto Uzumaki</a></li>
+                                        </ul>	
+
+                                        <h1 class="f-slide__title"><a href="single-standard.html" title="">A Practical Guide to a Minimalist Lifestyle.</a></h1> 
+                                    </div>
+
+                                </div> <!-- f-slide -->
+                            </div> <!-- featured-post-slide -->
+
+                            <div class="featured-post-slide">
+                                <div class="f-slide">
+                                    
+                                    <div class="f-slide__background" style="background-image:url('../assets/images/thumbs/featured/featured-2.jpg');"></div>
+                                    <div class="f-slide__overlay"></div>
+
+                                    <div class="f-slide__content">
+                                        <ul class="f-slide__meta">
+                                            <li>September 06, 2020</li> 
+                                            <li><a href="#" >Sakura Haruno</a></li>
+                                        </ul>
+
+                                        <h1 class="f-slide__title"><a href="single-standard.html" title="">Enhancing Your Designs with Negative Space</a></h1> 
+                                    </div>
+
+                                </div> <!-- f-slide -->
+                            </div> <!-- featured-post-slide -->
+
+                            <div class="featured-post-slide">
+                                <div class="f-slide">
+                                    
+                                    <div class="f-slide__background" style="background-image:url('/images/thumbs/featured/featured-3.jpg');"></div>
+                                    <div class="f-slide__overlay"></div>
+
+                                    
+
+                                </div> <!-- f-slide -->
+                            </div> <!-- featured-post-slide -->
+
+                        </div> <!-- end feature post slider -->
+                        
+                        <div class="featured-post-nav">
+                            <button class="featured-post-nav__prev">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12.707 17.293L8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z"></path></svg>
+                            </button>
+                            <button class="featured-post-nav__next">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.293 17.293l1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"></path></svg>
+                            </button>
+                        </div> <!-- featured-post-nav -->
+
+                    </div> <!-- end entry content -->
+                </div> <!-- end entry, featured grid -->
+                <% if(blogs.length<1){%>
+
+                    <p class="text-white">No posts yet, create a new one</p>
+        
+                    <%  } %>
+        
+        
+                    <% blogs.forEach(blog=>{ %>
+                <article class="brick entry format-standard animate-this">
+    
+                    <div class="entry__thumb">
+                        <a href="blogs/<%=blog.slug %>" class="thumb-link">
+                            <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="card-img" alt="...">
+
+                                 <!-- `srcset` để định nghĩa các biến thể của hình ảnh với kích thước khác nhau -->
+                        </a>
+                    </div> <!-- end entry__thumb -->
+    
+                    <div class="entry__text">
+                        <div class="entry__header">
+    
+                            <div class="entry__meta">
+                                <span class="entry__cat-links">
+                                    <%= blog.author %>
+
+                                </span>
+                            </div>
+    
+                            <h1 class="entry__title"><a href="single-standard"><%= blog.title %></a></h1>
+                            
+                        </div>
+                        <div class="entry__excerpt">
+                            <p>
+                                <%- blog.introduction %>
+                            </p>
+                        </div>
+                    </div> <!-- end entry__text -->
+    
+                </article> <!-- end entry -->
+                <% }) %>
+               
+        <div class="row">
+            <div class="column large-12">
+                <nav class="pgn">
+                    <ul>
+                        <li>
+                            <a class="pgn__prev" href="#0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12.707 17.293L8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z"></path></svg>
+                            </a>
+                        </li>
+                        <li><a class="pgn__num" href="#0">1</a></li>
+                        <li><span class="pgn__num current">2</span></li>
+                        <li><a class="pgn__num" href="#0">3</a></li>
+                        <li><a class="pgn__num" href="#0">4</a></li>
+                        <li><a class="pgn__num" href="#0">5</a></li>
+                        <li><span class="pgn__num dots">…</span></li>
+                        <li><a class="pgn__num" href="#0">8</a></li>
+                        <li>
+                            <a class="pgn__next" href="#0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.293 17.293l1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"></path></svg>
+                            </a>
+                        </li>
+                    </ul>
+                </nav> <!-- end pgn -->
+            </div> <!-- end column -->
+        </div> <!-- end row -->
+       
+    </section> <!-- end s-bricks -->
 
 
-        </div>
-        <script src="/js/index.js"></script>
+    <!-- footer
+    ================================================== -->
+    <footer class="s-footer">
+
+        <div class="s-footer__main">
+
+            <div class="row">
+
+                <div class="column large-4 medium-6 tab-12 s-footer__info">
+
+                    <h5>About Our Site</h5>
+
+                    <p>
+                    Lorem ipsum Ut velit dolor Ut labore id fugiat in ut fugiat nostrud qui in dolore commodo eu magna Duis cillum dolor officia esse mollit proident Excepteur exercitation nulla. Lorem ipsum In reprehenderit commodo aliqua irure labore.
+                    </p>
+
+                </div> <!-- end s-footer__info -->
+
+                <div class="column large-2 medium-3 tab-6 s-footer__site-links">
+
+                    <h5>Site Links</h5>
+
+                    <ul>
+                        <li><a href="#0">About Us</a></li>
+                        <li><a href="#0">Blog</a></li>
+                        <li><a href="#0">FAQ</a></li>
+                        <li><a href="#0">Terms</a></li>
+                        <li><a href="#0">Privacy Policy</a></li>
+                    </ul>
+
+                </div> <!-- end s-footer__site-links -->  
+
+                <div class="column large-2 medium-3 tab-6 s-footer__social-links">
+
+                    <h5>Social</h5>
+
+                    <ul>
+                        <li><a href="#0">Twitter</a></li>
+                        <li><a href="#0">Facebook</a></li>
+                        <li><a href="#0">Dribbble</a></li>
+                        <li><a href="#0">Pinterest</a></li>
+                        <li><a href="#0">Instagram</a></li>
+                    </ul>
+
+                </div> <!-- end s-footer__social links --> 
+
+                <div class="column large-4 medium-12 s-footer__subscribe">
+
+                    <h5>Subscribe</h5>
+
+                    <p>Keep yourself updated. Subscribe to our newsletter.</p>
+
+                    <div class="subscribe-form">
+                
+                        <form id="mc-form" class="group" novalidate="true">
+
+                            <input type="email" value="" name="dEmail" class="email" id="mc-email" placeholder="Type &amp; press enter" required=""> 
+                
+                            <input type="submit" name="subscribe" >
+                
+                            <label for="mc-email" class="subscribe-message"></label>
+                
+                        </form>
+
+                    </div>
+
+                </div> <!-- end s-footer__subscribe -->
+
+            </div> <!-- end row -->
+
+        </div> <!-- end s-footer__main -->
+
+        <div class="s-footer__bottom">
+            <div class="row">
+                <div class="column">
+                    <div class="ss-copyright">
+                        <span>© Copyright Abstract 2020</span> 
+                        <span>Design by <a href="https://www.styleshout.com/">StyleShout</a></span>		         	
+                    </div> <!-- end ss-copyright -->
+                </div>
+            </div> 
+
+            <div class="ss-go-top">
+                <a class="smoothscroll" title="Back to Top" href="#top">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v2H6zm5 10v6h2v-6h5l-6-6-6 6z"/></svg>
+                </a>
+            </div> <!-- end ss-go-top -->
+        </div> <!-- end s-footer__bottom -->
+
+   </footer> <!-- end s-footer -->
+
+
+   <!-- Java Script
+   ================================================== -->
+   <script src="/Jquery3.7.0.min.js"></script>
+   <script src="/plugins.js"></script>
+   <script src="/main.js"></script>
 
 </body>
 
