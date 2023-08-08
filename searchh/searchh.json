@@ -1,8 +1,9 @@
 {
 	"groupid": 1,
 	"group_detail": {
-		"after_date": [1, 1, 2002],
-		"before_date": [2, 2, 2002],
+		"kword": "drug",
+		"after_date": "2000-02-22",
+		"before_date": "2030-12-31",
 		"post_type": 1,
 		"attachment": {},
 		"h_user": 111222,

@@ -17,7 +17,7 @@ function changeTimkiem()
     document.getElementById('test').innerHTML = 'Tìm kiếm rộng';
     document.getElementById('show').innerHTML = document.getElementById('board2').innerHTML;
     
-    fetch("searchh/searchh.json");
+    fetch("searchh/searchh.json")
 	.then(res => res.json())
 	.then(data => 
 	{
