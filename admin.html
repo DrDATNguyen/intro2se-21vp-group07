@@ -1,0 +1,852 @@
+<!--
+=========================================================
+* Argon Dashboard - v1.2.0
+=========================================================
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+
+
+* Copyright  Creative Tim (http://www.creative-tim.com)
+* Coded by www.creative-tim.com
+
+
+
+=========================================================
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
+    <meta name="author" content="Creative Tim">
+    <title>Argon Dashboard - Free Dashboard for Bootstrap 4</title>
+    <!-- Favicon -->
+    <link rel="icon" href="admin/assets/img/brand/favicon.png" type="image/png">
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+    <!-- Icons -->
+    <link rel="stylesheet" href="admin/assets/vendor/nucleo/css/nucleo.css" type="text/css">
+    <link rel="stylesheet" href="admin/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+    <!-- Page plugins -->
+    <!-- Argon CSS -->
+    <link rel="stylesheet" href="admin/assets/css/argon.css?v=1.2.0" type="text/css">
+</head>
+
+<body>
+    <!-- Sidenav -->
+    <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+        <div class="scrollbar-inner">
+            <!-- Brand -->
+            <div class="sidenav-header  align-items-center">
+                <a class="navbar-brand" href="index.html">
+                    <img src="images/logo.png" class="navbar-brand-img" alt="...">
+                </a>
+            </div>
+            <div class="navbar-inner">
+                <!-- Collapse -->
+                <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+                    <!-- Nav items -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="admin.html">
+                                <i class="ni ni-tv-2 text-primary"></i>
+                                <span class="nav-link-text">Cart Information</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="infoaction.html">
+                                <i class="ni ni-planet text-orange"></i>
+                                <span class="nav-link-text">Sell</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="actionbuy.html">
+                                <i class="ni ni-pin-3 text-primary"></i>
+                                <span class="nav-link-text">Cart</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="user.html">
+                                <i class="ni ni-key-25 text-info"></i>
+                                <span class="nav-link-text">user</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="seo.html">
+                                <i class="ni ni-pin-3 text-primary"></i>
+                                <span class="nav-link-text">SEO Products</span>
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="admin/examples/profile.html">
+                                <i class="ni ni-single-02 text-yellow"></i>
+                                <span class="nav-link-text">Profile</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin/examples/tables.html">
+                                <i class="ni ni-bullet-list-67 text-default"></i>
+                                <span class="nav-link-text">Tables</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin/examples/login.html">
+                                <i class="ni ni-key-25 text-info"></i>
+                                <span class="nav-link-text">Login</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin/examples/register.html">
+                                <i class="ni ni-circle-08 text-pink"></i>
+                                <span class="nav-link-text">Register</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin/examples/upgrade.html">
+                                <i class="ni ni-send text-dark"></i>
+                                <span class="nav-link-text">Upgrade</span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <hr class="my-3">
+                    
+                    <h6 class="navbar-heading p-0 text-muted">
+                        <span class="docs-normal">Documentation</span>
+                    </h6>
+                    
+                    <ul class="navbar-nav mb-md-3">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html" target="_blank">
+                                <i class="ni ni-spaceship"></i>
+                                <span class="nav-link-text">Getting started</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html" target="_blank">
+                                <i class="ni ni-palette"></i>
+                                <span class="nav-link-text">Foundation</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html" target="_blank">
+                                <i class="ni ni-ui-04"></i>
+                                <span class="nav-link-text">Components</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/plugins/charts.html" target="_blank">
+                                <i class="ni ni-chart-pie-35"></i>
+                                <span class="nav-link-text">Plugins</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active active-pro" href="admin/examples/upgrade.html">
+                                <i class="ni ni-send text-dark"></i>
+                                <span class="nav-link-text">Upgrade to PRO</span>
+                            </a>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Main content -->
+    <div class="main-content" id="panel">
+        <!-- Topnav -->
+        <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Search form -->
+                    <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main">
+                        <div class="form-group mb-0">
+                            <div class="input-group input-group-alternative input-group-merge">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Search" type="text">
+                            </div>
+                        </div>
+                        <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+                    </form>
+                    <!-- Navbar links -->
+                    <ul class="navbar-nav align-items-center  ml-md-auto ">
+                        <li class="nav-item d-xl-none">
+                            <!-- Sidenav toggler -->
+                            <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
+                                <div class="sidenav-toggler-inner">
+                                    <i class="sidenav-toggler-line"></i>
+                                    <i class="sidenav-toggler-line"></i>
+                                    <i class="sidenav-toggler-line"></i>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item d-sm-none">
+                            <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
+                                <i class="ni ni-zoom-split-in"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="ni ni-bell-55"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
+                                <!-- Dropdown header -->
+                                <div class="px-3 py-3">
+                                    <h6 class="text-sm text-muted m-0">You have <strong class="text-primary">13</strong> notifications.</h6>
+                                </div>
+                                <!-- List group -->
+                                <div class="list-group list-group-flush">
+                                    <a href="#!" class="list-group-item list-group-item-action">
+                                        <div class="row align-items-center">
+                                            <div class="col-auto">
+                                                <!-- Avatar -->
+                                                <img alt="Image placeholder" src="admin/assets/img/theme/team-1.jpg" class="avatar rounded-circle">
+                                            </div>
+                                            <div class="col ml--2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        <h4 class="mb-0 text-sm">John Snow</h4>
+                                                    </div>
+                                                    <div class="text-right text-muted">
+                                                        <small>2 hrs ago</small>
+                                                    </div>
+                                                </div>
+                                                <p class="text-sm mb-0">Let's meet at Starbucks at 11:30. Wdyt?</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#!" class="list-group-item list-group-item-action">
+                                        <div class="row align-items-center">
+                                            <div class="col-auto">
+                                                <!-- Avatar -->
+                                                <img alt="Image placeholder" src="admin/assets/img/theme/team-2.jpg" class="avatar rounded-circle">
+                                            </div>
+                                            <div class="col ml--2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        <h4 class="mb-0 text-sm">No Name</h4>
+                                                    </div>
+
+                                                    <div class="text-right text-muted">
+                                                        <small>3 hrs ago</small>
+                                                    </div>
+                                                </div>
+                                                <p class="text-sm mb-0">A new issue has been reported for Argon.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#!" class="list-group-item list-group-item-action">
+                                        <div class="row align-items-center">
+                                            <div class="col-auto">
+                                                <!-- Avatar -->
+                                                <img alt="Image placeholder" src="admin/assets/img/theme/team-3.jpg" class="avatar rounded-circle">
+                                            </div>
+                                            <div class="col ml--2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        <h4 class="mb-0 text-sm">John Snow</h4>
+                                                    </div>
+                                                    <div class="text-right text-muted">
+                                                        <small>5 hrs ago</small>
+                                                    </div>
+                                                </div>
+                                                <p class="text-sm mb-0">Your posts have been liked a lot.</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#!" class="list-group-item list-group-item-action">
+                                        <div class="row align-items-center">
+                                            <div class="col-auto">
+                                                <!-- Avatar -->
+                                                <img alt="Image placeholder" src="admin/assets/img/theme/team-4.jpg" class="avatar rounded-circle">
+                                            </div>
+                                            <div class="col ml--2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        <h4 class="mb-0 text-sm">John Snow</h4>
+                                                    </div>
+                                                    <div class="text-right text-muted">
+                                                        <small>2 hrs ago</small>
+                                                    </div>
+                                                </div>
+                                                <p class="text-sm mb-0">Let's meet at Starbucks at 11:30. Wdyt?</p>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                </div>
+                                <!-- View all -->
+                                <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">View all</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="ni ni-ungroup"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right ">
+                                <div class="row shortcuts px-4">
+                                    <a href="#!" class="col-4 shortcut-item">
+                                        <span class="shortcut-media avatar rounded-circle bg-gradient-red">
+                      <i class="ni ni-calendar-grid-58"></i>
+                    </span>
+                                        <small>Calendar</small>
+                                    </a>
+                                    <a href="#!" class="col-4 shortcut-item">
+                                        <span class="shortcut-media avatar rounded-circle bg-gradient-orange">
+                      <i class="ni ni-email-83"></i>
+                    </span>
+                                        <small>Email</small>
+                                    </a>
+                                    <a href="#!" class="col-4 shortcut-item">
+                                        <span class="shortcut-media avatar rounded-circle bg-gradient-info">
+                      <i class="ni ni-credit-card"></i>
+                    </span>
+                                        <small>Payments</small>
+                                    </a>
+                                    <a href="#!" class="col-4 shortcut-item">
+                                        <span class="shortcut-media avatar rounded-circle bg-gradient-green">
+                      <i class="ni ni-books"></i>
+                    </span>
+                                        <small>Reports</small>
+                                    </a>
+                                    <a href="#!" class="col-4 shortcut-item">
+                                        <span class="shortcut-media avatar rounded-circle bg-gradient-purple">
+                      <i class="ni ni-pin-3"></i>
+                    </span>
+                                        <small>Maps</small>
+                                    </a>
+                                    <a href="#!" class="col-4 shortcut-item">
+                                        <span class="shortcut-media avatar rounded-circle bg-gradient-yellow">
+                      <i class="ni ni-basket"></i>
+                    </span>
+                                        <small>Shop</small>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="media align-items-center">
+                                    <span class="avatar avatar-sm rounded-circle">
+                    <img alt="Image placeholder" src="admin/assets/img/theme/team-4.jpg">
+                  </span>
+                                    <div class="media-body  ml-2  d-none d-lg-block">
+                                        <span id="howYourName" class="mb-0 text-sm  font-weight-bold">No Name</span>
+                                    </div>
+                                    <script>
+                                        var checkPassLocalStorage = localStorage.getItem("checkPassLocalStorage");
+                                        checkPassLocalStorage = JSON.parse(checkPassLocalStorage);
+                                        if (checkPassLocalStorage === null) {
+                                            window.location.assign("index.html");
+                                        } else {
+                                            var data = JSON.parse(checkPassLocalStorage[0]);
+                                            document.getElementById("howYourName").innerHTML = data.Name;
+                                            if (data.Role != "Admin") {
+                                                window.location.assign("index.html");
+                                            }
+                                        }
+                                    </script>
+                                </div>
+                            </a>
+                            <div class="dropdown-menu  dropdown-menu-right ">
+                                <div class="dropdown-header noti-title">
+                                    <h6 class="text-overflow m-0">Welcome!</h6>
+                                </div>
+                                <a href="#!" class="dropdown-item">
+                                    <i class="ni ni-single-02"></i>
+                                    <span>My profile</span>
+                                </a>
+                                <a href="#!" class="dropdown-item">
+                                    <i class="ni ni-settings-gear-65"></i>
+                                    <span>Settings</span>
+                                </a>
+                                <a href="#!" class="dropdown-item">
+                                    <i class="ni ni-calendar-grid-58"></i>
+                                    <span>Activity</span>
+                                </a>
+                                <a href="#!" class="dropdown-item">
+                                    <i class="ni ni-support-16"></i>
+                                    <span>Support</span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#!" class="dropdown-item">
+                                    <i class="ni ni-user-run"></i>
+                                    <span>Logout</span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Header -->
+        <!-- Header -->
+        <div class="header bg-primary pb-6">
+            <div class="container-fluid">
+                <div class="header-body">
+                    <div class="row align-items-center py-4">
+                        <div class="col-lg-6 col-7">
+                            <h6 class="h2 text-white d-inline-block mb-0">Default</h6>
+                            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                                    <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                                    <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Default</li>
+                                </ol>
+                            </nav>
+                        </div>
+                        <div class="col-lg-6 col-5 text-right">
+                            <a href="#" class="btn btn-sm btn-neutral" onclick="bCreateGetApp()" data-toggle="modal" data-target="#modalCreateGetApp">New</a>
+                            <a href="#" class="btn btn-sm btn-neutral" data-toggle="modal" data-target="#modalSelectGetApp">Filters</a>
+                        </div>
+                        <div class="modal fade" id="modalCreateGetApp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header text-center">
+                                        <h4 class="modal-title w-100 font-weight-bold">New Sản Phẩm</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body mx-3">
+                                        <div class="md-form mb-2">
+                                            <input type="text" id="idGetApp" class="form-control validate" placeholder="Mã sản phẩm">
+                                        </div>
+                                        <div class="md-form mb-2">
+                                            <input type="text" id="idNameGetApp" class="form-control validate" placeholder="Mã rút gọn">
+                                        </div>
+                                        <div class="md-form mb-2">
+                                            <input type="text" id="nameGetApp" class="form-control validate" placeholder="Tên sản phẩm">
+                                        </div>
+                                        <div class="md-form mb-2">
+                                            <input type="number" id="priceGetApp" class="form-control validate" placeholder="Giá">
+                                        </div>
+                                        <div class="md-form mb-2">
+                                            <input type="number" id="discountGetApp" class="form-control validate" placeholder="Khuyến mãi">
+                                        </div>
+                                        <div class="md-form mb-2">
+                                            <input type="number" id="nhapGetApp" class="form-control validate" placeholder="Nhập">
+                                        </div>
+                                        <div class="md-form mb-2">
+                                            <input type="hidden" id="xuatGetApp" class="form-control validate" placeholder="Hihi">
+                                        </div>
+                                        <div class="md-form mb-2">
+                                            <!-- <input type="checkbox" id="statusGetApp" value="True" class="form-control validate" placeholder="Trạng thái"> -->
+                                            <select class="form-control" name="" id="statusGetApp">
+                                                <option value="True">Đang rao bán</option>
+                                                <option value="False">Dừng rao bán</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer d-flex justify-content-center" id="btnCheckedMid">
+                                        <button onclick="btnCreateGetApp()" class="btn btn-default">Create</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="modalSelectGetApp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header text-center">
+                                        <h4 class="modal-title w-100 font-weight-bold">Seo Mặt Hàng</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body mx-3">
+                                        <div class="md-form mb-2">
+                                            <select class="form-control" id="selGetApp">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer d-flex justify-content-center" id="btnCheckedMid">
+                                        <button onclick="btnCheckedGetApp()" class="btn btn-default">Checked</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        var adminGetApp = localStorage.getItem("adminGetApp");
+                        adminGetApp = JSON.parse(adminGetApp);
+                        var adminSeoApp = localStorage.getItem("adminSeoApp");
+                        adminSeoApp = JSON.parse(adminSeoApp);
+                        if (adminSeoApp === null) {
+                            adminSeoApp = [];
+                        }
+
+                        var select = document.getElementById('selGetApp');
+                        select.options[select.options.length] = new Option('Chọn mặt hàng', null);
+                        for (i in adminGetApp) {
+                            var dataGetApp = JSON.parse(adminGetApp[i]);
+                            select.options[select.options.length] = new Option(dataGetApp.Name, i);
+                            // if (dataGetApp.selected) {
+                            //     alert(dataGetApp.selected);
+                            // }
+                        }
+
+                        function btnCheckedGetApp() {
+                            var skt = document.getElementById('selGetApp').value;
+                            // alert(skt);
+                            var dataskt = JSON.parse(adminGetApp[skt * 1]);
+                            // if (adminSeoApp = []) {
+                            //     var Databaseq = JSON.stringify({
+                            //         Id: dataskt.Id,
+                            //         IdName: dataskt.IdName,
+                            //         Name: dataskt.Name,
+                            //         Price: dataskt.Price,
+                            //         Discount: dataskt.Discount,
+                            //         Nhap: dataskt.Nhap,
+                            //         Xuat: dataskt.Xuat,
+                            //         Status: dataskt.Status
+                            //     });
+                            //     adminSeoApp.push(Databaseq);
+                            //     localStorage.setItem("adminSeoApp", JSON.stringify(adminSeoApp));
+                            //     alert("Đã thêm thành công");
+                            //     // break;
+                            //     window.location.reload();
+                            // }
+                            var checkseo = -1;
+                            for (var i in adminSeoApp) {
+                                var dataseo = JSON.parse(adminSeoApp[i]);
+                                if (dataseo.Id == dataskt.Id) {
+                                    checkseo++;
+                                }
+                            }
+                            if (checkseo == -1) {
+                                var Databaseq = JSON.stringify({
+                                    Id: dataskt.Id,
+                                });
+                                adminSeoApp.push(Databaseq);
+                                localStorage.setItem("adminSeoApp", JSON.stringify(adminSeoApp));
+                                alert("Đã thêm thành công");
+                                window.location.reload();
+                            } else {
+                                alert("Mặt hàng đã được Seo trước đó");
+                                window.location.reload();
+                            }
+                            // for (var i in adminSeoApp) {
+                            //     var dataseo = JSON.parse(adminSeoApp[i]);
+                            //     if (dataseo.Id == dataskt.Id) {
+                            //         alert("Mặt hàng đã được Seo trước đó");
+                            //         window.location.reload();
+                            //     } else {
+                            //         var Databaseq = JSON.stringify({
+                            //             Id: dataskt.Id,
+                            //             IdName: dataskt.IdName,
+                            //             Name: dataskt.Name,
+                            //             Price: dataskt.Price,
+                            //             Discount: dataskt.Discount,
+                            //             Nhap: dataskt.Nhap,
+                            //             Xuat: dataskt.Xuat,
+                            //             Status: dataskt.Status
+                            //         });
+                            //         adminSeoApp.push(Databaseq);
+                            //         localStorage.setItem("adminSeoApp", JSON.stringify(adminSeoApp));
+                            //         alert("Đã thêm thành công");
+                            //         window.location.reload();
+                            //     }
+                            // }
+
+
+                        }
+                    </script>
+                    <!-- Card stats -->
+                    <script>
+                        var adminGetApp = localStorage.getItem("adminGetApp");
+                        adminGetApp = JSON.parse(adminGetApp);
+                        var adminGetAppApp = localStorage.getItem("adminGetAppApp");
+                        adminGetAppApp = JSON.parse(adminGetAppApp);
+                        if (adminGetApp === null) {
+                            adminGetApp = [];
+                            // adminGetAppApp.removeItem("adminGetAppApp");
+                            // localStorage.setItem("adminGetAppApp", JSON.stringify(adminGetAppApp));
+                            adminGetAppApp = [];
+                            var Database = JSON.stringify({
+                                Id: "DT001",
+                                IdName: "Redmi",
+                                Name: "Xiaomi Redmi Note 8",
+                                Price: 4490000,
+                                Discount: 0.1,
+                                Nhap: 1,
+                                Xuat: 0,
+                                Status: "True"
+                            });
+                            adminGetApp.push(Database);
+                            localStorage.setItem("adminGetApp", JSON.stringify(adminGetApp));
+                            var Databaset = JSON.stringify({
+                                Id: "DT002",
+                                IdName: "OPPO",
+                                Name: "OPPO Reno 3",
+                                Price: 8990000,
+                                Discount: 0.2,
+                                Nhap: 2,
+                                Xuat: 0,
+                                Status: "True"
+                            });
+                            adminGetApp.push(Databaset);
+                            localStorage.setItem("adminGetApp", JSON.stringify(adminGetApp));
+                            var Databases = JSON.stringify({
+                                Id: "DT001",
+                                Info: "Đặc điểm nổi bật của Xiaomi Redmi Note 8 (4GB/64GB) Tìm hiểu thêm Tìm hiểu thêm Tìm hiểu thêm Bộ sản phẩm chuẩn: Hộp, Sạc, Sách hướng dẫn, Cáp, Cây lấy sim, Ốp lưng Xiaomi Redmi Note 8 4GB/64GB là chiếc smartphone tầm trung mới nhất của Xiaomi, chiếc máy này gây ấn tượng với cấu hình phần cứng mạnh mẽ, hệ thống 4 camera sau chất lượng và đi kèm giá bán cực kỳ hấp dẫn.",
+                                Availability: "FULL BOX",
+                                Type: "4GB/64GB",
+                                Images: "https://cdn.tgdd.vn/Products/Images/42/209535/xiaomi-redmi-note-8-trang-12-org.jpg"
+                            });
+                            adminGetAppApp.push(Databases);
+                            localStorage.setItem("adminGetAppApp", JSON.stringify(adminGetAppApp));
+                            var Databasest = JSON.stringify({
+                                Id: "DT002",
+                                Info: "Oppo Reno 3 sở hữu thiết kế thời thượng, màn hình rộng 6.4inches, full HD+, hiệu năng mạnh mẽ với chip MediaTek Helio P90, camera đỉnh cao, ống kính chính đến 48MP, phù hợp với người dùng thích smartphone hiện đại, chụp hình đẹp.",
+                                Availability: "FULL BOX",
+                                Type: "8GB|128GB",
+                                Images: "https://didongviet.vn/pub/media/catalog/product//o/p/oppo-reno-3.jpg"
+                            });
+                            adminGetAppApp.push(Databasest);
+                            localStorage.setItem("adminGetAppApp", JSON.stringify(adminGetAppApp));
+                        }
+                        // var adminGetApp = localStorage.getItem("adminGetApp");
+                        // adminGetApp = JSON.parse(adminGetApp);
+                        // var adminGetAppApp = localStorage.getItem("adminGetAppApp");
+                        // adminGetAppApp = JSON.parse(adminGetAppApp);
+                        function idAuto(text) {
+                            var sodem = text.slice(2, 5) * 1;
+                            return sodem + 1;
+                        }
+
+                        function bCreateGetApp() {
+                            var lengthh = adminGetApp.length - 1;
+                            var dataleng = JSON.parse(adminGetApp[lengthh]);
+                            document.getElementById("idGetApp").value = ((idAuto(dataleng.Id) < 10) ? "DT00" + idAuto(dataleng.Id) : ((idAuto(dataleng.Id) < 100) ? "DT0" + idAuto(dataleng.Id) : "DT" + idAuto(dataleng.Id)));
+                            document.getElementById("idGetApp").setAttribute("readonly", "readonly");
+                            // document.getElementById("idGetApp").value = "";
+                            // document.getElementById("idGetApp").removeAttribute("readonly");
+                            document.getElementById("idNameGetApp").value = "";
+                            document.getElementById("nameGetApp").value = "";
+                            document.getElementById("priceGetApp").value = "";
+                            document.getElementById("discountGetApp").value = "";
+                            document.getElementById("nhapGetApp").value = "";
+                            document.getElementById("statusGetApp").style.display = "block";
+                            document.getElementById("btnCheckedMid").innerHTML = '<button onclick="btnCreateGetApp()" class="btn btn-default">Create</button>';
+                        }
+
+                        function btnCreateGetApp() {
+                            var checkinger = -1;
+
+                            for (var i in adminGetApp) {
+                                var dataz = JSON.parse(adminGetApp[i]);
+                                if (dataz.Id == document.getElementById("idGetApp").value) {
+                                    checkinger++;
+                                }
+                            }
+
+                            if (checkinger == -1) {
+                                if (document.getElementById("idNameGetApp").value == "" || document.getElementById("nameGetApp").value == "" || document.getElementById("priceGetApp").value == "" || document.getElementById("discountGetApp").value == "" || document.getElementById("nhapGetApp").value == "") {
+                                    alert("Bạn nhập thiếu dữ kiện");
+                                } else {
+                                    var Database = JSON.stringify({
+                                        Id: document.getElementById("idGetApp").value,
+                                        IdName: document.getElementById("idNameGetApp").value,
+                                        Name: document.getElementById("nameGetApp").value,
+                                        Price: document.getElementById("priceGetApp").value * 1,
+                                        Discount: document.getElementById("discountGetApp").value / 100,
+                                        Nhap: document.getElementById("nhapGetApp").value * 1,
+                                        Xuat: 0,
+                                        Status: ((document.getElementById("statusGetApp").value == "True") ? "True" : "False")
+                                    });
+                                    adminGetApp.push(Database);
+                                    localStorage.setItem("adminGetApp", JSON.stringify(adminGetApp));
+                                    var Databases = JSON.stringify({
+                                        Id: document.getElementById("idGetApp").value,
+                                        Info: "",
+                                        Availability: "",
+                                        Type: "",
+                                        Images: ""
+                                    });
+                                    // var adminGetAppApp = localStorage.getItem("adminGetAppApp");
+                                    adminGetAppApp.push(Databases);
+                                    localStorage.setItem("adminGetAppApp", JSON.stringify(adminGetAppApp));
+                                    alert("Tạo mới sản phẩm " + document.getElementById("nameGetApp").value + " thành công")
+                                    window.location.reload();
+                                }
+
+                            } else {
+                                alert("Tài khoản đó đã tồn tại");
+                            }
+                        }
+                    </script>
+                    <div class="row">
+                        <div class="col">
+                            <div class="card bg-default shadow">
+                                <div class="card-header bg-transparent border-0">
+                                    <h3 class="text-white mb-0">Table</h3>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table align-items-center table-dark table-flush">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col" class="sort" data-sort="id">Mã sản phẩm</th>
+                                                <th scope="col" class="sort" data-sort="idname">Mã rút gọn</th>
+                                                <th scope="col" class="sort" data-sort="name">Tên sản phẩm</th>
+                                                <th scope="col">Giá</th>
+                                                <th scope="col">Khuyến mãi</th>
+                                                <th scope="col">Nhập kho</th>
+                                                <th scope="col">Đã bán</th>
+                                                <th scope="col">Trạng thái</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="list" id="list-adminGetApp">
+
+
+                                            <!-- <td scope="row">
+                                                    <div class="media align-items-center">
+                                                        <div class="media-body">
+                                                            <span class="name mb-0 text-sm">DT001</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="budget">
+                                                    Redmi
+                                                </td>
+                                                <td class="budget">
+                                                    Xiaomi Redmi Note 8
+                                                </td>
+
+
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <span class="completion mr-2">4.490.000₫</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <span class="completion mr-2">10%</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <span class="completion mr-2">1</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <span class="completion mr-2">0</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <span class="completion mr-2">Đang bán</span>
+                                                    </div>
+                                                </td>
+                                                <td class="text-right">
+                                                    <div class="dropdown">
+                                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fas fa-ellipsis-v"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                            <a class="dropdown-item" href="#">Update</a>
+                                                            <a class="dropdown-item" href="#">Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </td> -->
+
+
+                                        </tbody>
+                                        <script>
+                                            function numberWithCommas(x) {
+                                                x = x.toString();
+                                                var pattern = /(-?\d+)(\d{3})/;
+                                                while (pattern.test(x)) {
+                                                    x = x.replace(pattern, "$1,$2");
+                                                }
+                                                return x;
+                                            }
+                                            var adminGetApp = localStorage.getItem("adminGetApp");
+                                            adminGetApp = JSON.parse(adminGetApp);
+                                            var getAppIndex = "";
+                                            for (var t in adminGetApp) {
+                                                var datas = JSON.parse(adminGetApp[t]);
+                                                getAppIndex += '<tr><th scope="row"><div class="media align-items-center"><div class="media-body"><span class="name mb-0 text-sm">' + datas.Id + '</span></div></div></th>';
+                                                getAppIndex += '<td class="budget">' + datas.IdName + '</td><td class="budget">' + datas.Name + '</td>';
+                                                getAppIndex += '<td><div class="d-flex align-items-center"><span class="completion mr-2">' + numberWithCommas(datas.Price) + 'đ</span></div></td><td><div class="d-flex align-items-center"><span class="completion mr-2">' + datas.Discount * 100 + '%</span></div></td>';
+                                                getAppIndex += '<td><div class="d-flex align-items-center"><span class="completion mr-2">' + datas.Nhap + '</span></div></td><td><div class="d-flex align-items-center"><span class="completion mr-2">' + datas.Xuat + '</span></div></td>';
+                                                getAppIndex += '<td><div class="d-flex align-items-center"><span class="completion mr-2">' + ((datas.Status == "True") ? "Đang rao bán" : "Dừng rao bán") + '</span></div></td>'
+                                                getAppIndex += '<td class="text-right"><div class="dropdown"><a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a><div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow"><a class="dropdown-item" onclick="UpdateAdminGetApp(' + t + ')" data-toggle="modal" data-target="#modalCreateGetApp">Update</a><a class="dropdown-item" onclick="DeleteAdminGetApp(' + t + ')" href="#">Delete</a></div></div></td>';
+                                                getAppIndex += '</tr>';
+                                            }
+                                            document.getElementById("list-adminGetApp").innerHTML = getAppIndex;
+
+                                            function UpdateAdminGetApp(id) {
+                                                var datasz = JSON.parse(adminGetApp[id]);
+                                                document.getElementById("idGetApp").value = datasz.Id;
+                                                document.getElementById("idGetApp").setAttribute("readonly", "readonly");
+                                                document.getElementById("idNameGetApp").value = datasz.IdName;
+                                                document.getElementById("nameGetApp").value = datasz.Name;
+                                                document.getElementById("priceGetApp").value = datasz.Price;
+                                                document.getElementById("discountGetApp").value = datasz.Discount * 100;
+                                                document.getElementById("nhapGetApp").value = datasz.Nhap;
+                                                document.getElementById("xuatGetApp").value = datasz.Xuat;
+                                                document.getElementById("statusGetApp").value = datasz.Status;
+                                                document.getElementById("btnCheckedMid").innerHTML = '<button onclick="btnUpdateAdminGetApp(' + id + ')" class="btn btn-default">Update</button>';
+                                            }
+
+                                            function btnUpdateAdminGetApp(id) {
+                                                adminGetApp[id] = JSON.stringify({
+                                                    Id: document.getElementById("idGetApp").value,
+                                                    IdName: document.getElementById("idNameGetApp").value,
+                                                    Name: document.getElementById("nameGetApp").value,
+                                                    Price: document.getElementById("priceGetApp").value * 1,
+                                                    Discount: document.getElementById("discountGetApp").value / 100,
+                                                    Nhap: document.getElementById("nhapGetApp").value * 1,
+                                                    Xuat: document.getElementById("xuatGetApp").value,
+                                                    Status: document.getElementById("statusGetApp").value
+                                                });
+                                                localStorage.setItem("adminGetApp", JSON.stringify(adminGetApp));
+                                                alert("Update thành công!");
+                                                window.location.reload();
+                                            }
+
+                                            function DeleteAdminGetApp(id) {
+                                                adminGetApp.splice(id, 1);
+                                                adminGetAppApp.splice(id, 1);
+                                                localStorage.setItem("adminGetApp", JSON.stringify(adminGetApp));
+                                                localStorage.setItem("adminGetAppApp", JSON.stringify(adminGetAppApp));
+                                                window.location.reload();
+                                            }
+                                        </script>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+
+    </div>
+    </div>
+    <!-- Argon Scripts -->
+    <!-- Core -->
+    <script src="admin/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="admin/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="admin/assets/vendor/js-cookie/js.cookie.js"></script>
+    <script src="admin/assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="admin/assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+    <!-- Optional JS -->
+    <script src="admin/assets/vendor/chart.js/dist/Chart.min.js"></script>
+    <script src="admin/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+    <!-- Argon JS -->
+    <script src="admin/assets/js/argon.js?v=1.2.0"></script>
+</body>
+
+</html>
