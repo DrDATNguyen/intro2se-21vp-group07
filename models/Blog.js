@@ -35,18 +35,30 @@ const blogSchema = new mongoose.Schema({
     data: Buffer,
     contentType: String,
   },
-  tags: 
-    {
+  tags: {
       type: String,
-    },
-  slug: { type: String, slug: 'title', unique: true, slug_padding_size: 2 },
+  },
+
+  slug: {
+    type: String, 
+    slug: 'title', 
+    unique: true, 
+    slug_padding_size: 2 
+  },
+
   authorID:{
     type: String
   },
+  isPremium:{
+    type: Boolean,
+    default: false
+  },
+
   comments:[{
     authorID: String,
     content: String
   }]
+
   
 });
 

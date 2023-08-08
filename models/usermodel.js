@@ -7,6 +7,10 @@ const userSchema = new mongoose.Schema({
   avatarimg:{
     type: String,
     default: '../public/img/avatar.jpg'
+  },
+  isUservip:{
+    type: Boolean,
+    default: false
   }
 });
 

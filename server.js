@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 //bring in method override
 const methodOverride = require('method-override');
 const userRouter = require('./routes/userrouter');
-const blogRouter = require('./routes/blogs');
+const blogRouter = require('./routes/blogsrouter');
 const Blog = require('./models/Blog');
 const app = express();
 const bodyParser = require('body-parser');
