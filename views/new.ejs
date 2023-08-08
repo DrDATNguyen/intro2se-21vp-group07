@@ -53,11 +53,11 @@
 
 </body> -->
 <body>
-
+    <h3>hello <%= users.username%></h3>
     <div class="container mt-5">
         <h1 class="mb-4 text-white">New Blog Post</h1>
 
-        <form action="/blogs" method="POST" enctype="multipart/form-data">
+        <form action="/blogs/new/<%=users._id %>" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title" class="text-white">Title</label>
                 <input type="text" class="form-control" placeholder="Title" name="title" required>
@@ -94,7 +94,6 @@
             </div> -->
 
             <div class="form-group">
-                <a href="/" class="btn btn-warning">Cancel</a>
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </form>

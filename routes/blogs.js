@@ -4,7 +4,9 @@ const express = require('express');
 const Blog = require('../models/Blog');
 const router = express.Router();
 const multer = require('multer');
+const User = require('../models/usermodel');
 const path = require('path');
+const { get } = require('http');
 //define storage for the images
 const storage = multer.memoryStorage();
 // const storage = multer.diskStorage({
@@ -31,9 +33,7 @@ const upload = multer({
   },
 });
 
-router.get('/new', (request, response) => {
-  response.render('new');
-});
+
 // router.get('/index', (request, response) => {
 //   response.render('../font-users/index');
 // });
@@ -114,17 +114,30 @@ router.get('/login', (req, res) => {
 //   }
 // });
 
-router.post('/', upload.fields([{ name: 'image', maxCount: 1 }, { name: 'video', maxCount: 1 }]), async (req, res) => {
+router.get('/new/:id', async (request, response) => {
+  const userID = request.params.id;
+  console.log(userID);
+  const currentUser = await User.findById(userID);
+  if(currentUser){
+    console.log(currentUser);
+  }
+  response.render('new', {users: currentUser});
+});
+
+
+router.post('/new/:id', upload.fields([{ name: 'image', maxCount: 1 }, { name: 'video', maxCount: 1 }]), async (req, res) => {
   try {
     const { title, author,introduction, description,tags } = req.body;
     const imageFile = req.files['image'];
     const videoFile = req.files['video'];
+    const authorID = req.params.id;
     
     const newBlog = new Blog({
       title,
       author,
       introduction,
       description,
+      authorID,
       tags: tags.split(',').map(tag => tag.trim()).join(', '),
     });
 
@@ -157,7 +170,7 @@ router.post('/', upload.fields([{ name: 'image', maxCount: 1 }, { name: 'video',
 
 
 //route to handle updates
-router.put('/:id', async (request, response) => {
+router.put('/edit/:id', async (request, response) => {
   request.blog = await Blog.findById(request.params.id);
   let blog = request.blog;
   blog.title = request.body.title;
@@ -190,14 +203,160 @@ router.put('/:id', async (request, response) => {
 //   response.redirect('/');
 // });
 
-router.get('/search', async (req, res) => {
-  const searchQuery = req.query.q; // Get the search query from the query parameter
+router.post('/search', async (req, res) => {
   try {
-    const products = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
-    res.render('index', { blogs: products });
-  }
-  catch(e){
+    const userID = req.body.userID; 
+    console.log(userID);
+    const currentUser = await User.findById(userID);
+    console.log(userID); // Log the userID for debugging
+    
+    const searchQuery = req.body.search; // Get the search query from the form data
+    const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
+    
+    res.render('index', {
+      user: currentUser,
+      blogs: blogs
+    });
+  } catch (e) {
     console.log(e);
+    res.status(500).send('Error searching for blogs.');
   }
-})
+});
+
+router.get('/:id/category/1', async(req,res) =>{
+  try {
+    const userID = req.params.id; 
+    const currentUser = await User.findById(userID);
+    const searchQuery = 'động vật có vú';
+    const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
+    
+    res.render('index', {
+      user: currentUser,
+      blogs: blogs
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send('Error searching for blogs.');
+  }
+});
+
+router.get('/:id/category/2', async(req,res) =>{
+  try {
+    const userID = req.params.id; 
+    const currentUser = await User.findById(userID);
+    const searchQuery = 'động vật có vỏ';
+    const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
+    
+    res.render('index', {
+      user: currentUser,
+      blogs: blogs
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send('Error searching for blogs.');
+  }
+});
+
+router.get('/:id/category/3', async(req,res) =>{
+  try {
+    const userID = req.params.id; 
+    const currentUser = await User.findById(userID);
+    const searchQuery = 'động vật không có xương sống';
+    const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
+    
+    res.render('index', {
+      user: currentUser,
+      blogs: blogs
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send('Error searching for blogs.');
+  }
+});
+
+router.get('/:id/category/4', async(req,res) =>{
+  try {
+    const userID = req.params.id; 
+    const currentUser = await User.findById(userID);
+    const searchQuery = 'chim';
+    const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
+    
+    res.render('index', {
+      user: currentUser,
+      blogs: blogs
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send('Error searching for blogs.');
+  }
+});
+
+router.get('/:id/category/5', async(req,res) =>{
+  try {
+    const userID = req.params.id; 
+    const currentUser = await User.findById(userID);
+    const searchQuery = 'cá';
+    const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
+    
+    res.render('index', {
+      user: currentUser,
+      blogs: blogs
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send('Error searching for blogs.');
+  }
+});
+
+router.get('/:id/category/6', async(req,res) =>{
+  try {
+    const userID = req.params.id; 
+    const currentUser = await User.findById(userID);
+    const searchQuery = 'lưỡng cư';
+    const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
+    
+    res.render('index', {
+      user: currentUser,
+      blogs: blogs
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send('Error searching for blogs.');
+  }
+});
+
+router.get('/:id/category/7', async(req,res) =>{
+  try {
+    const userID = req.params.id; 
+    const currentUser = await User.findById(userID);
+    const searchQuery = 'côn trùng';
+    const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
+    
+    res.render('index', {
+      user: currentUser,
+      blogs: blogs
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send('Error searching for blogs.');
+  }
+});
+
+router.get('/:id/category/6', async(req,res) =>{
+  try {
+    const userID = req.params.id; 
+    const currentUser = await User.findById(userID);
+    const searchQuery = 'giáp xác';
+    const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
+    
+    res.render('index', {
+      user: currentUser,
+      blogs: blogs
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send('Error searching for blogs.');
+  }
+});
+
 module.exports = router;

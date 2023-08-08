@@ -32,8 +32,6 @@
     </head>
 
     <body id="top">
-
-
         <!-- preloader
         ================================================== -->
         <div id="preloader">
@@ -62,14 +60,14 @@
                         <li class="has-children">
                             <a href="#0" title="">Animal</a>
                             <ul class="sub-menu">
-                                <li><a href="category.html">Động vật có vú</a></li>
-                                <li><a href="category.html">Động vật có vỏ</a></li>
-                                <li><a href="category.html">Động vật không có xương sống</a></li>
-                                <li><a href="category.html">Chim</a></li>
-                                <li><a href="category.html">Cá</a></li>
-                                <li><a href="category.html">Lưỡng Cư</a></li>
-                                <li><a href="category.html">Côn Trùng</a></li>
-                                <li><a href="category.html">Giáp Xác</a></li>
+                                <li><a href="/blogs/<%= user._id %>/category/1">Động vật có vú</a></li>
+                                <li><a href="/blogs/<%= user._id %>/category/2">Động vật có vỏ</a></li>
+                                <li><a href="/blogs/<%= user._id %>/category/3">Động vật không có xương sống</a></li>
+                                <li><a href="/blogs/<%= user._id %>/category/4">Chim</a></li>
+                                <li><a href="/blogs/<%= user._id %>/category/5">Cá</a></li>
+                                <li><a href="/blogs/<%= user._id %>/category/6">Lưỡng Cư</a></li>
+                                <li><a href="/blogs/<%= user._id %>/category/7">Côn Trùng</a></li>
+                                <li><a href="/blogs/<%= user._id %>/category/8">Giáp Xác</a></li>
                                 
                             </ul>
                         </li>
@@ -82,7 +80,7 @@
                             <li><a href="single-standard.html">Standard Post</a></li>
                             </ul>
                         </li>
-                        <li><a href="blogs/new" title="">New Blog</a></li>
+                        <li><a href="/blogs/new/<%= user._id %>" title="">New Blog</a></li>
                         <li><a href="/user/<%= user._id %>" title="">Profile</a></li>
                         <li><a href="about.html" title="">About</a></li>
                         <li><a href="contact.html" title="">Contact</a></li>
@@ -109,10 +107,13 @@
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 18a7.952 7.952 0 004.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0018 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path></svg>
                 </a>
 
-                <form action="/blog/search" method="post">
+                <form action="/blogs/search" method="post">
+                    <input type="hidden" id="userID" class="userID" name="userID" value="<%= user._id %>">
                     <span class="hide-content">Search for:</span>
                     <input type="search" id="search" class="s-header__search-field" placeholder="Type Your Keywords" value="" name="search" title="Search for:" autocomplete="off">
+                    <button type="submit">Search</button>
                 </form>
+                  
             </label>
             <input type="submit" class="s-header__search-submit" value="Search">
             </div> <!-- end s-header__content -->

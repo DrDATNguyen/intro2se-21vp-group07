@@ -134,7 +134,7 @@ router.get('/:id/editProfile', async (req, res) => {
   }
 });
 
-router.post('/:id/editProfile', async (req, res) => {
+router.post('/blogs/:id/editProfile', async (req, res) => {
   try {
     const userId = req.params.id;
     const { username, password, email, education } = req.body;
@@ -147,19 +147,6 @@ router.post('/:id/editProfile', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send('Internal Server Error');
-  }
-});
-
-router.get('/:id', async (req, res) => {
-  try {
-    const userID = req.params.id;
-    console.log(userID);
-    const currentUser = await User.findById(userID);
-    if(!currentUser) res.render('main');
-    res.render('MenuUser2', { users: currentUser });
-  } catch (error) {
-    console.log(error);
-    res.render('MenuUser2',{ users : currentUser });
   }
 });
 
