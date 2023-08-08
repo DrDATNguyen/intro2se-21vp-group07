@@ -67,7 +67,20 @@ router.post('/signup', async (req, res) => {
 });
 
 
+router.get('/home/:id', async (req,res) =>{
+  try{
+    const userID = req.params.id;
+    const user = await User.findById(userID);
+    const blog = await Blog.find();
+    res.render('index',{
+      user: user,
+      blogs: blog
+    })
+  }
+  catch(error){
 
+  }
+});
 
 
 // Define a new GET route for editing the user's profile
@@ -134,16 +147,24 @@ router.get('/:id/editProfile', async (req, res) => {
   }
 });
 
-router.post('/blogs/:id/editProfile', async (req, res) => {
+router.post('/:id/editProfile', async (req, res) => {
   try {
     const userId = req.params.id;
-    const { username, password, email, education } = req.body;
-
-    // Find the user by ID and update the fields
-    newuser = await User.findByIdAndUpdate(userId, { username, password, email, education });
-      res.render('MenuUser2', {
-        user: newuser
-      });
+    const user = req.body.username;
+    const pass = req.body.password;
+    const mail = req.body.email;
+    console.log(req.body);
+    newuser = await User.findByIdAndUpdate(userId, {
+       username: user,
+       password: pass,
+       email: mail
+    });
+    console.log(newuser);
+    const blog = Blog.find();
+    res.render('index', {
+      user: newuser,
+      blogs: blog  // This should be blogs instead of blog
+   });
   } catch (err) {
     console.error(err);
     res.status(500).send('Internal Server Error');

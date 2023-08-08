@@ -42,7 +42,12 @@ const blogSchema = new mongoose.Schema({
   slug: { type: String, slug: 'title', unique: true, slug_padding_size: 2 },
   authorID:{
     type: String
-  }
+  },
+  comments:[{
+    authorID: String,
+    content: String
+  }]
+  
 });
 
 (async () => {
