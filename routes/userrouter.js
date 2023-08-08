@@ -160,11 +160,11 @@ router.post('/:id/editProfile', async (req, res) => {
        email: mail
     });
     console.log(newuser);
-    const blog = Blog.find();
-    res.render('index', {
-      user: newuser,
-      blogs: blog  // This should be blogs instead of blog
-   });
+    const Blogs = await Blog.find(); // Wait for the articles to be fetched
+      res.render('index', {
+        user: newuser,
+        blogs: Blogs
+      });
   } catch (err) {
     console.error(err);
     res.status(500).send('Internal Server Error');
