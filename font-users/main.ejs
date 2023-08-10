@@ -114,7 +114,7 @@
      <!------------------------ Site Title ---------------------->
     <section class="home">
         
-        <video class="video-slide" src="./assets/video/tiger.mp4" autoplay muted loop></video>
+        <video class="video-slide" src="/video/tiger.mp4" autoplay muted loop></video>
         <!-- <video class="video-slide" src="./assets/video/leopard.mp4" autoplay muted loop></video> -->
         <!-- <video class="video-slide" src="./assets/video/wolf.mp4" autoplay muted loop></video> -->
         <!-- <video class="video-slide" src="./assets/video/lion.mp4" autoplay muted loop></video>
@@ -124,26 +124,7 @@
             <p>A wonderful place to explore and learn about the diverse and wonderful world of animals. This website provides vivid, fascinating and detailed information about animals, from the smallest species to the giants on earth. Through exploration, this site will inspire you about the importance of protecting and respecting the lives of these amazing creatures.</p>
             <a href="login1.html">Read More</a>
         </div>
-        <!-- <div class="content">
-            <h1>Camping.<br><span>Enjoy</span></h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <a href="#">Read More</a>
-        </div>
-    <div class="content">
-                <h1>Adventures.<br><span>Off Road</span></h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <a href="#">Read More</a>
-        </div>
-        <div class="content">
-            <h1>Road Trip.<br><span>Together</span></h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <a href="#">Read More</a>
-        </div>
-        <div class="content">
-            <h1>Feel Nature.<br><span>Relax</span></h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <a href="#">Read More</a>
-        </div>   -->
+       
         <!-- <div class="media-icons">
             <a href="#"><i class="fab fa-facebook-f"></i></a>
             <a href="#"><i class="fab fa-instagram"></i></a>
@@ -186,7 +167,7 @@
                 <div class="container">
                     <div class="owl-carousel owl-theme blog-post">
                         <div class="blog-content" data-aos="fade-right" data-aos-delay="200">
-                            <img src="./assets/chuot.jpg" alt="post-1">
+                            <img src="/chuot.jpg" alt="post-1">
                             <div class="blog-title">
                                 <h3>Con chuột đáng yêu chỉ với 20k</h3>
                                 <button onclick="window.location.href = 'CheckOut.html';" class="btn btn-blog">Mua ngay</button>
@@ -194,7 +175,7 @@
                             </div>
                         </div>                 
                         <div class="blog-content" data-aos="fade-in" data-aos-delay="200">
-                            <img src="./assets/chuot.jpg" alt="post-1">
+                            <img src="/chuot.jpg" alt="post-1">
                             <div class="blog-title">
                                 <h3>Con chuột đáng yêu chỉ với 20k</h3>
                                 <button onclick="window.location.href = 'CheckOut.html';" class="btn btn-blog">Mua ngay</button>
@@ -202,7 +183,7 @@
                             </div>
                         </div>
                         <div class="blog-content" data-aos="fade-left" data-aos-delay="200">
-                            <img src="./assets/chuot.jpg" alt="post-1">
+                            <img src="/chuot.jpg" alt="post-1">
                             <div class="blog-title">
                                 <h3>Con chuột đáng yêu chỉ với 20k</h3>
                                 <button class="btn btn-blog">Mua ngay</button>
@@ -210,7 +191,7 @@
                             </div>
                         </div>
                         <div class="blog-content" data-aos="fade-right" data-aos-delay="200">
-                            <img src="./assets/chuot.jpg" alt="post-1">
+                            <img src="/chuot.jpg" alt="post-1">
                             <div class="blog-title">
                                 <h3>Con chuột đáng yêu chỉ với 20k</h3>
                                 <button onclick="window.location.href = 'CheckOut.html';" class="btn btn-blog">Mua ngay</button>
@@ -245,7 +226,7 @@
                         <!-- hai thuộc tính "data-aos" và "data-aos-delay" để cung cấp hiệu ứng và sự trễ khi xuất hiện cho đối tượng này. -->
                         <div class="post-image">
                             <div>
-                                <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="card-img" alt="...">
+                                <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="img" alt="...">
                             </div>
                 
                             <div class="post-info flex-row">
@@ -271,82 +252,6 @@
                         </div>
                     </div>
                     <% }) %>
-                    <!-- <hr>
-                    <div class="post-content" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="post-image">
-                            <div>
-                                <img src="./assets/cao2.jpg" class="img" alt="blog1">
-                            </div>
-                            <div class="post-info flex-row">
-                                <span><i class="fa-solid fa-thumbs-up"></i>&nbsp;&nbsp;150</span>
-                                <a href="UserCard.html">
-                                <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;Olivia Gomez</span>
-                                </a>
-                                <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14, 2019</span>
-                                <button class="btn-cmt">
-                                    <span>2 Commets</span>
-                                    </button>
-                                <button class="btn-share">
-                                    <span><i class="fa-solid fa-share"></i></i>&nbsp;&nbsp;25</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="post-title">
-                            <a href="#">Bạn có biết về đặc điểm sinh sản thú vị của loài cáo đồng cỏ Châu Phi</a>
-                            <p>Cáo Nam Mỹ được coi là một phần quan trọng của hệ sinh thái rừng nhiệt đới, với vai trò trong việc duy trì sự cân bằng động thực vật và kiểm soát dân số của các loài khác. Tuy nhiên, việc phá hủy môi trường sống của chúng đe dọa sự tồn tại của loài này, khiến chúng mất đi môi trường sống và nguồn thức ăn
-                            </p>
-                            <button class="btn post-btn">Read More &nbsp; <i class="fas fa-arrow-right"></i></button>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="post-content" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="post-image">
-                            <div>
-                                <img src="./assets/rua.jpg" class="img" alt="blog1">
-                            </div>
-                            <div class="post-info flex-row">
-                                <span><i class="fa-solid fa-thumbs-up"></i>&nbsp;&nbsp;150</span>
-                                <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;Admin</span>
-                                <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14, 2019</span>
-                                <button class="btn-cmt">
-                                    <span>2 Commets</span>
-                                    </button>
-                                <button class="btn-share">
-                                    <span><i class="fa-solid fa-share"></i></i>&nbsp;&nbsp;25</span>
-                                    </button>
-                            </div>
-                        </div>
-                        <div class="post-title">
-                            <a href="#">Vùng biển phía Nam Việt Nam xuất hiện loài rùa biển xinh đẹp tuổi thọ lên đến trăm năm và được xem là điềm lành may mắn </a>
-                            <p>Vùng biển phía Nam Việt Nam vừa chứng kiến sự xuất hiện của một loài rùa biển xinh đẹp, mang đến niềm vui và hi vọng cho cộng đồng. Điều đáng ngạc nhiên là loài rùa này có tuổi thọ lên đến trăm năm, là một biểu tượng của sự khỏe mạnh và bền vững.
-                            <button class="btn post-btn">Read More &nbsp; <i class="fas fa-arrow-right"></i></button>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="post-content" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="post-image">
-                            <div>
-                                <img src="./assets/chuot.jpg" class="img" alt="blog1">
-                            </div>
-                            <div class="post-info flex-row">
-                                <span><i class="fa-solid fa-thumbs-up"></i>&nbsp;&nbsp;150</span>
-                                <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;Admin</span>
-                                <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14, 2019</span>
-                                <button class="btn-cmt">
-                                    <span>2 Commets</span>
-                                    </button>
-                                <button class="btn-share">
-                                    <span><i class="fa-solid fa-share"></i></i>&nbsp;&nbsp;25</span>
-                                    </button>
-                            </div>
-                        </div>
-                        <div class="post-title">
-                            <a href="#">Sự cute này có làm thổn thức con tim bạn.Yêu bé hãy cùng tìm hiểu về lợi ích tuyệt vời khi nuôi hamter</a>
-                            <p>Nuôi hamster là một trải nghiệm đáng yêu và hạnh phúc cho tất cả những người yêu động vật. Nếu bạn đang tìm một vật nuôi nhỏ nhắn và dễ chăm sóc, thì hamster chính là lựa chọn hoàn hảo. Dưới đây là một số lợi ích tuyệt vời khi nuôi hamster
-                            </p>
-                            <button class="btn post-btn">Read More &nbsp; <i class="fas fa-arrow-right"></i></button>
-                        </div>
-                    </div> -->
                     <div class="pagination flex-row">
                         <a href="#"><i class="fas fa-chevron-left"></i></a>
                         <a href="#" class="pages">1</a>
@@ -377,60 +282,7 @@
                         </div>
                         </div>
                     </div>
-                <!-- <div class="comments-container">
-                    <div class="close1"><i class="uil uil-times"></i></div>
-                     <div class="container1 mt-5 mb-5">
-                        
-                        <div class="d-flex justify-content-center row">
-                            <div class="d-flex flex-column col-md-8">
-                                <div class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white border-bottom px-4">
-                                    <div class="profile-image"><img class="rounded-circle" src="./assets/imagesMenuUser/profile.jpg" width="70"></div>
-                                    <div class="d-flex flex-column ml-3">
-                                        <div class="d-flex flex-row post-title">
-                                            <h5>Is sketch 3.9.1 stable?</h5><span class="ml-2">(Jesshead)</span></div>
-                                        <div class="d-flex flex-row align-items-center align-content-center post-title"><span class="bdge mr-1">video</span><span class="mr-2 comments">13 comments&nbsp;</span><span class="mr-2 dot"></span><span>6 hours ago</span></div>
-                                    </div>
-                                </div>
-                                <div class="coment-bottom bg-white p-2 px-4">
-                                    <div class="d-flex flex-row add-comment-section mt-4 mb-4"><img class="img-fluid img-responsive rounded-circle mr-2" src="./assets/imagesMenuUser/profile2.jpg" width="38"><input type="text" class="form-control mr-3" placeholder="Add comment"><button class="btn btn-primary" type="button">Comment</button></div>
-                                    <div
-                                        class="commented-section mt-2">
-                                        <div class="d-flex flex-row align-items-center commented-user">
-                                            <h5 class="mr-2">Corey oates</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">4 hours ago</span></div>
-                                        <div class="comment-text-sm"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></div>
-                                        <div
-                                            class="reply-section">
-                                            <div class="d-flex flex-row align-items-center voting-icons"><i class="fa-solid fa-thumbs-up"></i><span class="ml-2">10</span><span class="dot ml-2"></span>
-                                                <h6 class="ml-2 mt-1">Reply</h6>
-                                            </div>
-                                </div>
-                            </div>
-                            <div class="commented-section mt-2">
-                                <div class="d-flex flex-row align-items-center commented-user">
-                                    <h5 class="mr-2">Samoya Johns</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">5 hours ago</span></div>
-                                <div class="comment-text-sm"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..</span></div>
-                                <div class="reply-section">
-                                    <div class="d-flex flex-row align-items-center voting-icons"><i class="fa-solid fa-thumbs-up"></i><span class="ml-2">10</span><span class="dot ml-2"></span>
-                                        <h6 class="ml-2 mt-1">Reply</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="commented-section mt-2">
-                                <div class="d-flex flex-row align-items-center commented-user">
-                                    <h5 class="mr-2">Makhaya andrew</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">10 hours ago</span></div>
-                                <div class="comment-text-sm"><span>Nunc sed id semper risus in hendrerit gravida rutrum. Non odio euismod lacinia at quis risus sed. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Enim facilisis gravida neque convallis a. In mollis nunc sed id. Adipiscing elit pellentesque habitant morbi tristique senectus et netus. Ultrices mi tempus imperdiet nulla malesuada pellentesque.</span></div>
-                                <div
-                                    class="reply-section">
-                                    <div class="d-flex flex-row align-items-center voting-icons"><i class="fa-solid fa-thumbs-up"></i><span class="ml-2">10</span><span class="dot ml-2"></span>
-                                        <h6 class="ml-2 mt-1">Reply</h6>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    </div>
-                    </div> 
-                </div> -->
+
             <!-- --------------------------- Share ---------------------------------------- -->
            
                 </div>
@@ -470,25 +322,34 @@
                     </div>
                     <div class="popular-post">
                         <h2>Popular Post</h2>
+                        <% if(blogs.length<1){%>
+
+                            <p class="text-white">No posts yet, create a new one</p>
+                
+                            <%  } %>
+                
+                
+                            <% blogs.forEach(blog=>{ %>
                         <div class="post-content" data-aos="flip-up" data-aos-delay="200">
                             <div class="post-image">
                                 <div>
-                                    <img src="./assets/ech.jpg" class="img" alt="blog1">
+                                    <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="img" alt="...">
+
                                 </div>
                                 <div class="post-info flex-row">
-                                    <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14,
-                                        2019</span>
+                                    <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;<%= blog.timeCreated.toLocaleDateString() %></span>
                                     <span>2 Commets</span>
                                 </div>
                             </div>
                             <div class="post-title">
-                                <a href="#">Vùng biển phía Nam Việt Nam xuất hiện loài rùa biển xinh đẹp tuổi thọ lên đến trăm năm và được xem là điềm lành may mắn</a>
+                                <a href="#">><%- blog.title %></a>
                             </div>
                         </div>
+                        <% }) %>
                         <div class="post-content" data-aos="flip-up" data-aos-delay="300">
                             <div class="post-image">
                                 <div>
-                                    <img src="./assets/rua.jpg" class="img" alt="blog1">
+                                    <img src="/rua.jpg" class="img" alt="blog1">
                                 </div>
                                 <div class="post-info flex-row">
                                     <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14,
@@ -500,52 +361,7 @@
                                 <a href="#">Vùng biển phía Nam Việt Nam xuất hiện loài rùa biển xinh đẹp tuổi thọ lên đến trăm năm và được xem là điềm lành may mắn</a>
                             </div>
                         </div>
-                        <div class="post-content" data-aos="flip-up" data-aos-delay="400">
-                            <div class="post-image">
-                                <div>
-                                    <img src="./assets/tacke.jpg" class="img" alt="blog1">
-                                </div>
-                                <div class="post-info flex-row">
-                                    <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14,
-                                        2019</span>
-                                    <span>200 Commets</span>
-                                </div>
-                            </div>
-                            <div class="post-title">
-                                <a href="#">Vùng biển phía Nam Việt Nam xuất hiện loài rùa biển xinh đẹp tuổi thọ lên đến trăm năm và được xem là điềm lành may mắn</a>
-                            </div>
-                        </div>
-                        <div class="post-content" data-aos="flip-up" data-aos-delay="500">
-                            <div class="post-image">
-                                <div>
-                                    <img src="./assets/ech.jpg" class="img" alt="blog1">
-                                </div>
-                                <div class="post-info flex-row">
-                                    <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14,
-                                        2023</span>
-                                    <span>2 Commets</span>
-                                </div>
-                            </div>
-                            <div class="post-title">
-                                <a href="#">Vùng biển phía Nam Việt Nam xuất hiện loài rùa biển xinh đẹp tuổi thọ lên đến trăm năm và được xem là điềm lành may mắn</a>
-                            </div>
-                        </div>
-                        <div class="post-content" data-aos="flip-up" data-aos-delay="600">
-                            <div class="post-image">
-                                <div>
-                                    <img src="./assets/cao1.jpg" class="img" alt="blog1">
-                                </div>
-                                <div class="post-info flex-row">
-                                    <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14,
-                                        2019</span>
-                                    <span>2 Commets</span>
-                                </div>
-                            </div>
-                            <div class="post-title">
-                                <a href="#">Vùng biển phía Nam Việt Nam xuất hiện loài rùa biển xinh đẹp tuổi thọ lên đến trăm năm và được xem là điềm lành may mắn</a>
-                            </div>
-                        </div>
-                    </div>
+           
                     <div class="newsletter" data-aos="fade-up" data-aos-delay="300">
                         <h2>Newsletter</h2>
                         <div class="form-element">

@@ -4,7 +4,10 @@ const express = require('express');
 const Blog = require('../models/Blog');
 const router = express.Router();
 const multer = require('multer');
+const User = require('../models/usermodel');
+const BlogControllers = require('../controllers/blogControllers')
 const path = require('path');
+const { get } = require('http');
 //define storage for the images
 const storage = multer.memoryStorage();
 // const storage = multer.diskStorage({
@@ -31,25 +34,13 @@ const upload = multer({
   },
 });
 
-router.get('/new', (request, response) => {
-  response.render('new');
-});
+
 // router.get('/index', (request, response) => {
 //   response.render('../font-users/index');
 // });
 //view route
-router.get('/:slug', async (request, response) => {
-  let blog = await Blog.findOne({ slug: request.params.slug });
-
-  if (blog) {
-    response.render('../font-users/single-standard', { blog: blog });
-  } else {
-    response.redirect('/');
-  }
-});
-router.get('/login', (req, res) => {
-  res.render('font-users/login');
-});
+router.get('/:slug', BlogControllers.getBlog);
+router.get('/login', BlogControllers.getLogin);
 
 
 // router.get('/upload-video', (req, res) => {
@@ -114,68 +105,17 @@ router.get('/login', (req, res) => {
 //   }
 // });
 
-router.post('/', upload.fields([{ name: 'image', maxCount: 1 }, { name: 'video', maxCount: 1 }]), async (req, res) => {
-  try {
-    const { title, author,introduction, description,tags } = req.body;
-    const imageFile = req.files['image'];
-    const videoFile = req.files['video'];
-    
-    const newBlog = new Blog({
-      title,
-      author,
-      introduction,
-      description,
-      tags: tags.split(',').map(tag => tag.trim()).join(', '),
-    });
+router.get('/new/:id', BlogControllers.getNewBlog);
 
-    if (imageFile && imageFile[0]) {
-      console.log('Image buffer size:', imageFile[0].buffer.length);
-      newBlog.img = {
-        data: imageFile[0].buffer,
-        contentType: imageFile[0].mimetype,
-      };
-    }
-    
-    if (videoFile && videoFile[0]) {
-      console.log('Video buffer size:', videoFile[0].buffer.length);
-      newBlog.video = {
-        data: videoFile[0].buffer,
-        contentType: videoFile[0].mimetype,
-      };
-    }
 
-    await newBlog.save();
-    res.redirect(`/blogs/${newBlog.slug}`);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Error uploading data.');
-  }
-});
+router.post('/new/:id', upload.fields([{ name: 'image', maxCount: 1 }, { name: 'video', maxCount: 1 }]), BlogControllers.postNewBlog);
 // 
 
 
 
 
 //route to handle updates
-router.put('/:id', async (request, response) => {
-  request.blog = await Blog.findById(request.params.id);
-  let blog = request.blog;
-  blog.title = request.body.title;
-  blog.author = request.body.author;
-  blog.introduction = request.body.introduction;
-  blog.description = request.body.description;
-  blog.img= request.body.img;
-  blog.video = request.body.video;
-  blog.tags = request.body.tags
-  try {
-    blog = await blog.save();
-    //redirect to the view route
-    response.redirect(`/blogs/${blog.slug}`);
-  } catch (error) {
-    console.log(error);
-    response.redirect(`/seblogs/edit/${blog.id}`, { blog: blog });
-  }
-});
+router.put('/edit/:id', BlogControllers.putEditBlog);
 // router.get('/videos', async (req, res) => {
 //   try {
 //     const videos = await Video.find();
@@ -189,5 +129,40 @@ router.put('/:id', async (request, response) => {
 //   await Blog.findByIdAndDelete(request.params.id);
 //   response.redirect('/');
 // });
+router.get('/api/posts', async (req, res) => {
+  try {
+    const pageNumber = req.query.page;
+    const postsPerPage = 3; // Hoặc bất kỳ số lượng bạn muốn
+
+    const startIndex = (pageNumber - 1) * postsPerPage;
+    const endIndex = startIndex + postsPerPage;
+
+    const blogs = await Blog.find().sort({ createdAt: 'desc' });
+    const paginatedBlogs = blogs.slice(startIndex, endIndex);
+
+    res.json({ blogs: paginatedBlogs });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+router.post('/search', BlogControllers.search);
+
+router.get('/:id/category/1', BlogControllers.category1);
+
+router.get('/:id/category/2', BlogControllers.category2);
+
+router.get('/:id/category/3', BlogControllers.category3);
+
+router.get('/:id/category/4', BlogControllers.category4);
+
+router.get('/:id/category/5', BlogControllers.category5);
+
+router.get('/:id/category/6', BlogControllers.category6);
+
+router.get('/:id/category/7', BlogControllers.category7);
+
+router.get('/:id/category/8', BlogControllers.category8);
 
 module.exports = router;

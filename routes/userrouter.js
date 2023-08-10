@@ -2,75 +2,16 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/usermodel');
 const Blog = require('../models/Blog');
+const UserControllers = require('../controllers/userControllers')
 
 // const Article = require('../models/articlemodel')
 
-router.get('/login', (req, res) => {
-  res.render('login');
-});
-
-// router.get('/homeUser', (req, res) => {
-//   res.render('homeUser');
-// });
-
-
-router.post('/login', async (req, res) => {
-  try {
-    //if (req.body.username === "admin" && req.body.password === "admin123") {} // render admin page
-    const user = await User.findOne({ username: req.body.username });
-    console.log('Username:', req.body.username);
-    console.log('Password:', req.body.password);
-    console.log(user);
-    if (user && user.password === req.body.password) {
-      const Blogs = await Blog.find(); // Wait for the articles to be fetched
-      res.render('index', {
-        user: user,
-        blogs: [Blogs]
-      });
-    } else {
-      res.render('login');
-    }
-  } catch (error) {
-    res.send("An error occurred while processing your request");
-  }
-});
-
-router.get('/signup', (req, res) => {
-  res.render('signup');
-});
-
-router.post('/signup', async (req, res) => {
-  const data = {
-    username: req.body.username,
-    password: req.body.password
-  }
-
-  try {
-    const checking = await User.findOne({ username: req.body.username });
-
-    if (checking) {
-      // User already exists, render an error message.
-      res.send("User details already exist.");
-    } else {
-      // User doesn't exist, insert into the database.
-      await User.create(data);
-      // Retrieve the user data again after insertion.
-      const newUser = await User.findOne({ username: req.body.username });
-      // Render the "homeUser.ejs" view with the newly created user data.
-      // const articles = await Article.find(); // Assuming you have an "Article" model
-      res.render('../font-users/main', {
-        user: newUser,
-        // articles: articles
-      });
-    }
-  } catch (error) {
-    // Handle any errors that occur during the process.
-    res.send("Something went wrong.");
-  }
-});
-
-
-
+router.get('/login', UserControllers.getLogin);
+router.get('/index', UserControllers.getIndex);
+router.post('/login', UserControllers.postLogin);
+router.get('/signup', UserControllers.getSignup);
+router.post('/signup', UserControllers.postSignup);
+router.get('/home/:id', UserControllers.getHome);
 
 
 // Define a new GET route for editing the user's profile
@@ -109,5 +50,95 @@ router.post('/signup', async (req, res) => {
 //   }
 // });
 
+router.get('/:id', UserControllers.getProfile);
+router.get('/:id/editProfile', UserControllers.getEditProfile);
+router.post('/:id/editProfile', UserControllers.postEditProfile);
+// router.get('/edit', (request, response) => {
+//     res.render('edit');
+//   })
+// router.post('/:id/myBlogs', async (req, res) => {
+//     try {
+//         const userID = req.body.userID; 
+//         console.log(userID);
+//         const currentUser = await User.findById(userID);
+//         console.log(userID); // Log the userID for debugging
+        
+//         const searchQuery = req.body.search; // Get the search query from the form data
+//         const blogs = await Blog.find({ authorID: userID }).exec();
+        
+
+        
+//         res.render('index', {
+//           user: currentUser,
+//           blogs: blogs
+//         });
+//       } catch (e) {
+//         console.log(e);
+//         res.status(500).send('Error searching for blogs.');
+//       }
+// })
+router.get('/:id/myBlogs', async (req, res) => {
+    try {
+        const userID =  req.params.id;
+        console.log(userID);
+        const currentUser = await User.findById(userID);
+        console.log(userID); // Log the userID for debugging
+        
+        // const searchQuery = req.body.search; // Get the search query from the form data
+        // const blogs = await Blog.find({ authorID: userID }).exec();
+        const Blogs = await Blog.find().sort({ createdAt: 'desc' }).limit(1);
+
+        
+        res.render('MenuUser2', {
+          user: currentUser,
+          blogs: Blogs
+        });
+      } catch (e) {
+        console.log(e);
+        res.status(500).send('Error searching for blogs.');
+      }
+})
+
+router.get('/:userID/editBlogs/:blogID', async (req, res) => {
+    const userID = req.params.userID;
+    console.log(userID);
+    const blogID = req.params.blogID;
+    console.log(blogID );
+    const currentUser = await User.findById(userID);
+    const blog = await Blog.findById(blogID);
+
+    if (currentUser && blog) {
+        res.render('edit', { user: currentUser, blog: blog });
+    } else {
+        res.status(404).send('User or blog not found');
+    }
+});
+
+router.put('/:userID/editBlogs/:blogID', async (req, res) => {
+
+    try {
+        const blogId = req.params.blogID;
+        const updatedData = {
+            title: req.body.title,
+            author: req.body.author,
+            introduction: req.body.introduction,
+            description: req.body.description,
+            img: req.body.img,
+            video: req.body.video,
+            tags: req.body.tags
+        };
+
+        const updatedBlog = await Blog.findByIdAndUpdate(blogId, updatedData, { new: true });
+
+        if (updatedBlog) {
+            res.redirect(`/blogs/${updatedBlog.slug}`);
+        } else {
+            res.status(404).send('Blog not found');
+        }
+    } catch (error) {
+        console.log(error);
+        res.redirect(`/user/${req.params.userID}/editBlogs/${req.params.blogID}`, { blog: req.body });
+    }
+})
 
 module.exports = router;
