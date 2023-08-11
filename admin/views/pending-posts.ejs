@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pending Posts - Admin</title>
+</head>
+<body>
+  <h1>Pending Posts - Admin</h1>
+  <ul>
+    <% if (pendingPosts && pendingPosts.length > 0) { %>
+      <% for (let post of pendingPosts) { %>
+        <li>
+      <li>
+        <h3><%= post.title %></h3>
+        <p><strong>Author:</strong> <%= post.author %></p>
+        <p><strong>Introduction:</strong> <%- post.introduction %></p>
+        <p><strong>Description:</strong> <%- post.description %></p>
+        <p><strong>Tags:</strong> <%- post.Tags %></p>
+        
+        <form method="post" action="/admin/approve-post/<%= post._id %>">
+          <button type="submit">Approve</button>
+        </form>
+      </li>
+      <% } %>
+      <% } else { %>
+        <li>No pending posts.</li>
+      <% } %>
+  </ul>
+  <a href="/user/pending-users">View Pending Users</a>
+  <a href="/admin/Statistics">View Statistics</a>
+</body>
+</html>

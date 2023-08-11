@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pending Users</title>
+</head>
+<body>
+  <h1>Pending Users</h1>
+  <ul>
+    <% pendingUsers.forEach(user => { %>
+      <li>
+        <p>Username: <%= user.username %></p>
+        <p>Email: <%= user.email %></p>
+        <form action="/user/approve-user/<%= user._id %>" method="post">
+          <button type="submit">Approve as VIP</button>
+        </form>
+      </li>
+    <% }); %>
+  </ul>
+</body>
+</html>
