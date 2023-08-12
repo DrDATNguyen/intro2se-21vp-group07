@@ -1,14 +1,35 @@
 const User = require('../models/usermodel');
 const Blog = require('../models/Blog');
+const SearchKeyword = require('../models/SearchKeyword'); // Đảm bảo bạn đã import model SearchKeyword
 
 exports.getBlog = async (request, response) => {
-    let blog = await Blog.findOne({ slug: request.params.slug });
+    let blog = await Blog.findOne({ slug: request.params.slug }).populate({
+      path: 'comments',
+      populate: {
+        path: 'commentBy',
+        model: 'User',
+      },
+    }).exec();
   
     if (blog) {
       response.render('../font-users/single-standard', { blog: blog });
     } else {
       response.redirect('/');
     }
+}
+
+exports.getHome = async(req,res) =>{
+  try{
+    const user = req.session.user;
+    const blogs = await Blog.find().sort({ createdAt: 'desc' });
+    res.render('index', {
+      user: user,
+      blogs: blogs,
+    })
+  }
+  catch(err){
+    console.log(err);
+  }
 }
 
 exports.getLogin = (req, res) => {
@@ -31,6 +52,7 @@ exports.postNewBlog = async (req, res) => {
       const imageFile = req.files['image'];
       const videoFile = req.files['video'];
       const authorID = req.params.id;
+      const price = parceInt(req.body.price);
       
       const newBlog = new Blog({
         title,
@@ -39,6 +61,7 @@ exports.postNewBlog = async (req, res) => {
         description,
         authorID,
         tags: tags.split(',').map(tag => tag.trim()).join(', '),
+        price: price
       });
   
       if (imageFile && imageFile[0]) {
@@ -95,6 +118,9 @@ exports.search = async (req, res) => {
       const searchQuery = req.body.search; // Get the search query from the form data
       const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
       
+       // Cập nhật hoặc tạo mới thông tin từ khóa tìm kiếm
+    await updateSearchKeywords(searchQuery);
+
       res.render('index', {
         user: currentUser,
         blogs: blogs
@@ -107,13 +133,11 @@ exports.search = async (req, res) => {
 
 exports.category1 = async(req,res) =>{
     try {
-      const userID = req.params.id; 
-      const currentUser = await User.findById(userID);
       const searchQuery = 'động vật có vú';
       const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
       
       res.render('index', {
-        user: currentUser,
+        user: req.session.user,
         blogs: blogs
       });
     } catch (e) {
@@ -124,13 +148,11 @@ exports.category1 = async(req,res) =>{
 
 exports.category2 = async(req,res) =>{
     try {
-      const userID = req.params.id; 
-      const currentUser = await User.findById(userID);
       const searchQuery = 'động vật có vỏ';
       const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
       
       res.render('index', {
-        user: currentUser,
+        user: req.session.user,
         blogs: blogs
       });
     } catch (e) {
@@ -141,13 +163,11 @@ exports.category2 = async(req,res) =>{
 
 exports.category3 = async(req,res) =>{
     try {
-      const userID = req.params.id; 
-      const currentUser = await User.findById(userID);
       const searchQuery = 'động vật không có xương sống';
       const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
       
       res.render('index', {
-        user: currentUser,
+        user: req.session.user,
         blogs: blogs
       });
     } catch (e) {
@@ -158,13 +178,11 @@ exports.category3 = async(req,res) =>{
 
 exports.category4 = async(req,res) =>{
     try {
-      const userID = req.params.id; 
-      const currentUser = await User.findById(userID);
       const searchQuery = 'chim';
       const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
       
       res.render('index', {
-        user: currentUser,
+        user: req.session.user,
         blogs: blogs
       });
     } catch (e) {
@@ -175,13 +193,11 @@ exports.category4 = async(req,res) =>{
 
 exports.category5 = async(req,res) =>{
     try {
-      const userID = req.params.id; 
-      const currentUser = await User.findById(userID);
       const searchQuery = 'cá';
       const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
       
       res.render('index', {
-        user: currentUser,
+        user: req.session.user,
         blogs: blogs
       });
     } catch (e) {
@@ -192,13 +208,11 @@ exports.category5 = async(req,res) =>{
 
 exports.category6 = async(req,res) =>{
     try {
-      const userID = req.params.id; 
-      const currentUser = await User.findById(userID);
       const searchQuery = 'lưỡng cư';
       const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
       
       res.render('index', {
-        user: currentUser,
+        user: req.session.user,
         blogs: blogs
       });
     } catch (e) {
@@ -209,13 +223,11 @@ exports.category6 = async(req,res) =>{
 
 exports.category7 = async(req,res) =>{
     try {
-      const userID = req.params.id; 
-      const currentUser = await User.findById(userID);
       const searchQuery = 'côn trùng';
       const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
       
       res.render('index', {
-        user: currentUser,
+        user: req.session.user,
         blogs: blogs
       });
     } catch (e) {
@@ -226,13 +238,11 @@ exports.category7 = async(req,res) =>{
 
 exports.category8 = async(req,res) =>{
     try {
-      const userID = req.params.id; 
-      const currentUser = await User.findById(userID);
       const searchQuery = 'giáp xác';
       const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
       
       res.render('index', {
-        user: currentUser,
+        user: req.session.user,
         blogs: blogs
       });
     } catch (e) {
@@ -241,3 +251,18 @@ exports.category8 = async(req,res) =>{
     }
 }
 
+async function updateSearchKeywords(keyword) {
+  try {
+    const existingKeyword = await SearchKeyword.findOne({ keyword });
+    
+    if (existingKeyword) {
+      existingKeyword.count++;
+      await existingKeyword.save();
+    } else {
+      const newKeyword = new SearchKeyword({ keyword });
+      await newKeyword.save();
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}

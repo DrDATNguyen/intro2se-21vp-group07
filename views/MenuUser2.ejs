@@ -18,7 +18,7 @@
       <link rel="stylesheet" href="/all.css">
       <link rel="stylesheet" href="/fontawesome.css">
       <link rel="stylesheet" href="/fontawesome.min.css">
-      <title>Admin Dashboard Panel</title> 
+      <title>User Board</title> 
      
   </head>
   <body>
@@ -27,12 +27,13 @@
               <!-- <div class="logo-image">
                   <img src="./assets/imagesMenuUser/logo2.png" alt="">
               </div> -->
-              <a href="/user/home/<%= user._id%>">
+              <a href="/user/home">
                   <i class="fa-brands fa-wolf-pack-battalion fa-bounce fa-2xl"></i>
                   <span class="logo_name">Animal World</span>
               </a>
               <!-- <div class="user-link"> -->
-                  <div class="logo-image"><a href="#"><img src="<%= user.avatarimg %>" alt="Avatar Image"></a>
+                    <div class="logo-image"><a href="#"> <img src="data:<%= user.avatarimg.contentType %>;base64,<%= user.avatarimg.data.toString('base64') %>" class="card-img" alt="...">
+                  </a>
                       <div class = "sub-menu-1">
                           <ul>
                           <li>
@@ -41,8 +42,8 @@
                           </button>
                           </li>
                           <li>
-                            <h2>hello <%= user.username %></h2>
-                            <a href="<%= user._id %>/editProfile">
+                        
+                            <a href="/user/<%= user._id %>/editProfile">
                                 <span>Edit profile&nbsp;&nbsp;<i class="fa-solid fa-user"></i></span>
                             </a>
                           </li>
@@ -50,7 +51,7 @@
                       </div>
                   </div>
                   <div class="logo-image">
-                      <h2></h2>
+                    <h2><%= user.username %></h2>
                   </div>
               <!-- </div> -->
           </div>
@@ -65,7 +66,7 @@
                       <i class="uil uil-files-landscapes"></i>
                       <span class="link-name">Bookmark</span>
                   </a></li>
-                  <li><a href="#">
+                  <li><a href="/user/<%= user._id %>/myBlogs">
                       <i class="fa-regular fa-newspaper"></i>
                       <span class="link-name">My articles</span>
                   </a></li>
@@ -221,20 +222,31 @@
                   </div>
               </div>
           </div>
+          <% if(blogs.length<1){%>
+
+            <p class="text-white">No posts yet, create a new one</p>
+
+            <%  } %>
+
+
+            <% blogs.forEach(blog=>{ %>
           <div id="bookmark" class = "bookmark">
+            
               <div class="img">
-                  <img src="/cao1.jpg" class="img" alt="blog1">
+                <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="card-img" alt="...">
       
               </div>
               <div class="post-title">
-                  <a href="#bookmark">Bạn nhìn thấy gì từ đôi mắt đáng thương này? Loài cáo Nam Mỹ đang biến mất dần vì con người
+                  <a href="#bookmark"><%= blog.title %>
                   </a>
-                  <p>Cáo Nam Mỹ được coi là một phần quan trọng của hệ sinh thái rừng nhiệt đới, với vai trò trong việc duy trì sự cân bằng động thực vật và kiểm soát dân số của các loài khác. Tuy nhiên, việc phá hủy môi trường sống của chúng đe dọa sự tồn tại của loài này, khiến chúng mất đi môi trường sống và nguồn thức ăn
+                  <p><%- blog.introduction %>
                   </p>
               </div>
-              <button class ="btn">Edit</button>
+              <!-- <button class ="btn">Edit</button> -->
+             
+                <a href="/user/<%= user._id %>/editBlogs/<%= blog._id %>" ><button class ="btn">Edit</button></a>
           </div>
-          
+          <% }) %>
       </section>
       
       <script src="/fontawesome.js"></script>

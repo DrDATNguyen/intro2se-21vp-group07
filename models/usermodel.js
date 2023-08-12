@@ -5,13 +5,18 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   email: String,
   avatarimg:{
-    type: String,
-    default: '../public/img/avatar.jpg'
-  },
+      data: Buffer,
+      contentType: String,
+    },
   isUservip:{
     type: Boolean,
     default: false
-  }
+  },
+  user_wallet:{
+    type: Number,
+    false: 0
+  },
+  bought_blog:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Blog' }],
 });
 
 const User = mongoose.model('User', userSchema);

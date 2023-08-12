@@ -4549,7 +4549,7 @@ body.search-is-visible {
 }
 
 .bricks-wrapper .featured-grid {
-    width: 50%;
+    width: 100%;
 }
 
 .bricks-wrapper .featured-grid .entry-content {
@@ -4573,13 +4573,13 @@ body.search-is-visible {
     }
     .bricks-wrapper .grid-sizer, 
     .bricks-wrapper .brick {
-        width: 33.33333%;
+        width: 40%;
     }
     .bricks-wrapper .brick {
         padding: 0 var(--gutter-md);
     }
     .bricks-wrapper .featured-grid {
-        width: 66.66667%;
+        width: 100%;
     }
 }
 

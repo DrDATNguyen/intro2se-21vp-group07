@@ -87,11 +87,17 @@
                 <label for="tags" class="text-white">Tags (separated by commas)</label>
                 <input type="text" class="form-control" placeholder="Tags" name="tags">
             </div>
+            <%= if(isUservip){%>
 
-            <!-- <div class="form-group">
-                <label for="video" class="text-white">Upload Video</label>
-                <input type="file" name="video" id="video" class="form-control-file text-white">
-            </div> -->
+            <%=} else {%>
+                <div class="form-group">
+                    <label for="price" class="text-white">Upload Video</label>
+                    <input type="text" name="price" id="price" class="form-control-file text-white" value="0">
+                </div>
+
+            <%=}{%>
+
+            
 
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Save</button>

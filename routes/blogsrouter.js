@@ -109,7 +109,7 @@ router.get('/new/:id', BlogControllers.getNewBlog);
 
 
 router.post('/new/:id', upload.fields([{ name: 'image', maxCount: 1 }, { name: 'video', maxCount: 1 }]), BlogControllers.postNewBlog);
-// 
+router.get('/home', BlogControllers.getHome);
 
 
 
@@ -129,23 +129,84 @@ router.put('/edit/:id', BlogControllers.putEditBlog);
 //   await Blog.findByIdAndDelete(request.params.id);
 //   response.redirect('/');
 // });
+router.get('/api/posts', async (req, res) => {
+  try {
+    const pageNumber = req.query.page;
+    const postsPerPage = 3; // Hoặc bất kỳ số lượng bạn muốn
+
+    const startIndex = (pageNumber - 1) * postsPerPage;
+    const endIndex = startIndex + postsPerPage;
+
+    const blogs = await Blog.find().sort({ createdAt: 'desc' });
+    const paginatedBlogs = blogs.slice(startIndex, endIndex);
+
+    res.json({ blogs: paginatedBlogs });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+router.post('/add-comment/:blogSlug', async (req, res) => {
+  try {
+    const blogSlug = req.params.blogSlug;
+    const content = req.body.content;
+    console.log(req.session.user._id);
+    const blog = await Blog.findOne({ slug: blogSlug }).populate({
+      path: 'comments',
+      populate: {
+        path: 'commentBy',
+        model: 'User',
+      },
+    }).exec();
+    console.log(blog);
+    console.log(blog.comments);
+
+// If you want to access the username of the comment authors
+    blog.comments.forEach(comment => {
+      console.log(comment.commentBy.username);
+    });
+    if (!blog) {
+      return res.status(404).send('Blog not found');
+    }
+
+    const user = await User.findById(req.session.user._id);
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    const newComment = {
+      content: content,
+      createDate: Date.now(),
+      commentBy: user._id
+    };
+
+    blog.comments.push(newComment);
+    await blog.save();
+
+    res.redirect(`/blogs/${blogSlug}`);
+  } catch (error) {
+    console.error('Error adding comment:', error);
+    res.status(500).send('An error occurred while adding a comment');
+  }
+});
 
 router.post('/search', BlogControllers.search);
 
-router.get('/:id/category/1', BlogControllers.category1);
+router.get('/category/1', BlogControllers.category1);
 
-router.get('/:id/category/2', BlogControllers.category2);
+router.get('/category/2', BlogControllers.category2);
 
-router.get('/:id/category/3', BlogControllers.category3);
+router.get('/category/3', BlogControllers.category3);
 
-router.get('/:id/category/4', BlogControllers.category4);
+router.get('/category/4', BlogControllers.category4);
 
-router.get('/:id/category/5', BlogControllers.category5);
+router.get('/category/5', BlogControllers.category5);
 
-router.get('/:id/category/6', BlogControllers.category6);
+router.get('/category/6', BlogControllers.category6);
 
-router.get('/:id/category/7', BlogControllers.category7);
+router.get('/category/7', BlogControllers.category7);
 
-router.get('/:id/category/8', BlogControllers.category8);
+router.get('/category/8', BlogControllers.category8);
 
 module.exports = router;

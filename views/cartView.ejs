@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Cart</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+  <h1>Your Cart</h1>
+
+  <% if (cart && cart.blogs.length > 0) { %>
+    <table class="table table-striped mt-3">
+      <thead>
+        <tr>
+          <th>Blog Title</th>
+          <th>Author</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% cart.blogs.forEach(blog => { %>
+          <tr>
+            <td><%= blog.title %></td>
+            <td><%= blog.author %></td>
+            <td><%= blog.price %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+
+    <form action="/user/buy-from-cart" method="POST">
+      <button type="submit" class="btn btn-primary">Buy All</button>
+    </form>
+  <% } else { %>
+    <p>Your cart is empty.</p>
+  <% } %>
+
+  <a href="/user/home" class="btn btn-secondary mt-3">Go Back</a>
+</div>
+
+</body>
+</html>

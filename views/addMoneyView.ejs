@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Money to Wallet</title>
+</head>
+<body>
+
+<h1>Add Money to Wallet</h1>
+<p>Hello <%= user.username %>, you currently have <%= user.user_wallet %> in your wallet.</p>
+
+<form action="/user/process-add-money" method="POST">
+  <label for="amount">Enter amount to add: </label>
+  <input type="number" step="0.01" name="amount" id="amount" required>
+  <button type="submit">Add Money</button>
+</form>
+
+</body>
+</html>
