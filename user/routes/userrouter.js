@@ -63,6 +63,9 @@ router.get('/home/:id', UserControllers.getHome);
 router.get('/:id', UserControllers.getProfile);
 router.get('/:id/editProfile', UserControllers.getEditProfile);
 router.post('/:id/editProfile',upload.single('image'), UserControllers.postEditProfile);
+router.post('/:idUser/report/:idBlog', UserControllers.reportBlog);
+router.get('/:idUser/report/:idBlog', UserControllers.getReport);
+
 // router.get('/edit', (request, response) => {
 //     res.render('edit');
 //   })

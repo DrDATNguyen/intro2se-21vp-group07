@@ -1,11 +1,37 @@
 const User = require('../models/usermodel');
 const Blog = require('../models/Blog');
+const Report = require('../models/ReportBlogs');
 const fs = require('fs');
 const path = require('path');
 
 exports.getLogin = (req, res) => {
     res.render('login');
 }
+exports.getReport = async (req, res) => {
+  try {
+    const userId = req.params.idUser;
+    const blogId = req.params.idBlog;
+
+    // Sử dụng Promise.all để chờ cả hai lệnh findById hoàn thành
+    const [user, blog] = await Promise.all([
+      User.findById(userId).exec(),
+      Blog.findById(blogId).exec()
+    ]);
+
+    if (!user) {
+      return res.status(404).send('Người dùng không tồn tại');
+    }
+
+    if (!blog) {
+      return res.status(404).send('Bài viết không tồn tại');
+    }
+
+    res.render('report', { user, blog }); // Truyền user và blog vào template
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Lỗi Server Nội Bộ');
+  }
+};
 
 exports.getIndex = (req, res) => {
     res.render('index');
@@ -17,7 +43,7 @@ exports.postLogin = async (req, res) => {
       const user = await User.findOne({ username: req.body.username });
       if (user && user.password === req.body.password) {
         //const Blogs = await Blog.find(); // Wait for the articles to be fetched
-        const Blogs = await Blog.find().sort({ createdAt: 'desc' }).limit(4); // Lấy 3 bài viết mới nhất
+        const Blogs = await Blog.find().sort({ createdAt: 'desc' }); // Lấy 3 bài viết mới nhất
         res.render('index', {
           user: user,
           blogs: Blogs
@@ -167,4 +193,38 @@ exports.postEditProfile = async (req, res) => {
       console.error(err);
       res.status(500).send('Internal Server Error'+ err.message);
   }
-}
+
+};
+exports.reportBlog = async (req, res) => {
+  try {
+    // Tìm người dùng dựa vào ID trong URL
+    const user = await User.findById(req.params.idUser);
+
+    if (!user) {
+      return res.status(404).send('Người dùng không tồn tại');
+    }
+
+    const blogId = req.params.idBlog; // ID của bài viết
+    const userId = user._id; // ID người dùng báo cáo
+    const reportReasons = req.body.reportReasons; // Mảng lý do báo cáo
+    const additionalDescription = req.body.additionalDescription; // Mô tả báo cáo thêm (tùy chọn)
+    // const user = await User.findById(userId);
+    const blog = await Blog.findById(blogId);
+    // Tạo một bản ghi mới trong collection "reports"
+    const report = new Report({
+      user: userId,
+      reportedBy: blog.author, // ID người viết bài
+      blog: blogId,
+      reasons: reportReasons,
+      additionalDescription: additionalDescription
+    });
+
+    await report.save();
+      // Lấy thông tin user và blog từ cơ sở dữ liệu
+    res.render('report', { user, blog }); // Truyền user và blog vào template
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Lỗi Server Nội Bộ');
+  }
+};
+
