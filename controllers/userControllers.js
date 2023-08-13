@@ -65,6 +65,7 @@ exports.postSignup = async (req, res) => {
   const data = {
     username: req.body.username,
     password: req.body.password,
+    email: req.body.email,
   };
 
   try {
@@ -194,6 +195,7 @@ exports.postEditProfile = async (req, res) => {
   }
 
 };
+
 exports.reportBlog = async (req, res) => {
   try {
     // Tìm người dùng dựa vào ID trong URL

@@ -203,7 +203,9 @@
                             <% blog.comments.forEach(comment => { %>
                                 <li class="depth-1 comment">
                                     <div class="comment__avatar">
-                                        <img class="avatar" src="<%= comment.commentBy.avatarimg %>" alt="<%= comment.commentBy.username %>" width="50" height="50">
+                                        <% console.log(comment.commentBy); %>
+                                        <% console.log(comment.commentBy.avatarimg); %>
+                                        <img class="avatar" src="data:<%= comment.commentBy.avatarimg.contentType %>;base64,<%= comment.commentBy.avatarimg.data.toString('base64') %>" alt="..." width="50" height="50">
                                     </div>
                                     <div class="comment__content">
                                         <div class="comment__info">
