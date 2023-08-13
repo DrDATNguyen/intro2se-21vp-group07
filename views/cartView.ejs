@@ -19,15 +19,19 @@
         </tr>
       </thead>
       <tbody>
+        <% let total = 0; %>
         <% cart.blogs.forEach(blog => { %>
           <tr>
             <td><%= blog.title %></td>
             <td><%= blog.author %></td>
             <td><%= blog.price %></td>
           </tr>
+          <% total += blog.price; %>
         <% }); %>
       </tbody>
     </table>
+
+    <p>Total Price: <%= total %></p>
 
     <form action="/user/buy-from-cart" method="POST">
       <button type="submit" class="btn btn-primary">Buy All</button>

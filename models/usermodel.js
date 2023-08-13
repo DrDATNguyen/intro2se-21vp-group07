@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
   },
   user_wallet:{
     type: Number,
-    false: 0
+    default: 0
   },
   bought_blog:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Blog' }],
 });

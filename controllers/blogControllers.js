@@ -53,6 +53,10 @@ exports.postNewBlog = async (req, res) => {
       const videoFile = req.files['video'];
       const authorID = req.params.id;
       const price = parceInt(req.body.price);
+      if(price > 0){
+        isPremium: true;
+      }
+    
       
       const newBlog = new Blog({
         title,
@@ -61,7 +65,8 @@ exports.postNewBlog = async (req, res) => {
         description,
         authorID,
         tags: tags.split(',').map(tag => tag.trim()).join(', '),
-        price: price
+        price: price,
+        isPremium: isPremium
       });
   
       if (imageFile && imageFile[0]) {

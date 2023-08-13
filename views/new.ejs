@@ -87,15 +87,14 @@
                 <label for="tags" class="text-white">Tags (separated by commas)</label>
                 <input type="text" class="form-control" placeholder="Tags" name="tags">
             </div>
-            <%= if(isUservip){%>
+            
 
-            <%=} else {%>
+            <% if(users.isUservip){ %>
                 <div class="form-group">
-                    <label for="price" class="text-white">Upload Video</label>
+                    <label for="price" class="text-white">Price</label>
                     <input type="text" name="price" id="price" class="form-control-file text-white" value="0">
                 </div>
-
-            <%=}{%>
+            <% } %>
 
             
 

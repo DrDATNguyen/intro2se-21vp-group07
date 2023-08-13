@@ -154,9 +154,17 @@ router.put('/:userID/editBlogs/:blogID', async (req, res) => {
     }
 })
 
-router.get('/buy/:blogId', UserControllers.buyPremiumBlog);
+router.get('/buy-premium/:blogId', async(req,res) => {
+    const currentBlog = await Blog.findById(req.params.blogId);
+    res.render('CheckOut', {
+        blog: currentBlog,
+    });
+});
+
+router.post('/buy-premium/:blogId', UserControllers.buyPremiumBlog);
 router.get('/add-to-cart/:blogId', UserControllers.addToCart);
 router.get('/cart', UserControllers.viewCart);
+
 router.get('/add-money', UserControllers.addMoneyToWallet);
 router.post('/process-add-money', UserControllers.processAddMoney);
 

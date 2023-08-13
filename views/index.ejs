@@ -157,7 +157,7 @@
 
                                     </div> <!-- f-slide -->
                                 </div> <!-- featured-post-slide -->
-                                <% if(blogs.length<1){%>
+                                <% if(blogs.length<1) {%>
 
                                     <p class="text-white">No posts yet, create a new one</p>
                         
@@ -214,45 +214,121 @@
 
                         <p class="text-white">No posts yet, create a new one</p>
             
-                        <%  } %>
+                    <%  } else{ %>
             
-            
+                            
                         <% blogs.forEach(blog=>{ %>
-                    <article class="brick entry format-standard animate-this">
-        
-                        <div class="entry__thumb">
-                            <a href="/blogs/<%=blog.slug %>" class="thumb-link">
-                                <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="card-img" alt="...">
+                            <% if (blog.isPremium) { %> // nếu là bài viết premium
+                                <% if (user.isUservip || user.bought_blog.some(boughtId => boughtId.toString() === blog._id.toString())) { %> 
+                                    <article class="brick entry format-standard animate-this">
+                        
+                                        <div class="entry__thumb">
+                                            <a href="/blogs/<%=blog.slug %>" class="thumb-link">
+                                                <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="card-img" alt="...">
 
-                                    <!-- `srcset` để định nghĩa các biến thể của hình ảnh với kích thước khác nhau -->
-                            </a>
-                        </div> <!-- end entry__thumb -->
-        
-                        <div class="entry__text">
-                            <div class="entry__header">
-        
-                                <div class="entry__meta">
-                                    <span class="entry__cat-links">
-                                        <%= blog.author %>
+                                                    <!-- `srcset` để định nghĩa các biến thể của hình ảnh với kích thước khác nhau -->
+                                            </a>
+                                        </div> <!-- end entry__thumb -->
+                        
+                                        <div class="entry__text">
+                                            <div class="entry__header">
+                        
+                                                <div class="entry__meta">
+                                                    <span class="entry__cat-links">
+                                                        <%= blog.author %>
 
-                                    </span>
-                                </div>
-        
-                                <h1 class="entry__title"><a href="/blogs/<%=blog.slug %>"><%= blog.title %></a></h1>
-                                
-                            </div>
-                            <div class="entry__excerpt">
-                                <p>
-                                    <%- blog.introduction %>
-                                </p>
-                            </div>
-                            <a href="/user/<%= user._id %>/report/<%= blog._id %>">Report</a> 
+                                                    </span>
+                                                </div>
+                        
+                                                <h1 class="entry__title"><a href="/blogs/<%=blog.slug %>"><%= blog.title %></a></h1>
+                                                
+                                            </div>
+                                            <div class="entry__excerpt">
+                                                <p>
+                                                    <%- blog.introduction %>
+                                                </p>
+                                            </div>
+                                            
+                                                <!-- <a href="/user/buy/<%= blog._id %>" class="buy-button">Buy </a>
+                                                <a href="/user/add-to-cart/<%= blog._id %>" class="add-to-cart-button">Add to Cart </a> -->
+                                                <a href="/user/<%= user._id %>/report/<%= blog._id %>">Report</a> 
+                                                    
+                                        </div> <!-- end entry__text -->
+                                    </article> <!-- end entry -->
+                                <% } else { %>   
+                                    <article class="brick entry format-standard animate-this">
+                        
+                                        <div class="entry__thumb">
+                                            <a href="/user/buy-premium/<%= blog._id %>" class="thumb-link">
+                                                <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="card-img" alt="...">
 
-                        </div> <!-- end entry__text -->
-        
-                    </article> <!-- end entry -->
-                    <% }) %>
-                    </div>
+                                                    <!-- `srcset` để định nghĩa các biến thể của hình ảnh với kích thước khác nhau -->
+                                            </a>
+                                        </div> <!-- end entry__thumb -->
+                        
+                                        <div class="entry__text">
+                                            <div class="entry__header">
+                        
+                                                <div class="entry__meta">
+                                                    <span class="entry__cat-links">
+                                                        <%= blog.author %>
+
+                                                    </span>
+                                                </div>
+                        
+                                                <h1 class="entry__title"><a href="/user/buy-premium/<%= blog._id %>"><%= blog.title %></a></h1>
+                                                
+                                            </div>
+                                            <div class="entry__excerpt">
+                                                <p>
+                                                    <%- blog.introduction %>
+                                                </p>
+                                            </div>
+                                            
+                                                <a href="/user/buy-premium/<%= blog._id %>" class="buy-button">Buy </a>
+                                                <a href="/user/add-to-cart/<%= blog._id %>" class="add-to-cart-button">Add to Cart </a>
+                                                <a href="/user/<%= user._id %>/report/<%= blog._id %>">Report</a> 
+                                                    
+                                        </div> <!-- end entry__text -->
+                                    </article> <!-- end entry -->
+                                <% } %>
+                            <% } else{ %> 
+                                <article class="brick entry format-standard animate-this">
+                        
+                                    <div class="entry__thumb">
+                                        <a href="/blogs/<%=blog.slug %>" class="thumb-link">
+                                            <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="card-img" alt="...">
+
+                                                <!-- `srcset` để định nghĩa các biến thể của hình ảnh với kích thước khác nhau -->
+                                        </a>
+                                    </div> <!-- end entry__thumb -->
+                    
+                                    <div class="entry__text">
+                                        <div class="entry__header">
+                    
+                                            <div class="entry__meta">
+                                                <span class="entry__cat-links">
+                                                    <%= blog.author %>
+
+                                                </span>
+                                            </div>
+                    
+                                            <h1 class="entry__title"><a href="/blogs/<%=blog.slug %>"><%= blog.title %></a></h1>
+                                            
+                                        </div>
+                                        <div class="entry__excerpt">
+                                            <p>
+                                                <%- blog.introduction %>
+                                            </p>
+                                        </div>
+                                            <a href="/user/<%= user._id %>/report/<%= blog._id %>">Report</a> 
+                                                
+                                    </div> <!-- end entry__text -->
+                                </article> <!-- end entry -->
+                            <% } %>
+                        <% }) %>
+                        </div>
+                    <%  } %>
                     <!-- <div class="blog-list">
                         <% if(blogs.length<1){%>
 

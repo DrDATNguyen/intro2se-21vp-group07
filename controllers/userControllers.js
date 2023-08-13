@@ -4,6 +4,8 @@ const Cart = require('../models/cart')
 const Report = require('../models/ReportBlogs');
 const fs = require('fs');
 const path = require('path');
+const mongoose = require('mongoose');
+
 
 exports.getLogin = (req, res) => {
     res.render('login');
@@ -43,11 +45,9 @@ exports.postLogin = async (req, res) => {
       //if (req.body.username === "admin" && req.body.password === "admin123") {} // render admin page
       const user = await User.findOne({ username: req.body.username });
       if (user && user.password === req.body.password) {
-        console.log(user);
+        
         req.session.user = user;
-        console.log(req.session.user);
-        //const Blogs = await Blog.find(); // Wait for the articles to be fetched
-        res.locals.session = req.session.user;
+        console.log('User logged in:', req.session.user);
         res.redirect('/user/home');
       } else {
         res.render('login');
@@ -238,14 +238,14 @@ exports.buyPremiumBlog = async (req, res) => {
 
     // Assuming user is available in the session
     const user = req.session.user;
-
+    console.log(user);
     if (user.user_wallet < blog.price) {
       return res.status(400).send('Insufficient funds');
     }
 
     user.user_wallet -= blog.price;
     user.bought_blog.push(blog._id);
-    await user.save();
+    await User.findByIdAndUpdate(user._id, user);
 
     res.redirect('/user/home');
   } catch (error) {
@@ -261,21 +261,30 @@ exports.addToCart = async (req, res) => {
       return res.status(404).send('Premium blog not found');
     }
 
-    // Assuming user is available in the session
     const user = req.session.user;
+    if (!user || !user._id) {
+      return res.status(401).send('Unauthorized');
+    }
 
-    let cart = await Cart.findOne({ user: user._id });
+    console.log('User _id:', user._id);
+
+    if (!mongoose.Types.ObjectId.isValid(user._id)) {
+      return res.status(400).send('Invalid user _id');
+    }
+
+    let cart = await Cart.findOne({ user: user._id }).populate('blogs');
+
     if (!cart) {
       cart = new Cart({ user: user._id });
     }
+    if (!cart.blogs.includes(blog.slug)) {
+      cart.blogs.push(blog._id);
+      await cart.save();
+    }
 
-    cart.blogs.push(blog._id);
-    await cart.save();
-
-    res.redirect('/user/home');
+    res.render('cartView',{cart: cart});
   } catch (error) {
     console.error(error);
-    res.status(500).send('Internal Server Error');
   }
 };
 
@@ -283,9 +292,9 @@ exports.viewCart = async (req, res) => {
   try {
     // Assuming user is available in the session
     const user = req.session.user;
-
-    const cart = await Cart.findOne({ user: user._id }).populate('blogs');
-
+    console.log(user);
+    let cart = await Cart.findOne({ user: user._id }).populate('blogs');
+    console.log('Found Cart:', cart);
     res.render('cartView', { cart });
   } catch (error) {
     console.error(error);
@@ -326,7 +335,7 @@ exports.buyFromCart = async (req, res) => {
     cart.blogs = [];
     await cart.save();
 
-    res.redirect('/user/home');
+    res.redirect('/user/cart');
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
