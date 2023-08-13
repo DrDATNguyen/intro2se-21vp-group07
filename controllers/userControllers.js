@@ -256,42 +256,41 @@ exports.buyPremiumBlog = async (req, res) => {
 
 exports.addToCart = async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.blogId);
-    if (!blog || !blog.isPremium) {
-      return res.status(404).send('Premium blog not found');
-    }
+    const userId = req.session.user._id;
+    const blogId = req.params.blogId;
+    Cart.findOneAndUpdate(
+      { user: userId },
+      { $addToSet: { blogs: blogId } },
+      { new: true, upsert: true }
+    )
+      .populate('user')
+      .exec(async (err, cart) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
 
-    const user = req.session.user;
-    if (!user || !user._id) {
-      return res.status(401).send('Unauthorized');
-    }
-
-    console.log('User _id:', user._id);
-
-    if (!mongoose.Types.ObjectId.isValid(user._id)) {
-      return res.status(400).send('Invalid user _id');
-    }
-
-    let cart = await Cart.findOne({ user: user._id }).populate('blogs');
-
-    if (!cart) {
-      cart = new Cart({ user: user._id });
-    }
-    if (!cart.blogs.includes(blog.slug)) {
-      cart.blogs.push(blog._id);
-      await cart.save();
-    }
-
-    res.render('cartView',{cart: cart});
+        if (!cart) {
+          // If cart is null, create a new cart and push the current blog
+          const newCart = new Cart({ user: userId, blogs: [blogId] });
+          await newCart.save();
+          console.log('Created new cart:', newCart);
+          res.render('cartView', { cart: newCart }); // Render with new cart
+        } else {
+          console.log('Updated cart:', cart);
+          res.render('cartView', { cart: cart }); // Render with updated cart
+        }
+      });
   } catch (error) {
     console.error(error);
   }
 };
 
+
 exports.viewCart = async (req, res) => {
   try {
     // Assuming user is available in the session
-    const user = req.session.user;
+    const user = User.findById(req.params.id);
     console.log(user);
     let cart = await Cart.findOne({ user: user._id }).populate('blogs');
     console.log('Found Cart:', cart);
