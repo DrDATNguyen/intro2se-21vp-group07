@@ -287,24 +287,28 @@ exports.addToCart = async (req, res) => {
 };
 
 
-exports.viewCart = async (req, res) => {
-  try {
-    // Assuming user is available in the session
-    const user = User.findById(req.params.id);
-    console.log(user);
-    let cart = await Cart.findOne({ user: user._id }).populate('blogs');
-    console.log('Found Cart:', cart);
-    res.render('cartView', { cart });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error');
-  }
-};
+  exports.viewCart = async (req, res) => {
+    try {
+      // Assuming user is available in the session
+      const user = await User.findById(req.params.id);
+      console.log(user);
+      let cart = await Cart.findOne({ user: user._id }).populate('blogs');
+      console.log('Found Cart:', cart);
+      res.render('cartView', { cart });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+  };
 
 exports.buyFromCart = async (req, res) => {
   try {
     // Assuming user is available in the session
     const user = req.session.user;
+    if (!mongoose.Types.ObjectId.isValid(user._id)) {
+      console.error('Invalid user _id:', user._id);
+      return res.status(500).send('Internal Server Error');
+    }
 
     const cart = await Cart.findOne({ user: user._id }).populate('blogs');
     if (!cart) {
@@ -323,23 +327,49 @@ exports.buyFromCart = async (req, res) => {
     }
 
     // Deduct the total cost from user's wallet
-    user.user_wallet -= totalCost;
-    await user.save();
+    const newWalletAmount = user.user_wallet - totalCost;
+    await User.findByIdAndUpdate(user._id, { $set: { user_wallet: newWalletAmount } });
 
-    // Add blogs from the cart to user's bought_blog array
-    user.bought_blog.push(...cart.blogs);
-    await user.save();
-
+    // Add unique blogs from the cart to user's bought_blog array
+    const uniqueBlogIds = cart.blogs.map(blog => blog._id);
+    await User.updateOne({ _id: user._id }, { $addToSet: { bought_blog: { $each: uniqueBlogIds } } });
+    req.session.user.user_wallet = newWalletAmount;
+    req.session.user.bought_blog = [...req.session.user.bought_blog, ...uniqueBlogIds];
     // Clear the cart
     cart.blogs = [];
     await cart.save();
 
-    res.redirect('/user/cart');
+    res.redirect('/user/home');
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }
 };
+
+exports.removeFromCart = async (req, res) => {
+  try {
+    // Assuming user is available in the session
+    const user = req.session.user;
+  
+  // Find the user's cart and use $pull to remove the specified blog
+  const blogIdToRemove = req.params.blogId;
+  const updatedCart = await Cart.findOneAndUpdate(
+    { user: user._id },
+    { $pull: { blogs: blogIdToRemove } },
+    { new: true }
+  ).populate('blogs');
+  
+  if (!updatedCart) {
+    return res.status(404).send('Cart not found');
+  }
+
+    res.redirect(`/user/cart/${user._id}`); // Redirect back to the cart view
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
 
 exports.addMoneyToWallet = async (req, res) => {
   try {

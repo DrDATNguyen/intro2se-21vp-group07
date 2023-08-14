@@ -164,7 +164,10 @@ router.get('/buy-premium/:blogId', async(req,res) => {
 router.post('/buy-premium/:blogId', UserControllers.buyPremiumBlog);
 router.get('/add-to-cart/:blogId', UserControllers.addToCart);
 router.get('/cart/:id', UserControllers.viewCart);
-router.get('/buy-from-cart', UserControllers.buyFromCart);
+router.post('/buy-from-cart', UserControllers.buyFromCart);
+router.post('/remove-from-cart/:blogId', UserControllers.removeFromCart);
+
+
 
 router.get('/add-money', UserControllers.addMoneyToWallet);
 router.post('/process-add-money', UserControllers.processAddMoney);

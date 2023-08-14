@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'js')));
 app.use(express.static(path.join(__dirname, 'assets')));
 const Visit = require('./models/visit');
 //connect to mongoose
-mongoose.connect('mongodb+srv://datG:Dat123456@cluster0.kgivcxs.mongodb.net/', {
+mongoose.connect('mongodb+srv://khangngo141003:khangminh123@webprojectgroup7.9nvh4ct.mongodb.net', {
   useNewUrlParser: true, useUnifiedTopology: true,
   useCreateIndex: true
 },

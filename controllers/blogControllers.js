@@ -52,9 +52,11 @@ exports.postNewBlog = async (req, res) => {
       const imageFile = req.files['image'];
       const videoFile = req.files['video'];
       const authorID = req.params.id;
-      const price = parceInt(req.body.price);
+      const price = parseInt(req.body.price);
+      console.log(price);
+      let isPremium = false;
       if(price > 0){
-        isPremium: true;
+        isPremium = true;
       }
     
       
@@ -109,7 +111,7 @@ exports.putEditBlog = async (request, response) => {
       response.redirect(`/blogs/${blog.slug}`);
     } catch (error) {
       console.log(error);
-      response.redirect(`/seblogs/edit/${blog.id}`, { blog: blog });
+      response.redirect(`/blogs/edit/${blog.id}`, { blog: blog });
     }
 } 
 

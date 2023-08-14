@@ -96,14 +96,14 @@
                 <a href="/user/cart/<%= user._id%>">Cart</a> 
                 <div class="s-header__search">
                         
-                    <form role="search" method="get" class="s-header__search-form" action="#">
+                    <form role="search" method="get" class="s-header__search-form" action="/blogs/search" method="POST">
                         <label>
-                            <form action="/blogs/search" method="post">
+                            <!-- <form action="/blogs/search" method="post"> -->
                                 <input type="hidden" id="userID" class="userID" name="userID" value="<%= user._id %>">
                                 <span class="hide-content">Search for:</span>
                                 <input type="search" id="search" class="s-header__search-field" placeholder="Type Your Keywords" value="" name="search" title="Search for:" autocomplete="off">
                                 <button type="submit">Search</button>
-                            </form>
+                            <!-- </form> -->
                               
                         </label> 
                         <!-- <input type="submit" class="s-header__search-submit" value="Search"> -->
@@ -218,7 +218,7 @@
             
                             
                         <% blogs.forEach(blog=>{ %>
-                            <% if (blog.isPremium) { %> // nếu là bài viết premium
+                            <% if (blog.isPremium) { %> 
                                 <% if (user.isUservip || user.bought_blog.some(boughtId => boughtId.toString() === blog._id.toString())) { %> 
                                     <article class="brick entry format-standard animate-this">
                         
