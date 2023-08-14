@@ -263,7 +263,7 @@ exports.addToCart = async (req, res) => {
       { $addToSet: { blogs: blogId } },
       { new: true, upsert: true }
     )
-      .populate('user')
+      .populate('blogs')
       .exec(async (err, cart) => {
         if (err) {
           console.error(err);
