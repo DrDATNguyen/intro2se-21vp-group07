@@ -1,6 +1,6 @@
 const express = require('express');
 const session = require('express-session');
-
+var flash = require('connect-flash');
 //bring in mongoose
 const mongoose = require('mongoose');
 
@@ -18,6 +18,7 @@ app.use(session({
   saveUninitialized: true
 }));
 
+app.use(flash());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());

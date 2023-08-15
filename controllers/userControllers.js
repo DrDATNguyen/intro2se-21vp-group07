@@ -44,16 +44,41 @@ exports.postLogin = async (req, res) => {
     try {
       //if (req.body.username === "admin" && req.body.password === "admin123") {} // render admin page
       const user = await User.findOne({ username: req.body.username });
+      if(!user){
+        req.flash('message', 'Cannot find your account');
+        req.flash('title', 'Cannot find your account, create one');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
+      }
       if (user && user.password === req.body.password) {
         
         req.session.user = user;
         console.log('User logged in:', req.session.user);
         res.redirect('/user/home');
       } else {
-        res.render('login');
+        req.flash('message', 'You have entered the wrong password');
+        req.flash('title', 'Wrong Password');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
       }
     } catch (error) {
-      res.send("An error occurred while processing your request");
+      console.log(error);
+      req.flash('message', 'Something went wrong');
+      req.flash('title', 'An error occurred while processing your request');
+      req.flash('href', '/user/login'); 
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
     }
 }
 
@@ -72,31 +97,38 @@ exports.postSignup = async (req, res) => {
     const checking = await User.findOne({ username: req.body.username });
 
     if (checking) {
-      // User already exists, render an error message.
-      res.send("User details already exist.");
+        req.flash('message', 'This user name has been taken, choose another one');
+        req.flash('title', 'This user name has already existed');
+        req.flash('href', '/user/signup'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     } else {
-      // User doesn't exist, insert into the database.
       const defaultAvatarPath = path.join(__dirname,'../assets/profileUserCard.jpg');
 
       data.avatarimg = {
         data: fs.readFileSync(defaultAvatarPath),
-        contentType: 'image/jpeg' // Replace with the actual content type of the image
+        contentType: 'image/jpeg' 
       };
 
       await User.create(data);
-      // Retrieve the user data again after insertion.
       const newUser = await User.findOne({ username: req.body.username });
-      // const Blogs = await Blog.find({ verify: true }).sort({ createdAt: 'desc' }).limit(2);
-      // Render the "login.ejs" view with the newly created user data.
-      // const articles = await Article.find(); // Assuming you have an "Article" model
       res.render('login', {
         user: newUser,
-        // blogs: Blogs
       });
     }
   } catch (error) {
-    // Handle any errors that occur during the process.
-    res.send("Something went wrong."+ error.message);
+        console.log(error);
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
   }
 };
 
@@ -111,24 +143,38 @@ exports.getHome = async(req,res) =>{
   }
   catch(err){
     console.log(err);
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
   }
 }
 
 exports.getProfile = async (req, res) => {
     try {
       const userID = req.params.id;
-      const currentUser = await User.findById(userID); // Await the async function
-      // const blog = await Blog.find()
-      const blog = await Blog.find().sort({ createdAt: 'desc' }).limit(1); // Lấy 3 bài viết mới nhất;
-      console.log(blog);
+      const currentUser = await User.findById(userID); 
+      const blog = await Blog.find().sort({ createdAt: 'desc' }).limit(1); 
 
       res.render('MenuUser2', {
         user: currentUser,
         blogs: blog
       });
+
     } catch (error) {
       console.log(error);
-      res.send("An error occurred while processing your request");
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 }
 
@@ -137,19 +183,43 @@ exports.getEditProfile = async (req, res) => {
       const userId = req.params.id;
       const user = await User.findById(userId);
       if (!user) {
-        // Handle the case where the user is not found
-        return res.status(404).send('User not found');
+        req.flash('message', 'Cannot find your account');
+        req.flash('title', 'Cannot find your account, create one');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
       }
       res.render('ProfileSetting', { user });
     } catch (err) {
-      console.error(err);
-      res.status(500).send('Internal Server Error');
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 }
 
 exports.postEditProfile = async (req, res) => {
   try {
       req.user = await User.findById(req.params.id);
+
+      if (!user) {
+        req.flash('message', 'Cannot find your account');
+        req.flash('title', 'Cannot find your account, create one');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
+      }
+
       let user = req.user;
       const userId = req.params.id;
       const username = req.body.username;
@@ -191,18 +261,31 @@ exports.postEditProfile = async (req, res) => {
       });
   } catch (err) {
       console.error(err);
-      res.status(500).send('Internal Server Error'+ err.message);
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
   }
 
 };
 
 exports.reportBlog = async (req, res) => {
   try {
-    // Tìm người dùng dựa vào ID trong URL
     const user = await User.findById(req.params.idUser);
 
     if (!user) {
-      return res.status(404).send('Người dùng không tồn tại');
+        req.flash('message', 'Cannot find your account');
+        req.flash('title', 'Cannot find your account, create one');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 
     const blogId = req.params.idBlog; // ID của bài viết
@@ -225,7 +308,14 @@ exports.reportBlog = async (req, res) => {
     res.render('report', { user, blog }); // Truyền user và blog vào template
   } catch (error) {
     console.error(error);
-    res.status(500).send('Lỗi Server Nội Bộ');
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
   }
 };
 
@@ -233,14 +323,28 @@ exports.buyPremiumBlog = async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.blogId);
     if (!blog || !blog.isPremium) {
-      return res.status(404).send('Premium blog not found');
+        req.flash('message', 'Premium blog cannot be found');
+        req.flash('title', 'Cannot find your account, create one');
+        req.flash('href', '/user/home'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 
     // Assuming user is available in the session
     const user = req.session.user;
     console.log(user);
     if (user.user_wallet < blog.price) {
-      return res.status(400).send('Insufficient funds');
+      req.flash('message', 'You have no money man ! Sadly. It is not enough to buy this beautiful blog');
+      req.flash('title', 'You are poor');
+      req.flash('href', '/user/home'); 
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
     }
 
     user.user_wallet -= blog.price;
@@ -250,7 +354,14 @@ exports.buyPremiumBlog = async (req, res) => {
     res.redirect('/user/home');
   } catch (error) {
     console.error(error);
-    res.status(500).send('Internal Server Error');
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
   }
 };
 
@@ -267,11 +378,19 @@ exports.addToCart = async (req, res) => {
       .exec(async (err, cart) => {
         if (err) {
           console.error(err);
+          req.flash('message', 'Something went wrong');
+          req.flash('title', 'An error occurred while processing your request');
+          req.flash('href', '/user/login'); 
+          res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+          });
           return;
         }
 
         if (!cart) {
-          // If cart is null, create a new cart and push the current blog
+
           const newCart = new Cart({ user: userId, blogs: [blogId] });
           await newCart.save();
           console.log('Created new cart:', newCart);
@@ -283,6 +402,14 @@ exports.addToCart = async (req, res) => {
       });
   } catch (error) {
     console.error(error);
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
   }
 };
 
@@ -292,12 +419,29 @@ exports.addToCart = async (req, res) => {
       // Assuming user is available in the session
       const user = await User.findById(req.params.id);
       console.log(user);
+      if(!user){
+        req.flash('message', 'Cannot find your account');
+        req.flash('title', 'Cannot find your account, create one');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
+      }
       let cart = await Cart.findOne({ user: user._id }).populate('blogs');
       console.log('Found Cart:', cart);
       res.render('cartView', { cart });
     } catch (error) {
       console.error(error);
-      res.status(500).send('Internal Server Error');
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
   };
 
@@ -306,13 +450,26 @@ exports.buyFromCart = async (req, res) => {
     // Assuming user is available in the session
     const user = req.session.user;
     if (!mongoose.Types.ObjectId.isValid(user._id)) {
-      console.error('Invalid user _id:', user._id);
-      return res.status(500).send('Internal Server Error');
+        req.flash('message', 'Cannot find your account');
+        req.flash('title', 'Cannot find your account, create one');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 
     const cart = await Cart.findOne({ user: user._id }).populate('blogs');
     if (!cart) {
-      return res.status(404).send('Cart not found');
+        req.flash('message', 'Where is your cart ? We dont know either :D Sadly, create another account then :))');
+        req.flash('title', 'Where is your cart ?');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 
     // Calculate total price of the blogs in the cart
@@ -323,7 +480,14 @@ exports.buyFromCart = async (req, res) => {
 
     // Check if user has enough funds in user_wallet
     if (user.user_wallet < totalCost) {
-      return res.status(400).send('Insufficient funds');
+      req.flash('message', 'You have no money man ! Sadly. It is not enough to buy all of this items. Remove some of them or add more to your wallet');
+      req.flash('title', 'You are poor');
+      req.flash('href', '/user/home'); 
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
     }
 
     // Deduct the total cost from user's wallet
@@ -342,7 +506,14 @@ exports.buyFromCart = async (req, res) => {
     res.redirect('/user/home');
   } catch (error) {
     console.error(error);
-    res.status(500).send('Internal Server Error');
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
   }
 };
 
@@ -360,13 +531,27 @@ exports.removeFromCart = async (req, res) => {
   ).populate('blogs');
   
   if (!updatedCart) {
-    return res.status(404).send('Cart not found');
+        req.flash('message', 'Where is your cart ? We dont know either :D Sadly, create another account then :))');
+        req.flash('title', 'Where is your cart ?');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
   }
 
     res.redirect(`/user/cart/${user._id}`); // Redirect back to the cart view
   } catch (error) {
     console.error(error);
-    res.status(500).send('Internal Server Error');
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
   }
 };
 
@@ -374,36 +559,56 @@ exports.removeFromCart = async (req, res) => {
 exports.addMoneyToWallet = async (req, res) => {
   try {
     // Assuming user is available in the session
-    const user = req.session.user;
+    const user = await User.findById(req.params.id);
 
     // Render the add money to wallet form
     res.render('addMoneyView', { user });
   } catch (error) {
     console.error(error);
-    res.status(500).send('Internal Server Error');
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
   }
 };
 
+
 exports.processAddMoney = async (req, res) => {
   try {
-    // Assuming user is available in the session
     const user = req.session.user;
 
-    // Get the amount of money to add from the form data
     const amount = parseFloat(req.body.amount);
 
     if (isNaN(amount) || amount <= 0) {
-      return res.status(400).send('Invalid amount');
+        req.flash('message', 'Wow.... Just wow!!!');
+        req.flash('title', 'You wanna add a negative number to your wallet ?');
+        req.flash('href', '/user/home'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 
-    // Add the amount to user's wallet
-    user.user_wallet += amount;
-    await user.save();
+    // Update the user's wallet with the new amount
+    await User.updateOne({ _id: user._id }, { $inc: { user_wallet: amount } });
 
+    // Redirect back to user's home page
     res.redirect('/user/home');
   } catch (error) {
     console.error(error);
-    res.status(500).send('Internal Server Error');
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
   }
 };
 

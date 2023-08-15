@@ -10,9 +10,10 @@
 
 <form action="/user/process-add-money" method="POST">
   <label for="amount">Enter amount to add: </label>
-  <input type="number" step="0.01" name="amount" id="amount" required>
+  <input type="number" step="10000" min="0" name="amount" id="amount" required>
   <button type="submit">Add Money</button>
 </form>
+<a href="/user/home" class="btn btn-secondary mt-3">Go Back</a>
 
 </body>
 </html>

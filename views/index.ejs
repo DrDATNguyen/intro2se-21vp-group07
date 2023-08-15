@@ -86,6 +86,8 @@
                         
                         <li><a href="about.html" title="">About</a></li>
                         <li><a href="contact.html" title="">Contact</a></li>
+                        <li><a href="/user/cart/<%= user._id%>">Cart </a> </li>
+                        <li><a href="/user/addmoney/<%= user._id%>">Add money to wallet</a></li>
                     </ul> <!-- end header__nav -->
 
                     <a href="#0" title="Close Menu" class="s-header__overlay-close close-mobile-menu">Close</a>
@@ -93,7 +95,8 @@
                 </nav> <!-- end header__nav-wrap -->
                 
                 <a class="s-header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
-                <a href="/user/cart/<%= user._id%>">Cart</a> 
+                
+                 
                 <div class="s-header__search">
                         
                     <form role="search" method="get" class="s-header__search-form" action="/blogs/search" method="POST">
@@ -121,6 +124,7 @@
                 
             <!-- <input type="submit" class="s-header__search-submit" value="Search"> -->
             </div> <!-- end s-header__content -->
+            <a href="/user/logout" class="btn btn-secondary mt-3">Logout</a>
 
         </header> <!-- end header -->
 
@@ -140,23 +144,6 @@
 
                             <div class="featured-post-slider">
                                 
-                                <div class="featured-post-slide">
-                                    <div class="f-slide">
-                                        
-                                        <div class="f-slide__background" style="background-image:url('/images/thumbs/featured/featured-1.jpg');"></div>
-                                        <div class="f-slide__overlay"></div>
-
-                                        <div class="f-slide__content">
-                                            <ul class="f-slide__meta">
-                                                <li>September 06, 2020</li> 
-                                                <li><a href="#" >Naruto Uzumaki</a></li>
-                                            </ul>	
-
-                                            <h1 class="f-slide__title"><a href="single-standard.html" title="">A Practical Guide to a Minimalist Lifestyle.</a></h1> 
-                                        </div>
-
-                                    </div> <!-- f-slide -->
-                                </div> <!-- featured-post-slide -->
                                 <% if(blogs.length<1) {%>
 
                                     <p class="text-white">No posts yet, create a new one</p>

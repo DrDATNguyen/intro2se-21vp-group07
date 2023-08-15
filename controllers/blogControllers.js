@@ -14,7 +14,14 @@ exports.getBlog = async (request, response) => {
     if (blog) {
       response.render('../font-users/single-standard', { blog: blog });
     } else {
-      response.redirect('/');
+        req.flash('message', 'Connot found this blog... why ?');
+        req.flash('title', 'We wonder the same thing, why ?');
+        req.flash('href', '/user/home'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 }
 
@@ -29,11 +36,19 @@ exports.getHome = async(req,res) =>{
   }
   catch(err){
     console.log(err);
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
   }
 }
 
 exports.getLogin = (req, res) => {
-    res.render('font-users/login');
+    res.render('user/login');
 }
 
 exports.getNewBlog = async (request, response) => {
@@ -42,6 +57,16 @@ exports.getNewBlog = async (request, response) => {
     const currentUser = await User.findById(userID);
     if(currentUser){
       console.log(currentUser);
+    }
+    else{
+        req.flash('message', 'You have logged in and still see this error ? Well... Ooops');
+        req.flash('title', 'Who are you');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
     response.render('new', {users: currentUser});
 }
@@ -91,7 +116,14 @@ exports.postNewBlog = async (req, res) => {
       res.redirect(`/blogs/${newBlog.slug}`);
     } catch (error) {
       console.log(error);
-      res.status(500).send('Error uploading data.');
+        req.flash('message', 'Yeah... something that can happen too...');
+        req.flash('title', 'An error occurred while uploading your data');
+        req.flash('href', '/user/home'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 }
 
@@ -111,7 +143,14 @@ exports.putEditBlog = async (request, response) => {
       response.redirect(`/blogs/${blog.slug}`);
     } catch (error) {
       console.log(error);
-      response.redirect(`/blogs/edit/${blog.id}`, { blog: blog });
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/home'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 } 
 
@@ -134,7 +173,14 @@ exports.search = async (req, res) => {
       });
     } catch (e) {
       console.log(e);
-      res.status(500).send('Error searching for blogs.');
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 }
 
@@ -149,7 +195,14 @@ exports.category1 = async(req,res) =>{
       });
     } catch (e) {
       console.log(e);
-      res.status(500).send('Error searching for blogs.');
+      req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 }
 
@@ -164,7 +217,14 @@ exports.category2 = async(req,res) =>{
       });
     } catch (e) {
       console.log(e);
-      res.status(500).send('Error searching for blogs.');
+      req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 }
 
@@ -179,7 +239,14 @@ exports.category3 = async(req,res) =>{
       });
     } catch (e) {
       console.log(e);
-      res.status(500).send('Error searching for blogs.');
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 }
 
@@ -194,7 +261,14 @@ exports.category4 = async(req,res) =>{
       });
     } catch (e) {
       console.log(e);
-      res.status(500).send('Error searching for blogs.');
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 }
 
@@ -209,7 +283,14 @@ exports.category5 = async(req,res) =>{
       });
     } catch (e) {
       console.log(e);
-      res.status(500).send('Error searching for blogs.');
+      req.flash('message', 'Something went wrong');
+      req.flash('title', 'An error occurred while processing your request');
+      req.flash('href', '/user/login'); 
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
     }
 }
 
@@ -224,7 +305,14 @@ exports.category6 = async(req,res) =>{
       });
     } catch (e) {
       console.log(e);
-      res.status(500).send('Error searching for blogs.');
+      req.flash('message', 'Something went wrong');
+      req.flash('title', 'An error occurred while processing your request');
+      req.flash('href', '/user/login'); 
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
     }
 }
 
@@ -239,7 +327,14 @@ exports.category7 = async(req,res) =>{
       });
     } catch (e) {
       console.log(e);
-      res.status(500).send('Error searching for blogs.');
+      req.flash('message', 'Something went wrong');
+      req.flash('title', 'An error occurred while processing your request');
+      req.flash('href', '/user/login'); 
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
     }
 }
 
@@ -254,7 +349,14 @@ exports.category8 = async(req,res) =>{
       });
     } catch (e) {
       console.log(e);
-      res.status(500).send('Error searching for blogs.');
+      req.flash('message', 'Something went wrong');
+      req.flash('title', 'An error occurred while processing your request');
+      req.flash('href', '/user/login'); 
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
     }
 }
 
@@ -271,5 +373,13 @@ async function updateSearchKeywords(keyword) {
     }
   } catch (error) {
     console.error(error);
+    req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
   }
 }
