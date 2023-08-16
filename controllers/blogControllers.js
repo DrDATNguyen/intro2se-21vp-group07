@@ -184,6 +184,75 @@ exports.search = async (req, res) => {
     }
 }
 
+exports.apiPosts = async (req, res) => {
+  try {
+    const pageNumber = req.query.page;
+    const postsPerPage = 3; // Hoặc bất kỳ số lượng bạn muốn
+
+    const startIndex = (pageNumber - 1) * postsPerPage;
+    const endIndex = startIndex + postsPerPage;
+
+    const blogs = await Blog.find().sort({ createdAt: 'desc' });
+    const paginatedBlogs = blogs.slice(startIndex, endIndex);
+
+    res.json({ blogs: paginatedBlogs });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+}
+
+exports.addComment = async (req, res) => {
+  try {
+    const blogSlug = req.params.blogSlug;
+    const content = req.body.content;
+    console.log(req.session.user._id);
+    const blog = await Blog.findOne({ slug: blogSlug }).populate({
+      path: 'comments',
+      populate: {
+        path: 'commentBy',
+        model: 'User',
+      },
+    }).exec();
+    console.log(blog);
+    console.log(blog.comments);
+
+// If you want to access the username of the comment authors
+    blog.comments.forEach(comment => {
+      console.log(comment.commentBy.username);
+    });
+    if (!blog) {
+        req.flash('message', 'This comments section is bugged. So... oops');
+        req.flash('title', 'Just read next time :D');
+        req.flash('href', '/user/home'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
+    }
+
+    const user = await User.findById(req.session.user._id);
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    const newComment = {
+      content: content,
+      createDate: Date.now(),
+      commentBy: user._id
+    };
+
+    blog.comments.push(newComment);
+    await blog.save();
+
+    res.redirect(`/blogs/${blogSlug}`);
+  } catch (error) {
+    console.error('Error adding comment:', error);
+    res.status(500).send('An error occurred while adding a comment');
+  }
+}
+
 exports.category1 = async(req,res) =>{
     try {
       const searchQuery = 'động vật có vú';
@@ -217,7 +286,7 @@ exports.category2 = async(req,res) =>{
       });
     } catch (e) {
       console.log(e);
-      req.flash('message', 'Something went wrong');
+        req.flash('message', 'Something went wrong');
         req.flash('title', 'An error occurred while processing your request');
         req.flash('href', '/user/login'); 
         res.render('error', {

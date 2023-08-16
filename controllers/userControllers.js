@@ -22,11 +22,25 @@ exports.getReport = async (req, res) => {
     ]);
 
     if (!user) {
-      return res.status(404).send('Người dùng không tồn tại');
+        req.flash('message', 'Cannot find your account');
+        req.flash('title', 'Cannot find your account, create one');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 
     if (!blog) {
-      return res.status(404).send('Bài viết không tồn tại');
+      req.flash('message', 'This blog cannot be found');
+        req.flash('title', 'Cannot find the id of this blog, try again next time');
+        req.flash('href', '/user/home'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 
     res.render('report', { user, blog }); // Truyền user và blog vào template
@@ -82,6 +96,12 @@ exports.postLogin = async (req, res) => {
     }
 }
 
+exports.logOut = (req,res) =>{
+  req.session.destroy(() => {
+      res.redirect('/user/login');
+  });
+}
+
 exports.getSignup = (req, res) => {
     res.render('signup');
 }
@@ -131,6 +151,71 @@ exports.postSignup = async (req, res) => {
         });
   }
 };
+
+exports.postForgetEmail = async (req,res) =>{
+  try{
+      const forget = req.body.ForgetEmail;
+      const forgetUsername = req.body.ForgetUsername
+      const user = await User.findOne({ email: forget, username: forgetUsername });
+      if (user) {
+          console.log(user._id);
+          res.render('resetpassword',{
+              user: user,
+          });
+      } else {
+          req.flash('message', 'Cannot find your account');
+          req.flash('title', 'Cannot find your account, create one');
+          req.flash('href', '/user/login');
+          res.render('error', {
+              message: req.flash('message'),
+              title: req.flash('title'),
+              href: req.flash('href')
+          });
+      }
+  } catch (err) {
+      console.log(err);
+      req.flash('message', 'An error occurred');
+      req.flash('title', 'Error');
+      req.flash('href', '/user/login');
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
+  }
+}
+
+exports.getForgetEmail = (req,res) =>{
+  res.render('forgetpassword1');
+}
+
+exports.postResetPassword = async (req,res) =>{
+  try{
+      let user = await User.findById(req.params.id);
+      if(!user){
+              req.flash('message', 'Cannot find your account');
+              req.flash('title', 'Cannot find your account, create one');
+              req.flash('href', '/user/login');
+              res.render('error', {
+                  message: req.flash('message'),
+                  title: req.flash('title'),
+                  href: req.flash('href')
+              });
+      }
+      user = await User.findByIdAndUpdate(user._id,{password: req.body.ForgetPassword});
+      res.redirect('/user/login');
+  }
+  catch(err){
+      req.flash('message', 'An error occurred');
+      req.flash('title', 'Error');
+      req.flash('href', '/user/login');
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
+  }
+}
 
 exports.getHome = async(req,res) =>{
   try{
@@ -318,6 +403,102 @@ exports.reportBlog = async (req, res) => {
         });
   }
 };
+
+exports.getMyBlog = async (req, res) => {
+  try {
+      const userID =  req.params.id;
+      console.log(userID);
+      const currentUser = await User.findById(userID);
+      console.log(userID); // Log the userID for debugging
+      
+      // const searchQuery = req.body.search; // Get the search query from the form data
+      // const blogs = await Blog.find({ authorID: userID }).exec();
+      const Blogs = await Blog.find().sort({ createdAt: 'desc' }).limit(1);
+
+      
+      res.render('MenuUser2', {
+        user: currentUser,
+        blogs: Blogs
+      });
+    } catch (e) {
+      console.log(e);
+      req.flash('message', 'Something went wrong');
+      req.flash('title', 'An error occurred while processing your request');
+      req.flash('href', '/user/login'); 
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
+    }
+}
+
+exports.userEditBlog = async (req, res) => {
+  const userID = req.params.userID;
+  console.log(userID);
+  const blogID = req.params.blogID;
+  console.log(blogID );
+  const currentUser = await User.findById(userID);
+  const blog = await Blog.findById(blogID);
+
+  if (currentUser && blog) {
+      res.render('edit', { user: currentUser, blog: blog });
+  } else {
+      req.flash('message', 'User or blog cannot be found. Well... just to be sure, get back to login man');
+      req.flash('title', 'Where is my blog');
+      req.flash('href', '/user/login'); 
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
+  }
+}
+
+exports.putUserEditBlog = async (req, res) => {
+
+  try {
+      const blogId = req.params.blogID;
+      const updatedData = {
+          title: req.body.title,
+          author: req.body.author,
+          introduction: req.body.introduction,
+          description: req.body.description,
+          img: req.body.img,
+          video: req.body.video,
+          tags: req.body.tags
+      };
+
+      const updatedBlog = await Blog.findByIdAndUpdate(blogId, updatedData, { new: true });
+
+      if (updatedBlog) {
+          res.redirect(`/blogs/${updatedBlog.slug}`);
+      } else {
+          res.status(404).send('Blog not found');
+      }
+  } catch (error) {
+      console.log(error);
+      res.redirect(`/user/${req.params.userID}/editBlogs/${req.params.blogID}`, { blog: req.body });
+  }
+}
+
+exports.getPremiumBlog = async(req,res) => {
+  const currentBlog = await Blog.findById(req.params.blogId);
+  console.log(currentBlog);
+  if(!currentBlog){
+      req.flash('message', 'We dont know man, we actually dont know');
+      req.flash('title', 'Where is my blog');
+      req.flash('href', '/user/home'); 
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
+  }
+  res.render('CheckOut', {
+      blog: currentBlog,
+  });
+}
 
 exports.buyPremiumBlog = async (req, res) => {
   try {

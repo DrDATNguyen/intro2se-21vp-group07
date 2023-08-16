@@ -94,6 +94,12 @@
                     <label for="price" class="text-white">Price</label>
                     <input type="text" name="price" id="price" class="form-control-file text-black" value="0">
                 </div>
+            <% } else { %>
+                <div class="form-group">
+                    <label for="price" class="text-white">Price</label>
+                    <input type="hidden" name="price" id="price" class="form-control-file text-black" value="0">
+                </div>
+
             <% } %>
 
             
