@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Trang chủ</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+        #no-hover:hover {
+            background: none;
+        }
+
+        .bg-seen,
+        .bg-unseen {
+            border-top: 1px solid #0000001a;
+        }
+
+        #list-noti>div:first-child,
+        #list-noti-admin>div:first-child {
+            border-top: none;
+        }
+
+        .active-noti {
+            border-bottom: 2px solid #18A0FB !important;
+            border-radius: inherit !important;
+            background: #fff !important;
+            color: #18A0FB !important;
+        }
+
+        @media (max-width: 482.98px) {
+            .noti-mb {
+                width: 100vw !important;
+            }
+        }
+
+        .bg-seen-admin {
+            display: none;
+        }
+        
+        table tr th:nth-child(2), table tr td:nth-child(2){
+            width: 200px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="container">
+            <button class="sidebar-toggle hamburger hamburger--slider" id="sidebar-toggle">
+                <span class="hamburger-box d-block">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </button>
+            <div class="header-account dropdown">
+                <div class="row">
+                    <div class="col">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
+                            style="padding-right: 1.2125rem">
+
+                            <img class="dropdown-avatar rounded-circle img-fluid"
+                                src="../images/avatar.png" alt="">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" style="border-bottom: 1px solid #DFDFDF;">
+                                <div class="fs-14px fw-6">Administrator</div>
+                                <div class="fw-4 fs-12px" style="color:#8C8C8C ;">Admin</div>
+                            </a>
+
+                            <a class="dropdown-item" href="#">
+                                <svg class="iconsvg-cube nav-icon" style="margin-right: 15px; font-size: 1.5rem;">
+                                    <use xlink:href="/images/sprite.svg#user"></use>
+                                </svg>
+                                <span class="nav-text">My Profile</span>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <svg class="iconsvg-cube nav-icon" style="margin-right: 15px; font-size: 1.5rem;">
+                                    <use xlink:href="/images/sprite.svg#bell1"></use>
+                                </svg>
+                                <span class="nav-text">Notification</span>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <svg class="iconsvg-cube nav-icon" style="margin-right: 15px; font-size: 1.5rem;">
+                                    <use xlink:href="/images/sprite.svg#phone"></use>logout1
+                                </svg>
+                                <span class="nav-text">Help &amp; Support</span>
+                            </a>
+                            <a class="dropdown-item" href="#modal-logout" data-bs-toggle="modal">
+                                <svg class="iconsvg-cube nav-icon" style="margin-right: 15px; font-size: 1.5rem;">
+                                    <use xlink:href="/images/sprite.svg#logout1"></use>
+                                </svg>
+                                <span class="nav-text">Logout</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar" id="sidebar">
+            <button class="sidebar-close" id="sidebar-close" type="button" aria-label="Close">
+                <i class="icont-close"></i>
+            </button>
+            <ul class="sidebar-nav nav flex-column mb-2">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/admin/dashboard.html">
+                        <svg class="iconsvg-cube nav-icon">
+                            <use xlink:href="/images/sprite.svg#home"></use>
+                        </svg>
+                        <span class="nav-text">Trang chủ</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/account-management.html">
+                        <svg class="iconsvg-cloud-minus nav-icon">
+                            <use xlink:href="/images/sprite.svg#user-circle"></use>
+                        </svg>
+                        <span class="nav-text">Quản lý người dùng</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/posts-management.html">
+                        <svg class="iconsvg-database nav-icon">
+                            <use xlink:href="/images/sprite.svg#comment-line"></use>
+                        </svg>
+                        <span class="nav-text">Quản lý bài viết</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/content-management.html">
+                        <svg class="iconsvg-at nav-icon">
+                            <use xlink:href="/images/sprite.svg#paper"></use>
+                        </svg>
+                        <span class="nav-text">Quản lý nội dung</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="page-main">
+            <div id="snackbar"></div>
+            <div class="container">
+                <div class="row gx-20px gy-12pxl">
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <section class="box">
+                            <div class="box-body text-center pt-4 pb-4 d-flex align-items-center">
+                                <img src="/images/avatar_forums.png" alt="" style="width: 4.75rem; border-radius: 50rem; height: 4.75rem;"/>
+                                <div class="ms-3" style="font-size: 14px; text-align: start;">
+                                    <div class="fs-30px fw-6">123,000</div>
+                                    <div>Total Posts</div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <section class="box">
+                            <div class="box-body text-center pt-4 pb-4 d-flex align-items-center">
+                                <img src="/images/Group 49.png" alt="" style="width: 5rem; height: 5rem;"/>
+                                <div class="ms-3" style="font-size: 14px; text-align: start;">
+                                    <div class="fs-30px fw-6">123,000</div>
+                                    <div>Total Users<div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <section class="box">
+                            <div class="box-body text-center pt-4 pb-4 d-flex align-items-center">
+                                <svg class="iconsvg2-post me-10px" style="font-size: 5rem;">
+                                    <use xlink:href="/images/sprite.svg#previews"></use>
+                                </svg>
+                                <div class="ms-3" style="font-size: 14px; text-align: start;">
+                                    <div class="fs-30px fw-6">123,000</div>
+                                    <div>Total Access<div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <section class="box">
+                            <div class="box-body text-center pt-4 pb-4 d-flex align-items-center">
+                                <img src="/images/sign_in.png" alt="" style="width: 5rem; height: 5rem;"/>
+                                <div class="ms-3" style="font-size: 14px; text-align: start;">
+                                    <div class="fs-30px fw-6">123,000</div>
+                                    <div>Total User Register<div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <section class="box">
+                            <div class="box-body text-center pt-4 pb-4 d-flex align-items-center">
+                                <svg class="iconsvg2-post me-10px" style="font-size: 5rem;">
+                                    <use xlink:href="/images/sprite.svg#comment_new"></use>
+                                </svg>
+                                <div class="ms-3" style="font-size: 14px; text-align: start;">
+                                    <div class="fs-30px fw-6">123,000</div>
+                                    <div>Total Comments<div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <section class="box">
+                            <div class="box-body text-center pt-4 pb-4 d-flex align-items-center">
+                                <svg class="iconsvg2-post me-10px" style="font-size: 5rem;">
+                                    <use xlink:href="/images/sprite.svg#share_new"></use>
+                                </svg>
+                                <div class="ms-3" style="font-size: 14px; text-align: start;">
+                                    <div class="fs-30px fw-6">123,000</div>
+                                    <div>Total Reactions<div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col text-gray-6 mb-3">
+                            <div class="text-muted fs-14px">Thống kê từ khóa tìm kiếm</div>
+                        </div>
+                    </div>
+                    <div class="table-responsive-lg table-responsive-flush">
+                        <div style="width: 100%; overflow: hidden; overflow-x: inherit;">
+                            <div class="table-responsive-inner">
+                                <table class="table-2 table table-bordered table-striped mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Tên từ khóa</th>
+                                            <th scope="col">Số lượt tìm kiếm</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr> 
+                                            <td>Thế giới động vật</td>
+                                            <td>23</td>
+                                        </tr>
+                                        <tr> 
+                                            <td>Thế giới động vật</td>
+                                            <td>23</td>
+                                        </tr>
+                                        <tr> 
+                                            <td>Thế giới động vật</td>
+                                            <td>23</td>
+                                        </tr>
+                                        <tr> 
+                                            <td>Thế giới động vật</td>
+                                            <td>23</td>
+                                        </tr>
+                                        <tr> 
+                                            <td>Thế giới động vật</td>
+                                            <td>23</td>
+                                        </tr>
+                                        <tr> 
+                                            <td>Thế giới động vật</td>
+                                            <td>23</td>
+                                        </tr>
+                                        <tr> 
+                                            <td>Thế giới động vật</td>
+                                            <td>23</td>
+                                        </tr>
+                                        <tr> 
+                                            <td>Thế giới động vật</td>
+                                            <td>23</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+    <div class="modal fade" id="modal-logout" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="width: 360px; margin: auto;">
+            <div class="modal-content form-style-1">
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h3 class="modal-title">Do you wish to log out?</h3>     
+                <div class="row gx-2">
+                    <div class="col-6">
+                        <button class="btn btn-cancel py-12px fs-14px text-white w-100" type="button" data-bs-dismiss="modal">No</button>
+                    </div>
+                    <div class="col-6">
+                        <a href="#">
+                            <button class="btn btn-primary py-12px fs-14px text-white w-100" type="button" data-bs-dismiss="modal">Yes</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../js/bootstrap.bundle.min.js"></script>
+
+</html>
