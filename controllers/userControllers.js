@@ -219,7 +219,7 @@ exports.postResetPassword = async (req,res) =>{
 
 exports.getHome = async(req,res) =>{
   try{
-    const user = req.session.user;
+    const user = await User.findById(req.session.user._id);
     const blogs = await Blog.find().sort({ createdAt: 'desc' });
     res.render('index', {
       user: user,
