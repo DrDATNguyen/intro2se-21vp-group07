@@ -221,6 +221,7 @@ exports.getHome = async(req,res) =>{
   try{
     const user = await User.findById(req.session.user._id);
     const blogs = await Blog.find().sort({ createdAt: 'desc' });
+    req.session.user = user;
     res.render('index', {
       user: user,
       blogs: blogs,
