@@ -58,11 +58,21 @@ const blogSchema = new mongoose.Schema({
     default: false
 },
   comments:[{
-    authorID: String,
-    content: String
-  }]
-
-  
+    content: String,
+    createDate:{
+      type: Date,
+      default: Date.now(),
+    },
+    commentBy:{type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+  }],
+  price: {
+    type: Number,
+    default: 0
+  },
+  likes: {
+    type: Number,
+    default: 0
+  }
 });
 
 (async () => {
@@ -81,4 +91,5 @@ const blogSchema = new mongoose.Schema({
     next();
   });
 });
+
 module.exports = mongoose.model('Blog', blogSchema);

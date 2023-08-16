@@ -21,7 +21,79 @@ router.get('/index', UserControllers.getIndex);
 router.post('/login', UserControllers.postLogin);
 router.get('/signup', UserControllers.getSignup);
 router.post('/signup', UserControllers.postSignup);
-router.get('/home/:id', UserControllers.getHome);
+router.get('/home', UserControllers.getHome);
+router.get('/contact', UserControllers.getContact);
+router.get('/about', UserControllers.getAbout);
+
+router.post('/resetpassword/:id',async (req,res) =>{
+    try{
+        let user = await User.findById(req.params.id);
+        if(!user){
+                req.flash('message', 'Cannot find your account');
+                req.flash('title', 'Cannot find your account, create one');
+                req.flash('href', '/user/login');
+                res.render('error', {
+                    message: req.flash('message'),
+                    title: req.flash('title'),
+                    href: req.flash('href')
+                });
+        }
+        user = await User.findByIdAndUpdate(user._id,{password: req.body.ForgetPassword});
+        res.redirect('/user/login');
+    }
+    catch(err){
+        req.flash('message', 'An error occurred');
+        req.flash('title', 'Error');
+        req.flash('href', '/user/login');
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
+    }
+});
+router.post('/forgetemail', async (req,res) =>{
+    try{
+        const forget = req.body.ForgetEmail;
+        const forgetUsername = req.body.ForgetUsername
+        const user = await User.findOne({ email: forget, username: forgetUsername });
+        if (user) {
+            console.log(user._id);
+            res.render('resetpassword',{
+                user: user,
+            });
+        } else {
+            req.flash('message', 'Cannot find your account');
+            req.flash('title', 'Cannot find your account, create one');
+            req.flash('href', '/user/login');
+            res.render('error', {
+                message: req.flash('message'),
+                title: req.flash('title'),
+                href: req.flash('href')
+            });
+        }
+    } catch (err) {
+        console.log(err);
+        req.flash('message', 'An error occurred');
+        req.flash('title', 'Error');
+        req.flash('href', '/user/login');
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
+    }
+});
+
+router.get('/forgetemail', (req,res) =>{
+    res.render('forgetpassword1');
+});
+
+router.get('/logout',(req,res) =>{
+    req.session.destroy(() => {
+        res.redirect('/user/login');
+    });
+});
 
 
 // Define a new GET route for editing the user's profile
@@ -108,7 +180,14 @@ router.get('/:id/myBlogs', async (req, res) => {
         });
       } catch (e) {
         console.log(e);
-        res.status(500).send('Error searching for blogs.');
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
       }
 })
 
@@ -123,7 +202,14 @@ router.get('/:userID/editBlogs/:blogID', async (req, res) => {
     if (currentUser && blog) {
         res.render('edit', { user: currentUser, blog: blog });
     } else {
-        res.status(404).send('User or blog not found');
+        req.flash('message', 'User or blog cannot be found. Well... just to be sure, get back to login man');
+        req.flash('title', 'Where is my blog');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 });
 
@@ -153,5 +239,33 @@ router.put('/:userID/editBlogs/:blogID', async (req, res) => {
         res.redirect(`/user/${req.params.userID}/editBlogs/${req.params.blogID}`, { blog: req.body });
     }
 })
+
+router.get('/buy-premium/:blogId', async(req,res) => {
+    const currentBlog = await Blog.findById(req.params.blogId);
+    if(currentBlog){
+        req.flash('message', 'We dont know man, we actually dont know');
+        req.flash('title', 'Where is my blog');
+        req.flash('href', '/user/home'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
+    }
+    res.render('CheckOut', {
+        blog: currentBlog,
+    });
+});
+
+router.post('/buy-premium/:blogId', UserControllers.buyPremiumBlog);
+router.get('/add-to-cart/:blogId', UserControllers.addToCart);
+router.get('/cart/:id', UserControllers.viewCart);
+router.post('/buy-from-cart', UserControllers.buyFromCart);
+router.post('/remove-from-cart/:blogId', UserControllers.removeFromCart);
+
+
+router.get('/addmoney/:id', UserControllers.addMoneyToWallet);
+router.post('/process-add-money', UserControllers.processAddMoney);
+
 
 module.exports = router;

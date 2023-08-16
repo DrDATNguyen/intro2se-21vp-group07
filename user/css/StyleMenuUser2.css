@@ -456,11 +456,11 @@ nav.close ~ .dashboard .top{
     background-color: var( --toggle-color);
     transition: var(--tran-05);
     margin-top:5rem;
-    /* overflow: auto; */
+    overflow: auto;
     position: relative;
     transition: all 0.3s ease-in-out;
     /* margin-left: 1rem; */
-    /* display: none; */
+    display: none;
 }
 /* .bookmark > * {
     display: none;

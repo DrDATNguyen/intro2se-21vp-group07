@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Cart</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+  <h1>Your Cart</h1>
+
+  <% if (cart && cart.blogs.length > 0) { %>
+    <table class="table table-striped mt-3">
+      <thead>
+        <tr>
+          <th>Blog Title</th>
+          <th>Author</th>
+          <th>Price</th>
+          <th>Action</th> <!-- New column for Delete button -->
+        </tr>
+      </thead>
+      <tbody>
+        <% let total = 0; %>
+        <% cart.blogs.forEach(blog => { %>
+          <tr>
+            <td><%= blog.title %></td>
+            <td><%= blog.author %></td>
+            <td><%= blog.price %></td>
+            <td>
+              <form action="/user/remove-from-cart/<%= blog._id %>" method="POST">
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+              </form>
+            </td>
+          </tr>
+          <% total += blog.price; %>
+        <% }); %>
+      </tbody>
+    </table>
+
+    <p>Total Price: <%= total %></p>
+
+    <form action="/user/buy-from-cart" method="POST">
+      <button type="submit" class="btn btn-primary">Buy All</button>
+    </form>
+  <% } else { %>
+    <p>Your cart is empty.</p>
+  <% } %>
+
+  <a href="/user/home" class="btn btn-secondary mt-3">Go Back</a>
+</div>
+
+</body>
+</html>

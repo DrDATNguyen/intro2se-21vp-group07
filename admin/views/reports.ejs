@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Reports</title>
+</head>
+<body>
+  <h1>Admin Reports</h1>
+  <ul>
+    <% reports.forEach(report => { %>
+      <li>
+        <a href="/admin/reports/<%= report._id %>">Report <%= report._id %></a>
+      </li>
+    <% }); %>
+  </ul>
+</body>
+</html>

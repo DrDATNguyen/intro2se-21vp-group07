@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Report Detail</title>
+</head>
+<body>
+  <h1>Admin Report Detail</h1>
+  <h2>Report ID: <%= report._id %></h2>
+  <p>Reported By: <%= report.reportedBy %></p>
+  <p>Reported At: <%= report.reportedAt %></p>
+  <p>Blog ID: <%= report.blog._id %></p>
+  <p>Reasons: <%= report.reasons.join(', ') %></p>
+  <p>Additional Description: <%= report.additionalDescription %></p>
+  <a href="/admin/reports">Back to Reports</a>
+</body>
+</html>

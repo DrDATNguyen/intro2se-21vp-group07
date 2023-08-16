@@ -1,5 +1,6 @@
 const express = require('express');
-
+const session = require('express-session');
+var flash = require('connect-flash');
 //bring in mongoose
 const mongoose = require('mongoose');
 
@@ -11,18 +12,28 @@ const Blog = require('./models/Blog');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: true
+}));
+
+app.use(flash());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'css')));
 app.use(express.static(path.join(__dirname, 'js')));
 app.use(express.static(path.join(__dirname, 'assets')));
-const Visit = require('./models/visit')
+const Visit = require('./models/visit');
 //connect to mongoose
 mongoose.connect('mongodb+srv://datG:Dat123456@cluster0.kgivcxs.mongodb.net/', {
   useNewUrlParser: true, useUnifiedTopology: true,
-  // useCreateIndex: true
-})
+  useCreateIndex: true
+},
+() =>{
+  console.log("Connected to MongoDB");
+});
 
 
 //set template engine

@@ -87,11 +87,22 @@
                 <label for="tags" class="text-white">Tags (separated by commas)</label>
                 <input type="text" class="form-control" placeholder="Tags" name="tags">
             </div>
+            
 
-            <!-- <div class="form-group">
-                <label for="video" class="text-white">Upload Video</label>
-                <input type="file" name="video" id="video" class="form-control-file text-white">
-            </div> -->
+            <% if(users.isUservip){ %>
+                <div class="form-group">
+                    <label for="price" class="text-white">Price</label>
+                    <input type="text" name="price" id="price" class="form-control-file text-black" value="0">
+                </div>
+            <% } else { %>
+                <div class="form-group">
+                    <label for="price" class="text-white">Price</label>
+                    <input type="hidden" name="price" id="price" class="form-control-file text-black" value="0">
+                </div>
+
+            <% } %>
+
+            
 
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Save</button>

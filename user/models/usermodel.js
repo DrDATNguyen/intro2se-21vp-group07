@@ -11,7 +11,12 @@ const userSchema = new mongoose.Schema({
   isUservip:{
     type: Boolean,
     default: false
-  }
+  },
+  user_wallet:{
+    type: Number,
+    default: 0
+  },
+  bought_blog:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Blog' }],
 });
 
 const User = mongoose.model('User', userSchema);
