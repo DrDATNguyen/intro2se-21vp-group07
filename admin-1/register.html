@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Register</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+
+body {
+	background: url("../images/b2.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	color: #FFF;
+	font-family: 'Propins', sans-serif;
+	text-align: center;
+}
+
+h2 {
+    font-size: 35px;
+    font-weight: 300;
+    margin-bottom: 30px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+input[type="text"], input[type="password"], input[type="email"]{
+	width: 89%;
+	padding: 15px 10px 15px;
+	font-size: 14px;
+	background: transparent;
+	border: 2px solid #4070f4;
+	outline: none;
+	margin-bottom: 26px;
+	color: #fff;
+	font-family: Poppins, sans-serif;;
+}
+input[type="text"]{
+	background: url("../images/user.png") no-repeat 460px 11px;
+	background-size: 25px;
+}
+input[type="email"] {
+	background: url("../images/e-mail.png") no-repeat 460px 11px;
+	background-size: 25px;
+}
+
+input[type="password"] {
+	background: url("../images/password.png") no-repeat 460px 11px;
+	background-size: 25px;
+}
+
+input[type="submit"] {
+	font-size: 16px;
+	padding: 10px 65px;
+	background-color: #4070f4;
+	color: #FFF;
+	border: none;
+	border-radius: 0px;
+	outline: none;
+	float:none;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #fff;
+    color: #4070f4;
+}
+
+.div-register p {
+    text-align: center;
+    margin-top: 40px;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+}
+
+.div-register p a {
+    color: #fff;
+    font-weight: 600;
+    padding: 8px 20px;
+    border: 1px solid #fff;
+}
+
+.div-register p a span {
+	font-size: 18px;
+}
+
+.div-register p a:hover {
+	color: #4070f4;
+    border: 1px solid #4070f4;
+}
+
+.contact-form1 {
+    padding: 60px 40px;
+    background: rgba(0, 0, 0, 0.5);
+}
+#small-dialog, #small-dialog1, #small-dialog2 {
+    max-width: 555px;
+}
+label.checkbox {
+    display: block;
+    margin: 5px 0px 0px 23px;
+    text-align: left;
+}
+
+label {
+    color: #000;
+    font-size: 15px;
+}
+input[type="checkbox"] {
+    margin: 3px 13px 3px 4px;
+}
+.submit-w3l {
+    margin-top: 30px;
+}
+.content-form h3 {
+    color: #fff;
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 40px;
+    letter-spacing: 4px;
+}
+.form-sub-w3ls input[type="text"],.form-sub-w3ls input[type="password"],.form-sub-w3ls input[type="email"]{
+	border:2px solid #fff;
+}
+.submit-w3l  input[type="submit"] {
+	background:#4070f4;
+	color:#fff;
+}
+.submit-w3l  input[type="submit"]:hover {
+	background:#3baefc;
+}
+@media screen and (max-width: 736px) {
+	h1 {
+		font-size: 40px;
+		margin: 40px auto;
+	}
+	h2 {
+		font-size: 35px;
+	}
+	.div-register p {
+		font-size: 14px;
+	}
+}
+
+@media screen and (max-width: 568px) {
+	h2 {
+		font-size: 30px;
+	}
+	ul.tick {
+		margin-bottom: 20px;
+	}
+	ul.tick li input[type="checkbox"]+label {
+		font-size: 15px;
+	}
+	ul.tick li input[type="checkbox"]+label span:first-child {
+		width: 15px;
+		height: 15px;
+		top: 0;
+		border: 1px solid #EEE;
+	}
+	input[type="submit"] {
+		font-size: 15px;
+		padding: 10px 40px;
+	}
+	.contact-form1 {
+		padding: 60px 33px;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.div-register {
+		text-align: center;
+	}
+	ul.remember {
+		padding-left: 0;
+	}
+	.div-register p {
+		float: left;
+	}
+	input[type="email"] {
+		background: url(../images/e-mail.png) no-repeat 300px 11px;
+		background-size: 23px;
+	}
+	input[type="password"] {
+		background: url(../images/password.png) no-repeat 300px 11px;
+		background-size: 23px;
+	}
+	ul.remember a {
+		margin-right: 5px;
+	}
+	ul.remember li input[type="checkbox"]+label span:first-child{
+		left:5px;
+	}
+	ul.remember li input[type="checkbox"]+label {
+		padding-left: 35px;
+	}
+	input[type="text"] {
+		background: url(../images/user.png) no-repeat 300px 11px;
+		background-size: 25px;
+	}
+}
+
+@media screen and (max-width: 414px) {
+	input[type="email"] {
+		background: url(../images/e-mail.png) no-repeat 255px 11px;
+		background-size: 23px;
+	}
+	input[type="password"] {
+		background: url(../images/password.png) no-repeat 255px 11px;
+		background-size: 23px;
+	}
+	.div-register p {
+		font-size: 13px;
+	}
+	.div-register p a {
+		font-weight: 500;
+		padding: 6px 5px;
+	}
+	
+	input[type="text"] {
+		background: url(../images/user.png) no-repeat 254px 11px;
+		background-size: 25px;
+	}
+	.content-form h3 {
+		font-size: 32px;
+		margin-bottom: 37px;
+		letter-spacing: 4px;
+	}
+	.contact-form1 {
+		padding: 60px 33px;
+	}
+	h2 {
+		font-size: 28px;
+	}
+}
+
+@media screen and (max-width: 384px) {
+	input[type="text"], input[type="password"], input[type="email"] {
+		font-size: 13px;
+	}
+	.contact-form1 {
+		padding: 50px 18px;
+	}
+	h2 {
+		font-size: 26px;
+	}
+}
+@media screen and (max-width: 375px) {
+	.contact-form1 {
+		padding: 60px 14px;
+	}
+	h2 {
+		font-size: 26px;
+	}
+}
+@media screen and (max-width: 320px) {
+	h2 {
+		font-size: 25px;
+	}
+	input[type="email"] {
+		background: url(../images/e-mail.png) no-repeat 230px 11px;
+		background-size: 23px;
+	}
+	input[type="password"] {
+		background: url(../images/password.png) no-repeat 230px 11px;
+		background-size: 23px;
+	}
+	ul.remember li input[type="checkbox"]+label span:first-child {
+		width: 13px;
+		height: 13px;
+		top: 0px;
+		left:56px;
+	}
+	ul.remember li input[type="checkbox"]+label {
+		padding-left: 85px;
+	}
+	ul.remember a {
+		margin-right: 72px;
+		margin-top: 9px;
+	}
+	ul.remember {
+		margin-bottom: 15px;
+	}
+	.div-register p {
+		float: none;
+		text-align: center;
+		font-size: 14px;
+		margin-top: 20px;
+	}
+	.div-register p a,.div-register p a:hover {
+		margin-left: 13px;
+		border: none;
+	}
+	input[type="text"] {
+		background: url(../images/user.png) no-repeat 229px 11px;
+		background-size: 25px;
+	}
+	.contact-form1 {
+		padding: 45px 3px;
+	}
+	.content-form h3 {
+		font-size: 30px;
+		margin-bottom: 30px;
+		letter-spacing: 3px;
+	}
+}
+#small-dialog,#small-dialog1,#small-dialog2{
+	background:transparent;
+	padding: 0;
+	text-align: left;
+	max-width: 650px;
+	margin: 140px auto;
+	position: relative;
+	text-align:center;
+}
+#small-dialog-it,#small-dialog-in,#small-dialog-fr,#small-dialog-sh,#small-dialog-sf,#small-dialog-su,#small-dialog-me,#small-dialog-ch,#small-dialog-pi,#small-dialog-am {
+	background: white;
+	padding:0px;
+	text-align: left;
+	max-width: 450px;
+	margin: 40px auto;
+	position: relative;
+	text-align:center;
+}
+a.play-icon.popup-with-zoom-anim img:hover {
+	opacity: 0.5;
+	transition:0.5s all;
+	-webkit-transition:0.5s all;
+	-o-transition:0.5s all;
+	-moz-transition:0.5s all;
+	-ms-transition:0.5s all;
+}
+.portfolio-items{
+	text-align:center;
+	margin:0 auto;
+}
+.portfolio-items img{
+	width:100%;
+}
+.portfolio-items h4{
+	margin:1em 0;
+	font-size:25px;
+	color:#a63d56;
+}
+.portfolio-items p{
+	text-align:justify;
+}
+
+.login h3,.signup h3{
+	margin:1em 0;
+	color: #a63d56;
+}
+.login input[type="text"],.login input[type="password"]{
+	width:90%;
+	padding:5px;
+	margin:3px 0;
+	border: 1px solid #a63d56;
+	outline: none !important;
+}
+.signup input[type="text"]{
+	width: 44.5%;
+	padding: 5px;
+	margin: 10px 0;
+	outline: none;
+	background: #EBEBEB;
+	border: solid 1px #222;
+}
+.signup input.email[type="text"],.signup input[type="password"]{
+	width: 90%;
+	padding: 5px;
+	margin: 10px 0;
+	outline: none;
+	background: #EBEBEB;
+	border: solid 1px #222;
+}
+.login input[type="submit"],.signup input[type="submit"]{
+	background: #347083;
+	border: 0px;
+	padding: 5px 10px;
+	margin: 10px 10px;
+	outline: none;
+	font-size: 18px;
+	color: #fff;
+	text-transform: uppercase;
+	width: 17%;	
+	-webkit-appearance: none;
+}
+.login input[type="submit"]:hover,.signup input[type="submit"]:hover{
+	background:#163035;
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+}
+@media all and (max-width:667px){
+	.mfp-content iframe {
+		min-height: 235px;
+	}
+}
+@media all and (max-width:640px){
+	.mfp-close {
+		left: 0;
+		top: -38px;
+	}
+}
+@media all and (max-width:480px){
+	.comments-area textarea{
+		height:100px;
+	}
+	.login input[type="submit"], .signup input[type="submit"] {
+		font-size: 14px;
+		width: 20%;
+	}
+	.mfp-close {
+		left: 0;
+	}
+}
+@media all and (max-width:320px){
+	.comments-area span.label,.comments-area span.text-field{
+		float:none;
+		width:100%;
+	}
+	.comments-area span{
+		padding-bottom:3px;
+	}
+	#small-dialog{
+		padding:15px;
+	}
+	.comments-area input[type="text"], .comments-area textarea{
+		width:92%;
+	}
+	.comments-area div{
+		padding:2px 0;
+	}
+	.mfp-content iframe{
+		width:100%;
+		min-height:150px;
+	}
+	.login input[type="submit"], .signup input[type="submit"] {
+		font-size: 12px;
+		width: 29%;
+	}
+	.signup input[type="text"] {
+		width: 90%;
+	}
+} 
+
+</style>
+</head>
+<body>
+	<div id="small-dialog1">
+		<div class="contact-form1">
+			<div class="content-form">
+				<h3>Register Form</h3>
+				<form action="#" method="post">
+						<div class="form-sub-w3ls">
+							<input placeholder="User Name"  type="text" required="">
+							<div class="icon-agile">
+								<i class="fa fa-user" aria-hidden="true"></i>
+							</div>
+						</div>
+						<div class="form-sub-w3ls">
+							<input placeholder="Email" class="mail" type="email" required="">
+							<div class="icon-agile">
+								<i class="fa fa-envelope-o" aria-hidden="true"></i>
+							</div>
+						</div>
+						<div class="form-sub-w3ls">
+							<input placeholder="Password"  type="password" required="">
+							<div class="icon-agile">
+								<i class="fa fa-unlock-alt" aria-hidden="true"></i>
+							</div>
+						</div>
+						<div class="form-sub-w3ls">
+							<input placeholder="Confirm Password"  type="password" required="">
+							<div class="icon-agile">
+								<i class="fa fa-unlock-alt" aria-hidden="true"></i>
+							</div>
+						</div>
+					<div class="submit-w3l">
+						<input type="submit" value="Register">
+					</div>
+				</form>
+			</div>
+		</div>	
+	</div>
+</body>
+
+</html>
