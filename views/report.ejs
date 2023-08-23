@@ -1,33 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Report Blog</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-  <h1>Report Blog</h1>
-  <form action="/user/<%= user._id %>/report/<%= blog._id %>" method="post">
-    <p>Select reasons for reporting:</p>
-    <label>
-      <input type="checkbox" name="reportReasons" value="Violence"> Violence
-    </label><br>
-    <label>
-      <input type="checkbox" name="reportReasons" value="Harassment"> Harassment
-    </label><br>
-    <label>
-      <input type="checkbox" name="reportReasons" value="FalseInformation"> False Information
-    </label><br>
-    <label>
-      <input type="checkbox" name="reportReasons" value="Spam"> Spam
-    </label><br>
-    <label>
-      <input type="checkbox" name="reportReasons" value="IllegalSales"> Illegal Sales
-    </label><br>
-    <label>
-      <input type="checkbox" name="reportReasons" value="Terrorism"> Terrorism
-    </label><br>
-    <p>Additional description (optional):</p>
-    <textarea name="additionalDescription" rows="4" cols="50"></textarea><br>
-    <button type="submit">Submit Report</button>
-  </form>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <h1 class="mt-5">Report Blog</h1>
+        <form action="/user/<%= user._id %>/report/<%= blog._id %>" method="post">
+          <p>Select reasons for reporting:</p>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="reportReasons" value="Violence" id="violenceCheck">
+            <label class="form-check-label" for="violenceCheck">Violence</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="reportReasons" value="Harassment" id="harassmentCheck">
+            <label class="form-check-label" for="harassmentCheck">Harassment</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="reportReasons" value="FalseInformation" id="falseInfoCheck">
+            <label class="form-check-label" for="falseInfoCheck">False Information</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="reportReasons" value="Spam" id="spamCheck">
+            <label class="form-check-label" for="spamCheck">Spam</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="reportReasons" value="IllegalSales" id="illegalSalesCheck">
+            <label class="form-check-label" for="illegalSalesCheck">Illegal Sales</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="reportReasons" value="Terrorism" id="terrorismCheck">
+            <label class="form-check-label" for="terrorismCheck">Terrorism</label>
+          </div>
+          <p>Additional description (optional):</p>
+          <textarea class="form-control" name="additionalDescription" rows="4"></textarea><br>
+          <button class="btn btn-primary" type="submit">Submit Report</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

@@ -17,7 +17,16 @@
         ================================================== -->
         <link rel="stylesheet" href="/styles.css">
         <link rel="stylesheet" href="/vendor.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- <link rel="stylesheet" href="https://fontawesome.com/icons/thumbs-up?f=sharp&s=solid"> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 
+        <!-- Font Awesome Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="/all.css">
+        <link rel="stylesheet" href="/fontawesome.css">
+        <link rel="stylesheet" href="/fontawesome.min.css">
         <!-- script
         ================================================== -->
         <!-- <script src="/modernizr.js"></script> -->
@@ -71,21 +80,12 @@
                                 
                             </ul>
                         </li>
-                        <li class="has-children">
-                            <a href="#0" title="">Blog</a>
-                            <ul class="sub-menu">
-                            <li><a href="single-video.html">Video Post</a></li>
-                            <li><a href="single-audio.html">Audio Post</a></li>
-                            <li><a href="single-gallery.html">Gallery Post</a></li>
-                            <li><a href="single-standard.html">Standard Post</a></li>
-                            </ul>
-                        </li>
                         <li><a href="/blogs/new/<%= user._id %>" title="">New Blog</a></li>
                         <li><a href="/user/<%= user._id %>/myBlogs" title="">My Blog</a></li>
                         <li><a href="/user/<%= user._id %>" title="">Profile</a></li>
                         
-                        <li><a href="about.html" title="">About</a></li>
-                        <li><a href="contact.html" title="">Contact</a></li>
+                        <li><a href="/user/about" title="">About</a></li>
+                        <li><a href="/user/contact" title="">Contact</a></li>
                         <li><a href="/user/cart/<%= user._id%>">Cart </a> </li>
                         <li><a href="/user/addmoney/<%= user._id%>">Add money to wallet</a></li>
                     </ul> <!-- end header__nav -->
@@ -99,19 +99,15 @@
                  
                 <div class="s-header__search">
                         
-                    <form role="search" method="get" class="s-header__search-form" action="/blogs/search" method="POST">
-                        <label>
-                            <!-- <form action="/blogs/search" method="post"> -->
-                                <input type="hidden" id="userID" class="userID" name="userID" value="<%= user._id %>">
-                                <span class="hide-content">Search for:</span>
-                                <input type="search" id="search" class="s-header__search-field" placeholder="Type Your Keywords" value="" name="search" title="Search for:" autocomplete="off">
-                                <button type="submit">Search</button>
-                            <!-- </form> -->
-                              
-                        </label> 
-                        <!-- <input type="submit" class="s-header__search-submit" value="Search"> -->
-
-                    </form>
+                    <label>
+                        <form action="/blogs/search" method="post"class="s-header__search-form">
+                            <input type="hidden" id="userID" class="userID" name="userID" value="<%= user._id %>">
+                            <span class="hide-content">Search for:</span>
+                            <input type="search" id="search" class="s-header__search-field" placeholder="Type Your Keywords" value="" name="search" title="Search for:" autocomplete="off">
+                            <!-- <button type="submit">Search</button> -->
+                        </form>
+                          
+                    </label> 
 
                     <a href="/user/home" title="Close Search" class="s-header__overlay-close">Close</a>
 
@@ -124,17 +120,24 @@
                 
             <!-- <input type="submit" class="s-header__search-submit" value="Search"> -->
             </div> <!-- end s-header__content -->
-            <a href="/user/upgrade/<%= user._id %>" class="btn btn-secondary">Upgrade</a>
-            <a href="/user/logout" class="btn btn-secondary mt-3">Logout</a>
-
+            <a href="/user/logout" class="btn btn-secondary mt-1">Logout</a>
         </header> <!-- end header -->
 
 
         <!-- masonry
         ================================================== -->
-    <h3>hello <%= user.username %></h3>
+ 
         <section class="s-bricks">
-
+            <form action="/blogs/filter/<%= user._id%>" method="POST">
+                <label for="sortBy">Sort By:</label>
+                <select name="sortBy" id="sortBy">
+                  <option value="mostPopular">Most Popular</option>
+                  <option value="leastPopular">Least Popular</option>
+                  <option value="oldest">Oldest</option>
+                  <option value="newest">Newest</option>
+                </select>
+                <button type="submit">Filter</button>
+              </form>
             <div class="masonry">
                 <div class="bricks-wrapper h-group">
     
@@ -155,10 +158,11 @@
                                     <% blogs.forEach(blog=>{ %>
                                 <div class="featured-post-slide">
                                     <div class="f-slide">
-                                        
+                                        <% if (blog.img && blog.img.contentType && blog.img.data) { %>
                                         <div class="f-slide__background">                               
                                             <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="card-img" alt="...">
                                         </div>
+                                        <% } %>
                                         <div class="f-slide__overlay"></div>
 
                                         <div class="f-slide__content">
@@ -209,7 +213,8 @@
                             <% if (blog.isPremium) { %> 
                                 <% if (user.isUservip || user.bought_blog.some(boughtId => boughtId.toString() === blog._id.toString())) { %> 
                                     <article class="brick entry format-standard animate-this">
-                        
+                                        <% if (blog.img && blog.img.contentType && blog.img.data) { %>
+
                                         <div class="entry__thumb">
                                             <a href="/blogs/<%=blog.slug %>" class="thumb-link">
                                                 <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="card-img" alt="...">
@@ -217,7 +222,7 @@
                                                     <!-- `srcset` để định nghĩa các biến thể của hình ảnh với kích thước khác nhau -->
                                             </a>
                                         </div> <!-- end entry__thumb -->
-                        
+                                        <% } %>
                                         <div class="entry__text">
                                             <div class="entry__header">
                         
@@ -240,12 +245,16 @@
                                                 <!-- <a href="/user/buy/<%= blog._id %>" class="buy-button">Buy </a>
                                                 <a href="/user/add-to-cart/<%= blog._id %>" class="add-to-cart-button">Add to Cart </a> -->
                                                 <a href="/user/<%= user._id %>/report/<%= blog._id %>">Report</a> 
-                                                    
+                                                <a href="#" id="likeBtn" data-blogid="<%= blog._id %>" onclick="toggleLike(this)">
+                                                    <span><i class="fas fa-thumbs-up"></i>&nbsp;&nbsp;<%= blog.likes %></span>
+                                                </a>
+                                                                                                    
                                         </div> <!-- end entry__text -->
                                     </article> <!-- end entry -->
                                 <% } else { %>   
                                     <article class="brick entry format-standard animate-this">
-                        
+                                        <% if (blog.img && blog.img.contentType && blog.img.data) { %>
+
                                         <div class="entry__thumb">
                                             <a href="/user/buy-premium/<%= blog._id %>" class="thumb-link">
                                                 <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="card-img" alt="...">
@@ -253,7 +262,7 @@
                                                     <!-- `srcset` để định nghĩa các biến thể của hình ảnh với kích thước khác nhau -->
                                             </a>
                                         </div> <!-- end entry__thumb -->
-                        
+                                        <% } %>
                                         <div class="entry__text">
                                             <div class="entry__header">
                         
@@ -276,13 +285,17 @@
                                                 <a href="/user/buy-premium/<%= blog._id %>" class="buy-button">Buy </a>
                                                 <a href="/user/add-to-cart/<%= blog._id %>" class="add-to-cart-button">Add to Cart </a>
                                                 <a href="/user/<%= user._id %>/report/<%= blog._id %>">Report</a> 
-                                                    
+                                                <!-- <a href="/user/like/<%= blog._id %>/<%= user._id %>"><span><i class="fas fa-thumbs-up"></i></i>&nbsp;&nbsp;<%= blog.likes.length %></span></a> -->
+                                                <a href="#" id="likeBtn-<%= blog._id %>" data-blogid="<%= blog._id %>" data-liked="<%= user && blog.likedBy.includes(user._id.toString()) ? 'true' : 'false' %>" onclick="toggleLike(event, this)">
+                                                    <span><i class="fas fa-thumbs-up"></i>&nbsp;&nbsp;<%= blog.likes %></span>
+                                                </a>
                                         </div> <!-- end entry__text -->
                                     </article> <!-- end entry -->
                                 <% } %>
                             <% } else{ %> 
                                 <article class="brick entry format-standard animate-this">
-                        
+                                    <% if (blog.img && blog.img.contentType && blog.img.data) { %>
+
                                     <div class="entry__thumb">
                                         <a href="/blogs/<%=blog.slug %>" class="thumb-link">
                                             <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="card-img" alt="...">
@@ -290,7 +303,7 @@
                                                 <!-- `srcset` để định nghĩa các biến thể của hình ảnh với kích thước khác nhau -->
                                         </a>
                                     </div> <!-- end entry__thumb -->
-                    
+                                    <% } %>
                                     <div class="entry__text">
                                         <div class="entry__header">
                     
@@ -310,6 +323,9 @@
                                             </p>
                                         </div>
                                             <a href="/user/<%= user._id %>/report/<%= blog._id %>">Report</a> 
+                                            <a href="#" id="likeBtn-<%= blog._id %>" data-blogid="<%= blog._id %>" data-liked="<%= user && blog.likedBy.includes(user._id.toString()) ? 'true' : 'false' %>" onclick="toggleLike(event, this)">
+                                                <span><i class="fas fa-thumbs-up"></i>&nbsp;&nbsp;<%= blog.likes %></span>
+                                            </a>
                                                 
                                     </div> <!-- end entry__text -->
                                 </article> <!-- end entry -->
@@ -317,48 +333,7 @@
                         <% }) %>
                         </div>
                     <%  } %>
-                    <!-- <div class="blog-list">
-                        <% if(blogs.length<1){%>
-
-                            <p class="text-white">No posts yet, create a new one</p>
-                
-                            <%  } else { %>
-                                <% for (let i = 0; i < Math.min(blogs.length, 3); i++) { %>
-                                
-                        <article class="brick entry format-standard animate-this">
-            
-                            <div class="entry__thumb">
-                                <a href="/blogs/<%=blogs[i].slug %>" class="thumb-link">
-                                    <img src="data:<%= blogs[i].img.contentType %>;base64,<%= blogs[i].img.data.toString('base64') %>" class="card-img" alt="...">
-    
-                                        
-                                </a>
-                            </div> 
-            
-                            <div class="entry__text">
-                                <div class="entry__header">
-            
-                                    <div class="entry__meta">
-                                        <span class="entry__cat-links">
-                                            <%= blogs[i].author %>
-    
-                                        </span>
-                                    </div>
-            
-                                    <h1 class="entry__title"><a href="/blogs/<%=blogs[i].slug %>"><%= blogs[i].title %></a></h1>
-                                    
-                                </div>
-                                <div class="entry__excerpt">
-                                    <p>
-                                        <%- blogs[i].introduction %>
-                                    </p>
-                                </div>
-                            </div> 
-            
-                        </article>
-                        <% } %>
-                        <% } %>
-                    </div> -->
+             
             <div class="row">
                 <div class="column large-12">
                     <nav class="pgn">
@@ -479,7 +454,7 @@
     <!-- Java Script
     ================================================== -->
     <input type="hidden" id="blogsData" value="<%= JSON.stringify(blogs) %>">
-
+    
     <script src="/Jquery3.7.0.min.js"></script>
     <script src="/plugins.js"></script>
     <script src="/main.js"></script>

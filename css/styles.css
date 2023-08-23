@@ -5248,6 +5248,9 @@ body.search-is-visible {
     .comment ul.children li {
         margin-top: calc(var(--vspace-1) + 0rem);
     }
+    .container h3{
+        text-align: center;
+    }
 }
 
 @media screen and (max-width: 500px) {
@@ -5263,4 +5266,74 @@ body.search-is-visible {
     .comment-respond form {
         padding-top: var(--vspace-1);
     }
+}
+.blog{
+    /* background: url('../assets/background6.jpg'); */
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+     /* background-size: 65%;  */
+}
+
+.blog .blog-post{
+    padding-top: 6rem;
+}
+
+.blog-content{
+    display: flex;
+    /* sắp xếp các phần tử con của một container theo hướng dọc (theo chiều dọc). Điều này có nghĩa là các phần tử con sẽ được xếp chồng lên nhau từ trên xuống dưới thay vì xếp cạnh nhau theo chiều ngang như mặc định. */
+    flex-direction: column;
+    text-align: center;
+    width: 80%;
+    margin: 3rem 2rem;
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2);
+}
+
+ .blog-content .blog-title{
+    padding: 2rem 0;
+}
+
+ .blog-content .btn-blog{
+    padding: .7rem 2rem;
+    background: var(--color-1-ligh);
+    margin: .5rem;
+}
+
+.blog-content span{
+    display: block;
+}
+.container .owl-nav{
+    /* , phần tử sẽ được di chuyển đến vị trí cụ thể bằng cách sử dụng các thuộc tính "top", "bottom", "left", "right". Vị trí này được tính từ phần tử cha gần nhất mà có thuộc tính "position" không phải "static". Phần tử sẽ không ảnh hưởng đến không gian của các phần tử khác trong văn bản. */
+    position: absolute;
+    top: 0%;
+    margin: 0 auto;
+    width: 100%;
+}
+
+ .owl-prev.owl-prev .owl-nav-prev,
+.owl-nav .owl-next .owl-nav-next{
+    color: black;
+    background: transparent;
+    font-size: 2rem;
+}
+
+/* định nghĩa một hiệu ứng hover cho các phần tử con có lớp chứa từ "owl-" trong một carousel được thiết kế bằng Owl Carousel. 
+
+Cụ thể, khi di chuột hover vào các phần tử đó, nền của chúng sẽ trở nên trong suốt (transparent) và màu chữ sẽ thay đổi thành màu đêm (var(--midnight)).  */
+
+.owl-theme .owl-nav [class*='owl-']:hover{
+    background: transparent;
+    color: black;
+}
+
+/* loại bỏ đường viền (outline) cho các thành phần (elements) có lớp (class) chứa từ "owl-" nằm trong phần tử có lớp "owl-nav" và thuộc giao diện (theme) "owl-theme". */
+.owl-theme .owl-nav [class*='owl-']{
+    outline: none;
+}
+
+
+
+.container h2 {
+    margin-left: 8rem;
 }

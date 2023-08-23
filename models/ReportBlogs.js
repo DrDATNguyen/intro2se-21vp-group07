@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 
 const reportSchema = new mongoose.Schema({
+  // ... các trường khác của bài viết
   reports: [{
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, 
-    reportedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, 
-    reportedAt: { type: Date, default: Date.now }, 
-    reasons: [String], 
-    additionalDescription: String 
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // ID người dùng báo cáo
+    reportedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // ID người dùng báo cáo
+    reportedAt: { type: Date, default: Date.now }, // Thời gian báo cáo
+    reasons: [String], // Lý do báo cáo
+    additionalDescription: String // Mô tả báo cáo thêm (tùy chọn)
   }]
 });
 

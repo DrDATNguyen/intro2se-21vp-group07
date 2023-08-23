@@ -1,7 +1,6 @@
 const express = require('express');
 const session = require('express-session');
 var flash = require('connect-flash');
-const ejs = require('ejs');
 //bring in mongoose
 const mongoose = require('mongoose');
 
@@ -56,7 +55,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // });
 app.get('/', async (request, response) => {
   try {
-    let Blogs = await Blog.find({ verify: true }).sort({ createdAt: 'desc' }).limit(2);
+    let Blogs = await Blog.find({ verify: true }).sort({ createdAt: 'desc' });
 
     response.render('../font-users/main', { blogs: Blogs });
     await createVisit();

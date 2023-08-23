@@ -111,6 +111,9 @@ router.get('/new/:id', BlogControllers.getNewBlog);
 router.post('/new/:id', upload.fields([{ name: 'image', maxCount: 1 }, { name: 'video', maxCount: 1 }]), BlogControllers.postNewBlog);
 router.get('/home', BlogControllers.getHome);
 
+
+
+
 //route to handle updates
 router.put('/edit/:id', BlogControllers.putEditBlog);
 // router.get('/videos', async (req, res) => {
@@ -126,11 +129,90 @@ router.put('/edit/:id', BlogControllers.putEditBlog);
 //   await Blog.findByIdAndDelete(request.params.id);
 //   response.redirect('/');
 // });
-router.get('/api/posts', BlogControllers.apiPosts);
+router.get('/api/posts', async (req, res) => {
+  try {
+    const pageNumber = req.query.page;
+    const postsPerPage = 3; // Hoặc bất kỳ số lượng bạn muốn
 
-router.post('/add-comment/:blogSlug', BlogControllers.addComment);
+    const startIndex = (pageNumber - 1) * postsPerPage;
+    const endIndex = startIndex + postsPerPage;
 
+    const blogs = await Blog.find().sort({ createdAt: 'desc' });
+    const paginatedBlogs = blogs.slice(startIndex, endIndex);
+
+    res.json({ blogs: paginatedBlogs });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+router.post('/add-comment/:blogSlug', async (req, res) => {
+  try {
+    const blogSlug = req.params.blogSlug;
+    const content = req.body.content;
+    console.log(req.session.user._id);
+    const blog = await Blog.findOne({ slug: blogSlug }).populate({
+      path: 'comments',
+      populate: {
+        path: 'commentBy',
+        model: 'User',
+      },
+    }).exec();
+    console.log(blog);
+    console.log(blog.comments);
+
+// If you want to access the username of the comment authors
+    blog.comments.forEach(comment => {
+      console.log(comment.commentBy.username);
+    });
+    if (!blog) {
+      return res.status(404).send('Blog not found');
+    }
+
+    const user = await User.findById(req.session.user._id);
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    const newComment = {
+      content: content,
+      createDate: Date.now(),
+      commentBy: user._id
+    };
+
+    blog.comments.push(newComment);
+    await blog.save();
+
+    res.redirect(`/blogs/${blogSlug}`);
+  } catch (error) {
+    console.error('Error adding comment:', error);
+    res.status(500).send('An error occurred while adding a comment');
+  }
+});
+
+// Route để hiển thị giao diện chọn lọc
+// router.get('/filter', (req, res) => {
+//   res.render('/user/home');
+// });
+
+// Route để xử lý yêu cầu lọc bài viết
+router.post('/filter/:userId', async (req, res) => {
+  const sortBy = req.body.sortBy;
+  const userId = req.params.userId;
+  const currentUser = await User.findById(userId);
+  try {
+    const filteredBlogs = await BlogControllers.filterBlogs(sortBy);
+    console.log('Sortcu:', sortBy);
+    res.render('index', { blogs: filteredBlogs,user: currentUser });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while filtering blogs.');
+  }
+});
+router.post('/:id/delete', BlogControllers.deleteBlog);
 router.post('/search', BlogControllers.search);
+router.post('/search1', BlogControllers.search1);
 
 router.get('/category/1', BlogControllers.category1);
 

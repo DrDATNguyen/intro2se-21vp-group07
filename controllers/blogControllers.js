@@ -3,28 +3,93 @@ const Blog = require('../models/Blog');
 const SearchKeyword = require('../models/SearchKeyword'); // Đảm bảo bạn đã import model SearchKeyword
 
 exports.getBlog = async (request, response) => {
-    let blog = await Blog.findOne({ slug: request.params.slug }).populate({
+  let blog = await Blog.findOne({ slug: request.params.slug }).populate({
       path: 'comments',
       populate: {
-        path: 'commentBy',
-        model: 'User',
+          path: 'commentBy',
+          model: 'User',
       },
-    }).exec();
+  }).exec();
   
-    if (blog) {
-      response.render('../font-users/single-standard', { blog: blog });
-    } else {
-        req.flash('message', 'Connot found this blog... why ?');
-        req.flash('title', 'We wonder the same thing, why ?');
-        req.flash('href', '/user/home'); 
-        res.render('error', {
-            message: req.flash('message'),
-            title: req.flash('title'),
-            href: req.flash('href')
-        });
-    }
-}
+  // Tạo một mảng chứa các từ khóa từ chuỗi tags của bài viết hiện tại
+  const currentTags = blog.tags.split(',').map(tag => tag.trim());
 
+  // Tạo một biểu thức chính quy từ mảng các từ khóa
+  const regexTags = currentTags.map(tag => new RegExp(tag, 'i'));
+
+  // Tìm các bài viết liên quan bằng cách kiểm tra tags
+  const relatedBlogs = await Blog.find({
+      _id: { $ne: blog._id }, // Loại bỏ bài viết hiện tại
+      tags: { $in: regexTags } // Tìm bài viết có tags khớp với tags của bài viết hiện tại
+  }).exec();
+  
+   // Mảng chứa các từ khóa trùng tìm được
+  //  const matchingTags = [];
+    
+  //  // Kiểm tra từng từ khóa trong chuỗi tags hiện tại
+  //  currentTags.forEach(tag => {
+  //      relatedBlogs.forEach(relatedBlog => {
+  //          const relatedTags = relatedBlog.tags.split(',').map(t => t.trim());
+  //          if (relatedTags.includes(tag)) {
+  //              matchingTags.push(tag);
+  //          }
+  //      });
+  //  });
+   
+   // Hiển thị các thông tin kiểm tra trên console để debug
+   console.log('Related Blogs:', relatedBlogs);
+   console.log('Key word tag in my blog:', currentTags);
+  //  console.log('Matching Tags:', matchingTags);
+  
+  if (blog) {
+      
+      response.render('../font-users/single-standard', { blog: blog, relatedBlogs: relatedBlogs });
+      blog.views += 1;
+      // Lưu thay đổi vào cơ sở dữ liệu
+    await blog.save();
+  } else {
+      request.flash('message', 'Connot found this blog... why ?');
+      request.flash('title', 'We wonder the same thing, why ?');
+      request.flash('href', '/user/home'); 
+      response.render('error', {
+          message: request.flash('message'),
+          title: request.flash('title'),
+          href: request.flash('href')
+      });
+  }
+}
+// async function createView() {
+//   try {
+//     const newView = new View();
+//     await newView.save();
+//   } catch (error) {
+//     console.error(error);
+
+//   }
+// }
+
+exports.filterBlogs = async (sortBy) => {
+  try {
+    let sortCriteria = {};
+
+    if (sortBy === 'mostPopular') {
+      sortCriteria = { views: -1, timeCreated: -1 };
+    } else if (sortBy === 'leastPopular') {
+      sortCriteria = { views: 1, timeCreated: -1 };
+    } else if (sortBy === 'oldest') {
+      sortCriteria = { timeCreated: 1 };
+    } else if (sortBy === 'newest') {
+      sortCriteria = { timeCreated: -1 };
+    }
+    console.log('Sort Criteria:', sortCriteria);
+    const blogs = await Blog.find({ views: { $exists: true } }).sort(sortCriteria).exec();
+
+    return blogs;
+  } catch (error) {
+    console.error(error);
+    throw new Error('An error occurred while filtering blogs.');
+  }
+};
 exports.getHome = async(req,res) =>{
   try{
     const user = req.session.user;
@@ -93,7 +158,9 @@ exports.postNewBlog = async (req, res) => {
         authorID,
         tags: tags.split(',').map(tag => tag.trim()).join(', '),
         price: price,
-        isPremium: isPremium
+        isPremium: isPremium,
+        likes: 0,
+        views: 0
       });
   
       if (imageFile && imageFile[0]) {
@@ -154,6 +221,25 @@ exports.putEditBlog = async (request, response) => {
     }
 } 
 
+exports.deleteBlog = async (req, res) => {
+  const blogId = req.params.id; // Lấy blogId từ tham số trong URL
+  const userId = req.session.user.id;
+  try {
+    // Tìm bài viết cần xóa trong cơ sở dữ liệu
+    const blogToDelete = await Blog.findById(blogId);
+    
+    if (!blogToDelete) {
+      return res.status(404).json({ message: 'Blog not found' });
+    }
+
+    // Xóa bài viết
+    await blogToDelete.remove();
+    res.redirect(`/user/${userId}`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error deleting blog', error: error.message });
+  }
+};
 exports.search = async (req, res) => {
     try {
       const userID = req.body.userID; 
@@ -183,76 +269,35 @@ exports.search = async (req, res) => {
         });
     }
 }
-
-exports.apiPosts = async (req, res) => {
+exports.search1 = async (req, res) => {
   try {
-    const pageNumber = req.query.page;
-    const postsPerPage = 3; // Hoặc bất kỳ số lượng bạn muốn
+    // const userID = req.body.userID; 
+    // console.log(userID);
+    // const currentUser = await User.findById(userID);
+    // console.log(userID); // Log the userID for debugging
+    
+    const searchQuery = req.body.search; // Get the search query from the form data
+    const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
+    
+     // Cập nhật hoặc tạo mới thông tin từ khóa tìm kiếm
+  await updateSearchKeywords(searchQuery);
 
-    const startIndex = (pageNumber - 1) * postsPerPage;
-    const endIndex = startIndex + postsPerPage;
-
-    const blogs = await Blog.find().sort({ createdAt: 'desc' });
-    const paginatedBlogs = blogs.slice(startIndex, endIndex);
-
-    res.json({ blogs: paginatedBlogs });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
-}
-
-exports.addComment = async (req, res) => {
-  try {
-    const blogSlug = req.params.blogSlug;
-    const content = req.body.content;
-    console.log(req.session.user._id);
-    const blog = await Blog.findOne({ slug: blogSlug }).populate({
-      path: 'comments',
-      populate: {
-        path: 'commentBy',
-        model: 'User',
-      },
-    }).exec();
-    console.log(blog);
-    console.log(blog.comments);
-
-// If you want to access the username of the comment authors
-    blog.comments.forEach(comment => {
-      console.log(comment.commentBy.username);
+    res.render('../font-users/main', {
+      // user: currentUser,
+      blogs: blogs
     });
-    if (!blog) {
-        req.flash('message', 'This comments section is bugged. So... oops');
-        req.flash('title', 'Just read next time :D');
-        req.flash('href', '/user/home'); 
-        res.render('error', {
-            message: req.flash('message'),
-            title: req.flash('title'),
-            href: req.flash('href')
-        });
-    }
-
-    const user = await User.findById(req.session.user._id);
-    if (!user) {
-      return res.status(404).send('User not found');
-    }
-
-    const newComment = {
-      content: content,
-      createDate: Date.now(),
-      commentBy: user._id
-    };
-
-    blog.comments.push(newComment);
-    await blog.save();
-
-    res.redirect(`/blogs/${blogSlug}`);
-  } catch (error) {
-    console.error('Error adding comment:', error);
-    res.status(500).send('An error occurred while adding a comment');
+  } catch (e) {
+    console.log(e);
+      req.flash('message', 'Something went wrong');
+      req.flash('title', 'An error occurred while processing your request');
+      req.flash('href', '/user/login'); 
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
   }
 }
-
 exports.category1 = async(req,res) =>{
     try {
       const searchQuery = 'động vật có vú';
@@ -286,7 +331,7 @@ exports.category2 = async(req,res) =>{
       });
     } catch (e) {
       console.log(e);
-        req.flash('message', 'Something went wrong');
+      req.flash('message', 'Something went wrong');
         req.flash('title', 'An error occurred while processing your request');
         req.flash('href', '/user/login'); 
         res.render('error', {

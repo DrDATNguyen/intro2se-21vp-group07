@@ -21,7 +21,9 @@
     <!-- script
     ================================================== -->
     <script src="/modernizr.js"></script>
-
+    <!-- --------- Owl-Carousel ------------------->
+    <link rel="stylesheet" href="/owl.carousel.min.css">
+    <link rel="stylesheet" href="/owl.theme.default.min.css">
     <!-- favicons
     ================================================== -->
     <link rel="apple-touch-icon" sizes="180x180" href="/img-favicon/apple-touch-icon.png">
@@ -189,7 +191,28 @@
             </div> <!-- end column -->
         </div> <!-- end row -->
 
-
+        <!--Related blogs-->
+        
+          <div class="container">
+            <h2>Related Blogs</h2>
+            <div class="owl-carousel owl-theme blog-post">
+              <% relatedBlogs.forEach(relatedBlog => { %>
+                <div class="blog-content" data-aos="fade-right" data-aos-delay="200">
+                    <img src="data:<%= relatedBlog.img.contentType %>;base64,<%= relatedBlog.img.data.toString('base64') %>" class="img" alt="...">
+                  <div class="blog-title">
+                    <h3><%= relatedBlog.title %></h3>
+                    <h4><%= relatedBlog.author %></h4>
+                    <p><%- relatedBlog.introduction %></p>
+                    <button onclick="window.location.href = '/blogs/<%=relatedBlog.slug %>';" class="btn btn-blog">Read more</button>
+                  </div>
+                </div>
+              <% }) %>
+            </div>
+                <div class="owl-navigation">
+                    <span class="owl-nav-prev"><i class="fas fa-long-arrow-alt-left"></i></span>
+                    <span class="owl-nav-next"><i class="fas fa-long-arrow-alt-right"></i></span>
+                </div>
+        </div>
         <!-- comments
         ================================================== -->
         <div class="comments-wrap">
@@ -204,16 +227,29 @@
                                 <li class="depth-1 comment">
                                     <div class="comment__avatar">
                                         <% console.log(comment.commentBy); %>
-                                        <% console.log(comment.commentBy.avatarimg); %>
-                                        <img class="avatar" src="data:<%= comment.commentBy.avatarimg.contentType %>;base64,<%= comment.commentBy.avatarimg.data.toString('base64') %>" alt="..." width="50" height="50">
+                                        <% if (comment.commentBy && comment.commentBy.avatarimg) { %>
+                                            <% console.log(comment.commentBy.avatarimg); %>
+                                            <img class="avatar" src="data:<%= comment.commentBy.avatarimg.contentType %>;base64,<%= comment.commentBy.avatarimg.data.toString('base64') %>" alt="..." width="50" height="50">
+                                        <% } else { %>
+                                            <!-- Không có hình ảnh avatar -->
+                                            <div class="no-avatar">No Avatar</div>
+                                        <% } %>
                                     </div>
                                     <div class="comment__content">
                                         <div class="comment__info">
-                                            <div class="comment__author"><%= comment.commentBy.username %></div>
-                                            <div class="comment__meta">
-                                                <div class="comment__time"><%= comment.createDate.toDateString() %></div>
-                                            </div>
+                                            <% if (comment.commentBy) { %>
+                                                <div class="comment__author"><%= comment.commentBy.username %></div>
+                                                <div class="comment__meta">
+                                                    <div class="comment__time"><%= comment.createDate.toDateString() %></div>
+                                                </div>
+                                            <% } else { %>
+                                                <div class="comment__author">Unknown Author</div>
+                                                <div class="comment__meta">
+                                                    <div class="comment__time"><%= comment.createDate.toDateString() %></div>
+                                                </div>
+                                            <% } %>
                                         </div>
+                                        
                                         <div class="comment__text">
                                             <p><%= comment.content %></p>
                                         </div>
@@ -346,10 +382,21 @@
 
    <!-- Java Script
    ================================================== --> 
+   <script>
+    $(document).ready(function() {
+      $('.owl-carousel').owlCarousel({
+        items: 1,
+        loop: true,
+        nav: true,
+        navText: ['<i class="fas fa-long-arrow-alt-left"></i>', '<i class="fas fa-long-arrow-alt-right"></i>'],
+      });
+    });
+  </script>
    <script src="/jquery-3.2.1.min.js"></script>
    <script src="/plugins.js"></script>
    <script src="/main.js"></script>
-
+     <!-- --------- Owl-Carousel js ------------------->
+     <script src="/owl.carousel.min.js"></script>
 </body>
 
 </html>
