@@ -4,6 +4,14 @@ const User = require('../models/usermodel');
 const Blog = require('../models/Blog');
 const UserControllers = require('../controllers/userControllers')
 const multer = require('multer');
+const paypal = require('paypal-rest-sdk');
+
+paypal.configure({
+  'mode': 'sandbox', 
+  'client_id': 'AfUgUZ4zRIZo-DsJ-Uk8fyq8688Qq4DQ8yVq7d7UBlgm6H2OYBOclnGnPVWUangAyW7FKdMdJKRp9Abt',
+  'client_secret': 'EBidcgHSUhN4t-H3oqC-7QCcbbdH16q0xLLF6TMbKQuYbVWJYCfLUz-VgM_ht61manJRwaEMJWza2LHb'
+});
+
 
 const storage = multer.memoryStorage(); // Lưu trữ hình ảnh dưới dạng buffer
 const upload = multer({
@@ -114,7 +122,100 @@ router.post('/remove-from-cart/:blogId', UserControllers.removeFromCart);
 
 
 router.get('/addmoney/:id', UserControllers.addMoneyToWallet);
-router.post('/process-add-money', UserControllers.processAddMoney);
+
+
+router.get('/success/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const paymentId = req.query.paymentId;
+    const payerId = req.query.PayerID;
+    const paymentAmount = parseFloat(req.session.paymentAmount);
+
+    const execute_payment_json = {
+      payer_id: payerId,
+      transactions: [
+        {
+          amount: {
+            currency: 'USD',
+            total: paymentAmount
+          }
+        }
+      ]
+    };
+
+    const user = await User.findById(userId);
+    paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+      if (error) {
+          console.log(error.response);
+          throw error;
+      } else {
+          console.log(JSON.stringify(payment));
+          user.user_wallet += paymentAmount;
+          user.isUservip = true;
+      }
+  });
+    const updatedUser = await user.save();
+    const newuser = await User.findById(req.session.user._id);
+    const blogs = await Blog.find().sort({ createdAt: 'desc' });
+    req.session.user = newuser;
+    res.render('index',{
+      user: newuser,
+      blogs: blogs,
+    })
+
+  } catch (error) {
+    console.error(error);
+    // Handle the error
+    res.status(500).send('An error occurred');
+  };
+});
+
+router.post('/process-add-money', (req, res) => {
+  const amount = req.body.amount; // Get the amount from the form
+  const currency = req.body.currency; // Get the currency from the form
+
+  // Save the payment amount to session
+  req.session.paymentAmount = amount;
+  req.session.userId = req.session.user._id;
+  const userId = req.session.user._id;
+
+  const paymentData = {
+    intent: 'sale',
+    payer: {
+      payment_method: 'paypal'
+    },
+    redirect_urls: {
+      return_url: `http://localhost:3000/user/success/${userId}`,
+      cancel_url: 'http://localhost:3000/user/home'  // Modify this URL
+    },
+    transactions: [{
+      amount: {
+        currency: currency,
+        total: amount
+      },
+      description: 'Adding money to wallet'
+    }]
+  };
+
+  paypal.payment.create(paymentData, (error, payment) => {
+    if (error) {
+      console.log(error);
+      // Handle the error
+    } else {
+      console.log(payment);
+      for (let i = 0; i < payment.links.length; i++) {
+        if (payment.links[i].rel === 'approval_url') {
+          // Redirect the user to PayPal for approval
+          res.redirect(payment.links[i].href);
+        }
+      }
+    }
+  });
+});
+
+
+
+
 
 router.get('/upgrade/:id', async(req,res) =>{
   try{

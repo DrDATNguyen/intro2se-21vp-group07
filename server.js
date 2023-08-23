@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 var flash = require('connect-flash');
+const ejs = require('ejs');
 //bring in mongoose
 const mongoose = require('mongoose');
 

@@ -11,6 +11,11 @@
 <form action="/user/process-add-money" method="POST">
   <label for="amount">Enter amount to add: </label>
   <input type="number" step="10000" min="0" name="amount" id="amount" required>
+  
+  <!-- Add hidden fields for currency and user ID -->
+  <input type="hidden" name="currency" value="USD">
+  <input type="hidden" name="user_id" value="<%= user._id %>">
+  
   <button type="submit">Add Money</button>
 </form>
 <a href="/user/home" class="btn btn-secondary mt-3">Go Back</a>
