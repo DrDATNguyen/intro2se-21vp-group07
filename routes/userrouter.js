@@ -154,14 +154,18 @@ router.get('/success/:userId', async (req, res) => {
           user.isUservip = true;
       }
   });
-    const updatedUser = await user.save();
+  
+    const updateResult = await User.updateOne(
+      { _id: userId },
+      {
+        $inc: { user_wallet: paymentAmount },
+        $set: { isUservip: true },
+      }
+  );
     const newuser = await User.findById(req.session.user._id);
     const blogs = await Blog.find().sort({ createdAt: 'desc' });
     req.session.user = newuser;
-    res.render('index',{
-      user: newuser,
-      blogs: blogs,
-    })
+    res.redirect('/user/home');
 
   } catch (error) {
     console.error(error);
