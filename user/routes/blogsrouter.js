@@ -191,7 +191,28 @@ router.post('/add-comment/:blogSlug', async (req, res) => {
   }
 });
 
+// Route để hiển thị giao diện chọn lọc
+// router.get('/filter', (req, res) => {
+//   res.render('/user/home');
+// });
+
+// Route để xử lý yêu cầu lọc bài viết
+router.post('/filter/:userId', async (req, res) => {
+  const sortBy = req.body.sortBy;
+  const userId = req.params.userId;
+  const currentUser = await User.findById(userId);
+  try {
+    const filteredBlogs = await BlogControllers.filterBlogs(sortBy);
+    console.log('Sortcu:', sortBy);
+    res.render('index', { blogs: filteredBlogs,user: currentUser });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while filtering blogs.');
+  }
+});
+router.post('/:id/delete', BlogControllers.deleteBlog);
 router.post('/search', BlogControllers.search);
+router.post('/search1', BlogControllers.search1);
 
 router.get('/category/1', BlogControllers.category1);
 

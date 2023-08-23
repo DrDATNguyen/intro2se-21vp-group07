@@ -137,7 +137,6 @@ router.get('/:id/editProfile', UserControllers.getEditProfile);
 router.post('/:id/editProfile',upload.single('image'), UserControllers.postEditProfile);
 router.post('/:idUser/report/:idBlog', UserControllers.reportBlog);
 router.get('/:idUser/report/:idBlog', UserControllers.getReport);
-
 // router.get('/edit', (request, response) => {
 //     res.render('edit');
 //   })
@@ -266,6 +265,60 @@ router.post('/remove-from-cart/:blogId', UserControllers.removeFromCart);
 
 router.get('/addmoney/:id', UserControllers.addMoneyToWallet);
 router.post('/process-add-money', UserControllers.processAddMoney);
+router.get('/:blogId', async (req, res) => {
+    try {
+        const blogId = req.params.blogId;
+        const blog = await Blog.findById(blogId);
+
+        if (!blog) {
+            return res.status(404).send('Bài viết không tồn tại');
+        }
+
+        // Đoạn mã để kiểm tra xem người dùng đã like bài viết hay chưa
+        const userLikedBlog = blog.likes.includes(userId); // userId là ID của người dùng hiện tại
+
+        res.render('blog', {
+            blog: blog,
+            
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Lỗi Server Nội Bộ: ' + error.message);
+    }
+});
+
+router.post('/like/:blogId/:userId', async (req, res) => {
+    try {
+        const blogId = req.params.blogId;
+        const userId = req.params.userId;
+
+        const blog = await Blog.findById(blogId);
+
+        if (!blog) {
+            return res.status(404).send('Bài viết không tồn tại');
+        }
+
+        const userLikedIndex = blog.likedBy.indexOf(userId);
+        if (userLikedIndex === -1) {
+            // Người dùng chưa thích, thêm vào mảng likedBy và tăng likes
+            blog.likedBy.push(userId);
+            blog.likes = blog.likes + 1;
+        } else {
+            // Người dùng đã thích, bỏ khỏi mảng likedBy và giảm likes
+            blog.likedBy.splice(userLikedIndex, 1);
+            blog.likes = blog.likes - 1;
+        }
+
+        await blog.save();
+
+        res.json({ likes: blog.likes });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Lỗi Server Nội Bộ: ' + error.message);
+    }
+});
+
+router.post('/:blogId/deleteBoughtBlog/:userId', UserControllers.deleteBoughtBlog);
 
 
 module.exports = router;

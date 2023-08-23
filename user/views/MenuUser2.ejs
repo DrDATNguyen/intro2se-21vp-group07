@@ -10,14 +10,17 @@
       <link rel="stylesheet" href="/StyleMenuUser2.css">
        
       <!----===== Iconscout CSS ===== -->
-      <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <!-- <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
       <!-- <link rel="stylesheet" href="https://fontawesome.com/icons/thumbs-up?f=sharp&s=solid"> -->
-  
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+      <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
       <!-- Font Awesome Icons -->
+      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
       <link rel="stylesheet" href="/all.css">
       <link rel="stylesheet" href="/fontawesome.css">
-      <link rel="stylesheet" href="/fontawesome.min.css">
+      <link rel="stylesheet" href="/fontawesome.min.css"> -->
       <title>User Board</title> 
      
   </head>
@@ -33,23 +36,7 @@
               </a>
               <!-- <div class="user-link"> -->
                     <div class="logo-image"><a href="#"> <img src="data:<%= user.avatarimg.contentType %>;base64,<%= user.avatarimg.data.toString('base64') %>" class="card-img" alt="...">
-                  </a>
-                      <div class = "sub-menu-1">
-                          <ul>
-                          <li>
-                          <button class="btn-post">
-                              <span>Dratf an aticle&nbsp;&nbsp;<i class="fa-solid fa-pen"></i></span>
-                          </button>
-                          </li>
-                          <li>
-                        
-                            <a href="/user/<%= user._id %>/editProfile">
-                                <span>Edit profile&nbsp;&nbsp;<i class="fa-solid fa-user"></i></span>
-                            </a>
-                          </li>
-                          </ul>
-                      </div>
-                  </div>
+                
                   <div class="logo-image">
                     <h2><%= user.username %></h2>
                   </div>
@@ -59,28 +46,20 @@
           <div class="menu-items">
               <ul class="nav-links">
                   <li><a href="#" onclick="showDashboard()">
-                      <i class="uil uil-estate"></i>
+                    <i class="fas fa-home"></i>
                       <span class="link-name">Dahsboard</span>
                   </a></li>
                   <li><a href="#"onclick="showBookmark()">
-                      <i class="uil uil-files-landscapes"></i>
-                      <span class="link-name">Bookmark</span>
-                  </a></li>
-                  <li><a href="/user/<%= user._id %>/myBlogs">
-                      <i class="fa-regular fa-newspaper"></i>
+                    <i class="fas fa-regular fa-newspaper"></i>
                       <span class="link-name">My articles</span>
                   </a></li>
-                  <li><a href="message.html">
-                      <i class="uil uil-comments"></i>
-                      <span class="link-name">Message</span>
+                  <li><a href="/user/<%= user._id %>/myBlogs">
+                        <i class="fas fa-regular fa-bell"></i>
+                      <span class="link-name">Notifications</span>
                   </a></li>
-                  <li><a href="./Drag Drop Sortable List/index.html">
-                      <i class="fa-regular fa-user"></i>
-                      <span class="link-name">Following</span>
-                  </a></li>
-                  <li><a href="#">
-                      <i class="fa-brands fa-cc-discover"></i>
-                      <span class="link-name">Discover</span>
+                  <li><a href="/user/<%= user._id %>/editProfile">
+                        <i class="fas fa-user-edit"></i>
+                      <span class="link-name">Edit profile</span>
                   </a></li>
               </ul>
               
@@ -145,11 +124,11 @@
   
                   <div class="boxes">
                       <div class="box box1">
-                          <i class="uil uil-thumbs-up"></i>
-                          <span class="text">Total Likes</span>
-                          <span class="number">50,120</span>
+                        <i class="far fa-wallet"></i>
+                          <span class="text">Account Balance</span>
+                          <span class="number">$<%= user.user_wallet%></span>
                       </div>
-                      <div class="box box2">
+                      <!-- <div class="box box2">
                           <i class="uil uil-comments"></i>
                           <span class="text">Comments</span>
                           <span class="number">20,120</span>
@@ -158,70 +137,46 @@
                           <i class="uil uil-share"></i>
                           <span class="text">Total Share</span>
                           <span class="number">10,120</span>
-                      </div>
+                      </div> -->
                   </div>
               </div>
   
               <div class="activity">
                   <div class="title">
-                      <i class="uil uil-clock-three"></i>
-                      <span class="text">Recent Activity</span>
+                    <i class="far fa-newspaper"></i>
+                      <span class="text">Purchased article</span>
                   </div>
   
-                  <div class="activity-data">
-                      <div class="data names">
-                          <span class="data-title">Name</span>
-                          <span class="data-list">Prem Shahi</span>
-                          <span class="data-list">Deepa Chand</span>
-                          <span class="data-list">Manisha Chand</span>
-                          <span class="data-list">Pratima Shahi</span>
-                          <span class="data-list">Man Shahi</span>
-                          <span class="data-list">Ganesh Chand</span>
-                          <span class="data-list">Bikash Chand</span>
+                  <% if (boughtBlogs.length < 1) { %>
+                    <p class="text-white">You haven't bought any posts yet.</p>
+                  <% } else { %>
+                    <% boughtBlogs.forEach(blog => { %>
+                      <div class="Purchased-article">
+                        <div class="img-article">
+                          <% if (blog.img && blog.img.data) { %>
+                            <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="card-img" alt="...">
+                          <% } %>
+                        </div>
+                        <div class="post-title-article">
+                          <a href="/blogs/<%= blog._id %>"><%= blog.title %></a>
+                          <p><%- blog.introduction %></p>
+                        </div>
+                        <div class="btn-group">
+                            <div class="btn-row">
+                        <a href="/user/<%= user._id %>/editBlogs/<%= blog._id %>" ><button class="btn-article">Edit</button></a>
+                        <!-- <a href="/blogs/<%= blog._id %>/delete" ><button class="btn-article">Delete</button></a> -->
+                        <form action="/user/<%= blog._id %>/deleteBoughtBlog/<%= user._id %>" method="POST"> <!-- Sử dụng phương thức POST -->
+                            <button type="submit" class="btn-article">Delete</button>
+                          </form>
+                        <a href="/blogs/<%=blog.slug %>" ><button class="btn-article">Read more</button></a>
+                            </div>
+                        </div>
                       </div>
-                      <div class="data email">
-                          <span class="data-title">Email</span>
-                          <span class="data-list">premshahi@gmail.com</span>
-                          <span class="data-list">deepachand@gmail.com</span>
-                          <span class="data-list">prakashhai@gmail.com</span>
-                          <span class="data-list">manishachand@gmail.com</span>
-                          <span class="data-list">pratimashhai@gmail.com</span>
-                          <span class="data-list">manshahi@gmail.com</span>
-                          <span class="data-list">ganeshchand@gmail.com</span>
-                      </div>
-                      <div class="data joined">
-                          <span class="data-title">Joined</span>
-                          <span class="data-list">2022-02-12</span>
-                          <span class="data-list">2022-02-12</span>
-                          <span class="data-list">2022-02-13</span>
-                          <span class="data-list">2022-02-13</span>
-                          <span class="data-list">2022-02-14</span>
-                          <span class="data-list">2022-02-14</span>
-                          <span class="data-list">2022-02-15</span>
-                      </div>
-                      <div class="data type">
-                          <span class="data-title">Type</span>
-                          <span class="data-list">New</span>
-                          <span class="data-list">Member</span>
-                          <span class="data-list">Member</span>
-                          <span class="data-list">New</span>
-                          <span class="data-list">Member</span>
-                          <span class="data-list">New</span>
-                          <span class="data-list">Member</span>
-                      </div>
-                      <div class="data status">
-                          <span class="data-title">Status</span>
-                          <span class="data-list">Liked</span>
-                          <span class="data-list">Liked</span>
-                          <span class="data-list">Liked</span>
-                          <span class="data-list">Liked</span>
-                          <span class="data-list">Liked</span>
-                          <span class="data-list">Liked</span>
-                          <span class="data-list">Liked</span>
-                      </div>
-                  </div>
+                    <% }) %>
+                  <% } %>
               </div>
-          </div>
+                  
+                </div>
           <% if(blogs.length<1){%>
 
             <p class="text-white">No posts yet, create a new one</p>
@@ -233,7 +188,7 @@
           <div id="bookmark" class = "bookmark">
             
               <div class="img">
-                <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="card-img" alt="...">
+                <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="img" alt="...">
       
               </div>
               <div class="post-title">
@@ -243,8 +198,12 @@
                   </p>
               </div>
               <!-- <button class ="btn">Edit</button> -->
-             
+                <a href="/blogs/<%=blog.slug %>" ><button class="btn">Read more</button></a>
                 <a href="/user/<%= user._id %>/editBlogs/<%= blog._id %>" ><button class ="btn">Edit</button></a>
+                <form action="/blogs/<%= blog._id %>/delete" method="POST"> <!-- Sử dụng phương thức POST -->
+                    <button type="submit" class="btn">Delete</button>
+                  </form>
+                
           </div>
           <% }) %>
       </section>

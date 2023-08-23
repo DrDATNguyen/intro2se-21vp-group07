@@ -141,9 +141,12 @@ exports.getHome = async(req,res) =>{
   try{
     const user = req.session.user;
     const blogs = await Blog.find().sort({ createdAt: 'desc' });
+    // const userLikedBlog = Blog.likes.includes(user._id); // userId là ID của người dùng hiện tại
+
     res.render('index', {
       user: user,
       blogs: blogs,
+      // userLikedBlog: userLikedBlog
     })
   }
   catch(err){
@@ -165,9 +168,10 @@ exports.getProfile = async (req, res) => {
       const currentUser = await User.findById(userID); 
       // const blog = await Blog.find().sort({ createdAt: 'desc' }).limit(1); 
       const blog = await Blog.find({ authorID: userID }).exec();
-
+      const boughtBlogs = await Blog.find({ _id: { $in: currentUser.bought_blog } }).exec();
       res.render('MenuUser2', {
         user: currentUser,
+        boughtBlogs: boughtBlogs,
         blogs: blog
       });
 
@@ -617,5 +621,35 @@ exports.processAddMoney = async (req, res) => {
         });
   }
 };
+exports.deleteBoughtBlog = async (req, res) => {
+  const userId =  req.params.userId; // Lấy ID của người dùng
+  const blogId = req.params.blogId; // Lấy ID của bài viết
 
+  try {
+    // Tìm người dùng bằng ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Tìm index của bài viết trong mảng bought_blog
+    const blogIndex = user.bought_blog.indexOf(blogId);
+
+    if (blogIndex === -1) {
+      return res.status(404).json({ message: 'Blog not found in bought_blog array' });
+    }
+
+    // Xóa bài viết khỏi mảng bought_blog
+    user.bought_blog.splice(blogIndex, 1);
+
+    // Lưu thông tin người dùng sau khi xóa
+    await user.save();
+
+    res.redirect(`/user/${userId}`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error deleting blog from bought_blog', error: error.message });
+  }
+};
 

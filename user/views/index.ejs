@@ -17,7 +17,16 @@
         ================================================== -->
         <link rel="stylesheet" href="/styles.css">
         <link rel="stylesheet" href="/vendor.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- <link rel="stylesheet" href="https://fontawesome.com/icons/thumbs-up?f=sharp&s=solid"> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 
+        <!-- Font Awesome Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="/all.css">
+        <link rel="stylesheet" href="/fontawesome.css">
+        <link rel="stylesheet" href="/fontawesome.min.css">
         <!-- script
         ================================================== -->
         <!-- <script src="/modernizr.js"></script> -->
@@ -111,8 +120,7 @@
                 
             <!-- <input type="submit" class="s-header__search-submit" value="Search"> -->
             </div> <!-- end s-header__content -->
-            <a href="/user/logout" class="btn btn-secondary mt-3">Logout</a>
-
+            <a href="/user/logout" class="btn btn-secondary mt-1">Logout</a>
         </header> <!-- end header -->
 
 
@@ -120,7 +128,16 @@
         ================================================== -->
  
         <section class="s-bricks">
-
+            <form action="/blogs/filter/<%= user._id%>" method="POST">
+                <label for="sortBy">Sort By:</label>
+                <select name="sortBy" id="sortBy">
+                  <option value="mostPopular">Most Popular</option>
+                  <option value="leastPopular">Least Popular</option>
+                  <option value="oldest">Oldest</option>
+                  <option value="newest">Newest</option>
+                </select>
+                <button type="submit">Filter</button>
+              </form>
             <div class="masonry">
                 <div class="bricks-wrapper h-group">
     
@@ -228,7 +245,10 @@
                                                 <!-- <a href="/user/buy/<%= blog._id %>" class="buy-button">Buy </a>
                                                 <a href="/user/add-to-cart/<%= blog._id %>" class="add-to-cart-button">Add to Cart </a> -->
                                                 <a href="/user/<%= user._id %>/report/<%= blog._id %>">Report</a> 
-                                                    
+                                                <a href="#" id="likeBtn" data-blogid="<%= blog._id %>" onclick="toggleLike(this)">
+                                                    <span><i class="fas fa-thumbs-up"></i>&nbsp;&nbsp;<%= blog.likes %></span>
+                                                </a>
+                                                                                                    
                                         </div> <!-- end entry__text -->
                                     </article> <!-- end entry -->
                                 <% } else { %>   
@@ -265,7 +285,10 @@
                                                 <a href="/user/buy-premium/<%= blog._id %>" class="buy-button">Buy </a>
                                                 <a href="/user/add-to-cart/<%= blog._id %>" class="add-to-cart-button">Add to Cart </a>
                                                 <a href="/user/<%= user._id %>/report/<%= blog._id %>">Report</a> 
-                                                    
+                                                <!-- <a href="/user/like/<%= blog._id %>/<%= user._id %>"><span><i class="fas fa-thumbs-up"></i></i>&nbsp;&nbsp;<%= blog.likes.length %></span></a> -->
+                                                <a href="#" id="likeBtn-<%= blog._id %>" data-blogid="<%= blog._id %>" data-liked="<%= user && blog.likedBy.includes(user._id.toString()) ? 'true' : 'false' %>" onclick="toggleLike(event, this)">
+                                                    <span><i class="fas fa-thumbs-up"></i>&nbsp;&nbsp;<%= blog.likes %></span>
+                                                </a>
                                         </div> <!-- end entry__text -->
                                     </article> <!-- end entry -->
                                 <% } %>
@@ -300,6 +323,9 @@
                                             </p>
                                         </div>
                                             <a href="/user/<%= user._id %>/report/<%= blog._id %>">Report</a> 
+                                            <a href="#" id="likeBtn-<%= blog._id %>" data-blogid="<%= blog._id %>" data-liked="<%= user && blog.likedBy.includes(user._id.toString()) ? 'true' : 'false' %>" onclick="toggleLike(event, this)">
+                                                <span><i class="fas fa-thumbs-up"></i>&nbsp;&nbsp;<%= blog.likes %></span>
+                                            </a>
                                                 
                                     </div> <!-- end entry__text -->
                                 </article> <!-- end entry -->
@@ -428,7 +454,7 @@
     <!-- Java Script
     ================================================== -->
     <input type="hidden" id="blogsData" value="<%= JSON.stringify(blogs) %>">
-
+    
     <script src="/Jquery3.7.0.min.js"></script>
     <script src="/plugins.js"></script>
     <script src="/main.js"></script>
