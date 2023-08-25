@@ -1,5 +1,10 @@
 const Blog = require('../models/blog.model'); // Thay đổi đường dẫn tới model của bạn
 const User = require('../models/user'); 
+const Admin = require('../models/admin'); 
+const SearchKeyword = require('../models/searchKeyword'); // Đảm bảo bạn đã import model SearchKeyword
+const Visit = require('../models/visit');
+const fs = require('fs');
+const path = require('path');
 
 exports.getPendingPosts = async (req, res) => {
     try {
@@ -69,23 +74,23 @@ exports.listPopularKeywords = async (req, res) => {
     }
 };
 exports.getNewBlog = async (request, response) => {
-    const userID = request.params.id;
-    console.log(userID);
-    const currentUser = await User.findById(userID);
-    if(currentUser){
-      console.log(currentUser);
+    const adminID = request.params.id;
+    console.log(adminID);
+    const currentAdmin = await Admin.findById(adminID);
+    if(currentAdmin){
+      console.log(currentAdmin);
     }
     else{
-        req.flash('message', 'You have logged in and still see this error ? Well... Ooops');
-        req.flash('title', 'Who are you');
-        req.flash('href', '/user/login'); 
-        res.render('error', {
-            message: req.flash('message'),
-            title: req.flash('title'),
-            href: req.flash('href')
+        request.flash('message', 'You have logged in and still see this error ? Well... Ooops');
+        request.flash('title', 'Who are you');
+        request.flash('href', '/user/login'); 
+        response.render('error', {
+            message: request.flash('message'),
+            title: request.flash('title'),
+            href: request.flash('href')
         });
     }
-    response.render('new', {users: currentUser});
+    response.render('new', {admin: currentAdmin});
 }
 exports.postNewBlog = async (req, res) => {
     try {
@@ -129,12 +134,12 @@ exports.postNewBlog = async (req, res) => {
       }
   
       await newBlog.save();
-      res.redirect(`/blogs/${newBlog.slug}`);
+      res.redirect(`/admin/pending-posts`);
     } catch (error) {
       console.log(error);
         req.flash('message', 'Yeah... something that can happen too...');
         req.flash('title', 'An error occurred while uploading your data');
-        req.flash('href', '/user/home'); 
+        req.flash('href', '/admin/home'); 
         res.render('error', {
             message: req.flash('message'),
             title: req.flash('title'),
@@ -142,3 +147,199 @@ exports.postNewBlog = async (req, res) => {
         });
     }
 }
+exports.getLogin = (req, res) => {
+  res.render('login');
+}
+exports.postLogin = async (req, res) => {
+  try {
+    //if (req.body.username === "admin" && req.body.password === "admin123") {} // render admin page
+    const admin = await Admin.findOne({ adminname: req.body.adminname });
+    if(!admin){
+      req.flash('message', 'Cannot find your account');
+      req.flash('title', 'Cannot find your account, create one');
+      req.flash('href', '/admin/login'); 
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
+    }
+    if (admin && admin.password === req.body.password) {
+      
+      req.session.admin = admin;
+      console.log('Admin logged in:', req.session.admin);
+      res.redirect('/admin/home');
+    } else {
+      req.flash('message', 'You have entered the wrong password');
+      req.flash('title', 'Wrong Password');
+      req.flash('href', '/admin/login'); 
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    req.flash('message', 'Something went wrong');
+    req.flash('title', 'An error occurred while processing your request');
+    req.flash('href', '/admin/login'); 
+    res.render('error', {
+        message: req.flash('message'),
+        title: req.flash('title'),
+        href: req.flash('href')
+    });
+  }
+}
+exports.getSignup = (req, res) => {
+  res.render('signup');
+}
+
+exports.postSignup = async (req, res) => {
+const data = {
+  adminname: req.body.adminname,
+  password: req.body.password,
+  email: req.body.email,
+};
+
+try {
+  const checking = await Admin.findOne({ adminname: req.body.adminname });
+
+  if (checking) {
+      req.flash('message', 'This admin name has been taken, choose another one');
+      req.flash('title', 'This admin name has already existed');
+      req.flash('href', '/admin/signup'); 
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
+  } else {
+    const defaultAvatarPath = path.join(__dirname,'../assets/profile2.jpg');
+
+    data.avatarimg = {
+      data: fs.readFileSync(defaultAvatarPath),
+      contentType: 'image/jpeg' 
+    };
+
+    await Admin.create(data);
+    const newAdmin = await Admin.findOne({ adminname: req.body.adminname });
+    res.render('login', {
+      admin: newAdmin,
+    });
+  }
+} catch (error) {
+      console.log(error);
+      req.flash('message', 'Something went wrong');
+      req.flash('title', 'An error occurred while processing your request');
+      req.flash('href', '/admin/login'); 
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
+}
+};
+
+exports.getHome = async(req,res) =>{
+try{
+  const admin = req.session.admin;
+  // const blogs = await Blog.find().sort({ createdAt: 'desc' });
+  // const userLikedBlog = Blog.likes.includes(user._id); // userId là ID của người dùng hiện tại
+  const totalPosts = await Blog.countDocuments(); // Đếm tổng số bài viết
+  const totalUsers = await User.countDocuments(); // Đếm tổng số người dùng
+    // Giả sử bạn đã có một cơ chế lưu lượt truy cập và đếm số lượt truy cập
+  const totalVisits = await countTotalVisits(); // Đếm tổng số lượt truy cập
+  const popularKeywords = await listPopularKeywords(); // Gọi hàm thống kê từ khóa phổ biến
+  const report = {
+    totalPosts,
+    totalUsers,
+    totalVisits
+  };
+
+  res.render('index', {
+    admin: admin,
+    // blogs: blogs,
+    // userLikedBlog: userLikedBlog
+    report:report,
+    popularKeywords:popularKeywords
+  })
+}
+catch(err){
+  console.log(err);
+      req.flash('message', 'Something went wrong');
+      req.flash('title', 'An error occurred while processing your request');
+      req.flash('href', '/admin/login'); 
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
+}
+}
+async function countTotalVisits() {
+  try {
+    const totalVisits = await Visit.countDocuments();
+    return totalVisits;
+  } catch (error) {
+    console.error(error);
+    return 0;
+  }
+}
+async function listPopularKeywords() {
+  try {
+    const popularKeywords = await SearchKeyword.find()
+      .sort({ count: -1 })
+      .exec();
+    return popularKeywords;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+exports.getcreateUser  = (req, res) => {
+  res.render('createUser');
+}
+exports.postcreateUser = async (req, res) => {
+  const data = {
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email,
+  };
+  console.log(data);
+  try {
+    const checking = await User.findOne({ username: req.body.username });
+   
+    if (checking) {
+        req.flash('message', 'This admin name has been taken, choose another one');
+        req.flash('title', 'This admin name has already existed');
+        req.flash('href', '/admin/createUser'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
+    } else {
+      const defaultAvatarPath = path.join(__dirname,'../assets/profile2.jpg');
+  
+      data.avatarimg = {
+        data: fs.readFileSync(defaultAvatarPath),
+        contentType: 'image/jpeg' 
+      };
+  
+      await User.create(data);
+      // const newAdmin = await Admin.findOne({ adminname: req.body.adminname });
+      res.render('indexPendingUser');
+    }
+  } catch (error) {
+        console.log(error);
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/admin/createUser'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
+  }
+  };

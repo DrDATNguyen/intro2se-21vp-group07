@@ -9,6 +9,8 @@ const Report = require('../models/reports');
 const path = require('path');
 const { get } = require('http');
 const multer = require('multer');
+const Admin = require('../models/admin'); 
+const fs = require('fs');
 
 //define storage for the images
 const storage = multer.memoryStorage();
@@ -31,7 +33,83 @@ router.post('/approve-post/:id', adminController.approvePost);
 router.get('/new/:id', adminController.getNewBlog);
 
 
+router.get('/createUser',  adminController.getcreateUser);
+router.post('/createUser',  adminController.postcreateUser);
 router.post('/new/:id', upload.fields([{ name: 'image', maxCount: 1 }, { name: 'video', maxCount: 1 }]), adminController.postNewBlog);
+router.get('/login',  adminController.getLogin);
+router.post('/login',  adminController.postLogin);
+router.get('/signup',  adminController.getSignup);
+router.post('/signup',  adminController.postSignup);
+router.post('/resetpassword/:id',async (req,res) =>{
+  try{
+      let admin = await Admin.findById(req.params.id);
+      if(!admin){
+              req.flash('message', 'Cannot find your account');
+              req.flash('title', 'Cannot find your account, create one');
+              req.flash('href', '/admin/login');
+              res.render('error', {
+                  message: req.flash('message'),
+                  title: req.flash('title'),
+                  href: req.flash('href')
+              });
+      }
+      admin = await Admin.findByIdAndUpdate(admin._id,{password: req.body.ForgetPassword});
+      res.redirect('/admin/login');
+  }
+  catch(err){
+      req.flash('message', 'An error occurred');
+      req.flash('title', 'Error');
+      req.flash('href', '/admin/login');
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
+  }
+});
+router.post('/forgetemail', async (req,res) =>{
+  try{
+      const forget = req.body.ForgetEmail;
+      const forgetadminname = req.body.ForgetAdminname
+      const admin = await Admin.findOne({ email: forget, adminname: forgetadminname });
+      if (admin) {
+          console.log(admin._id);
+          res.render('resetpassword',{
+              admin: admin,
+          });
+      } else {
+          req.flash('message', 'Cannot find your account');
+          req.flash('title', 'Cannot find your account, create one');
+          req.flash('href', '/admin/login');
+          res.render('error', {
+              message: req.flash('message'),
+              title: req.flash('title'),
+              href: req.flash('href')
+          });
+      }
+  } catch (err) {
+      console.log(err);
+      req.flash('message', 'An error occurred');
+      req.flash('title', 'Error');
+      req.flash('href', '/admin/login');
+      res.render('error', {
+          message: req.flash('message'),
+          title: req.flash('title'),
+          href: req.flash('href')
+      });
+  }
+});
+
+router.get('/forgetemail', (req,res) =>{
+  res.render('forgetpassword1');
+});
+
+router.get('/logout',(req,res) =>{
+  req.session.destroy(() => {
+      res.redirect('/admin/login');
+  });
+});
+
 //       const report = {
 //         totalPosts,
 //         totalUsers,
@@ -112,4 +190,6 @@ router.get('/reports/:blogId', async (req, res) => {
   }
 });
 router.get('/allUsers', adminController.getAllUsers);
+router.get('/home', adminController.getHome);
+
 module.exports = router;

@@ -17,11 +17,11 @@
   <div class="container">
  
 <body>
-    <h3>hello <%= users.username%></h3>
+    <h3>hello <%= admin.adminname%></h3>
     <div class="container mt-5">
         <h1 class="mb-4 text-white">New Blog Post</h1>
 
-        <form action="/blogs/new/<%=users._id %>" method="POST" enctype="multipart/form-data">
+        <form action="/admin/new/<%=admin._id %>" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title" class="text-white">Title</label>
                 <input type="text" class="form-control" placeholder="Title" name="title" required>

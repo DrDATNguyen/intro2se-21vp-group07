@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- Created by CodingLab |www.youtube.com/c/CodingLabYT-->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <!--<title> Login and Registration Form in HTML & CSS | CodingLab </title>-->
+    <link rel="stylesheet" href="/css/login.css">
+    <!-- Fontawesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+   <body>
+<div class="wrapper">
+    <div class="title-text">
+      <div class="title login">Login Form</div>
+      <div class="title signup">Signup Form</div>
+    </div>
+    <div class="form-container">
+      <div class="slide-controls">
+        <input type="radio" name="slide" id="login" checked>
+        <input type="radio" name="slide" id="signup">
+        <label for="login" class="slide login">Login</label>
+        <label for="signup" class="slide signup">Signup</label>
+        <div class="slider-tab"></div>
+      </div>
+      <div class="form-inner">
+        <form action="/admin/login" class="login" method ="POST">
+          <div class="field">
+            <input type="text" id="adminname" name="adminname" placeholder="Enter your email or adminname" required>
+          </div>
+          <div class="field">
+            <input type="password" pid="password" name="password" placeholder="Enter your password"  required>
+          </div>
+          <div class="pass-link"><a href="/admin/forgetemail">Forgot password?</a></div>
+          <div class="field btn">
+            <div class="btn-layer"></div>
+            <input type="submit" value="Login">
+          </div>
+          <div class="signup-link">Don't have an account? <a href="">Signup now</a></div>
+        </form>
+        <form action="/admin/signup" class="signup" method="post">
+          <div class="field">
+            <input type="text" id="adminname" name="adminname" placeholder="Enter your name" required>
+          </div>
+          <div class="field">
+            <input type="text" id="email" name="email" placeholder="Enter your email" required>
+          </div>
+          <div class="field">
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+          </div>
+          <div class="field btn">
+            <div class="btn-layer"></div>
+            <input type="submit" value="Signup">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="/js/login.js"></script>
+</body>
+</html>
