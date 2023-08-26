@@ -36,14 +36,12 @@ exports.getBlog = async (request, response) => {
   //      });
   //  });
    
-   // Hiển thị các thông tin kiểm tra trên console để debug
-   console.log('Related Blogs:', relatedBlogs);
-   console.log('Key word tag in my blog:', currentTags);
+   // Hiển thị các thông tin kiểm tra trên console để debu
   //  console.log('Matching Tags:', matchingTags);
   
   if (blog) {
-      
-      response.render('../font-users/single-standard', { blog: blog, relatedBlogs: relatedBlogs });
+
+      response.render('../font-users/single-standard', { blog: blog, relatedBlogs: relatedBlogs, user: request.session.user });
       blog.views += 1;
       // Lưu thay đổi vào cơ sở dữ liệu
     await blog.save();

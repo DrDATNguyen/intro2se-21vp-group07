@@ -2,6 +2,7 @@ const User = require('../models/usermodel');
 const Blog = require('../models/Blog');
 const Cart = require('../models/cart')
 const Report = require('../models/ReportBlogs');
+const bcrypt = require('bcrypt');
 const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -59,9 +60,10 @@ exports.postLogin = async (req, res) => {
             href: req.flash('href')
         });
       }
-      if (user && user.password === req.body.password) {
+      if (user && await bcrypt.compare(req.body.password, user.password)) {
         
         req.session.user = user;
+        res.locals.User = req.session.user;
         console.log('User logged in:', req.session.user);
         res.redirect('/user/home');
       } else {
@@ -92,9 +94,10 @@ exports.getSignup = (req, res) => {
 }
 
 exports.postSignup = async (req, res) => {
+  const hashPassword = await bcrypt.hash(req.body.password, 10);
   const data = {
     username: req.body.username,
-    password: req.body.password,
+    password: hashPassword,
     email: req.body.email,
   };
 

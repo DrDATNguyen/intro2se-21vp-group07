@@ -151,24 +151,6 @@
                              <%= blog.tags %>
                         </p>
 
-                        <div class="s-content__author">
-                            <img src="images/avatars/user-06.jpg" alt="">
-
-                            <div class="about">
-                                <h5><a href="#">Jonathan Smith</a></h5>
-                            
-                                <p>Alias aperiam at debitis deserunt dignissimos dolorem doloribus, fuga fugiat impedit laudantium magni maxime nihil nisi quidem quisquam sed ullam voluptas voluptatum. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                </p>
-
-                                <ul class="author-social">
-                                    <li><a href="#0">Facebook</a></li>
-                                    <li><a href="#0">Twitter</a></li>
-                                    <li><a href="#0">Dribbble</a></li>
-                                    <li><a href="#0">Instagram</i></a></li>
-                                </ul>
-                            </div>
-                        </div> <!-- end s-content__author -->
-
 
                         <div class="s-content__pagenav group">
                             <div class="prev-nav">
@@ -267,16 +249,17 @@
                 <!-- START respond -->
                 <div id="respond" class="column">
 
-                    <h3>
-                    Add Comment 
-                    </h3>
+                    <h3>Add Comment</h3>
 
-                    <form action="/blogs/add-comment/<%=blog.slug%>" method="POST">
+                    <form id="comment-form">
                         <fieldset>
-                            <textarea name="content" placeholder="Your comment" required></textarea>
-                            <input name="submit" id="submit" class="btn btn--primary btn-wide btn--large h-full-width" value="Add Comment" type="submit">
+                            <textarea id="comment-content" placeholder="Your comment" required></textarea>
+                            <input id="submit" class="btn btn--primary btn-wide btn--large h-full-width" value="Add Comment" type="submit">
                         </fieldset>
                     </form>
+
+                    
+
 
                 </div>
                 <!-- END respond-->
@@ -380,23 +363,84 @@
    </footer> <!-- end s-footer -->
 
 
-   <!-- Java Script
+  <!-- Java Script
    ================================================== --> 
-   <script>
-    $(document).ready(function() {
-      $('.owl-carousel').owlCarousel({
-        items: 1,
-        loop: true,
-        nav: true,
-        navText: ['<i class="fas fa-long-arrow-alt-left"></i>', '<i class="fas fa-long-arrow-alt-right"></i>'],
-      });
-    });
-  </script>
-   <script src="/jquery-3.2.1.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    <script src="/plugins.js"></script>
    <script src="/main.js"></script>
-     <!-- --------- Owl-Carousel js ------------------->
-     <script src="/owl.carousel.min.js"></script>
-</body>
+   <!-- --------- Owl-Carousel js ------------------->
+   <script src="/owl.carousel.min.js"></script>
+   <script>
+    $(document).ready(function() {
+        console.log('Document is ready');
+        $('.owl-carousel').owlCarousel({
+            items: 1,
+            loop: true,
+            nav: true,
+            navText: ['<i class="fas fa-long-arrow-alt-left"></i>', '<i class="fas fa-long-arrow-alt-right"></i>'],
+        });
 
+        $('#comment-form').submit(function(event) {
+            console.log('Form submitted');
+            event.preventDefault();
+
+            const content = $('#comment-content').val();
+            const blogSlug = '<%= blog.slug %>'; // Assuming 'blog' is passed to the template
+
+            $.ajax({
+                url: `/blogs/add-comment/${blogSlug}`,
+                type: 'POST',
+                data: { content: content },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        // Create HTML for the new comment
+                        const newCommentHTML = `
+                            <li class="depth-1 comment">
+                                <div class="comment__avatar">
+                                    <% if (user && user.avatarimg) { %>
+                                        <img class="avatar" src="data:<%= user.avatarimg.contentType %>;base64,<%= user.avatarimg.data.toString('base64') %>" alt="..." width="50" height="50">
+                                    <% } else { %>
+                                        <!-- No Avatar -->
+                                        <div class="no-avatar">No Avatar</div>
+                                    <% } %>
+                                </div>
+                                <div class="comment__content">
+                                    <div class="comment__info">
+                                        <% if (user) { %>
+                                            <div class="comment__author"><%= user.username %></div>
+                                            <div class="comment__meta">
+                                                <div class="comment__time"><%= new Date().toDateString() %></div>
+                                            </div>
+                                        <% } else { %>
+                                            <div class="comment__author">Unknown Author</div>
+                                            <div class="comment__meta">
+                                                <div class="comment__time"><%= new Date().toDateString() %></div>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                    <div class="comment__text">
+                                        <p>${content}</p>
+                                    </div>
+                                </div>
+                            </li>`;
+                
+                        // Append the new comment to the comments list
+                        $('.commentlist').append(newCommentHTML);
+                        $('#comment-content').val(''); // Clear the comment input field
+                        console.log('Comment added successfully:', content);
+                    } else {
+                        console.error('Error:', response.error);
+                    }
+                },
+                
+                  
+                error: function(xhr, status, error) {
+                  console.error('AJAX Error:', error);
+                }
+              });
+        });
+    });
+   </script>
+</body>
 </html>

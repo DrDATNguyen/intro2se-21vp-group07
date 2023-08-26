@@ -5,6 +5,7 @@ const Blog = require('../models/Blog');
 const UserControllers = require('../controllers/userControllers')
 const multer = require('multer');
 const paypal = require('paypal-rest-sdk');
+const bcrypt = require('bcrypt');
 
 
 paypal.configure({
