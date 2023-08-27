@@ -2186,10 +2186,10 @@ input[type="url"],
 input[type="password"], 
 textarea, 
 select {
-    --input-height: var(--vspace-2);
+    --input-height: var(--vspace-btn);
     --input-line-height: var(--vspace-1);
     --input-vpadding: calc(((var(--input-height) - var(--input-line-height)) / 2) - .1rem);
-    display: block;
+    /* display: block; */
     height: var(--input-height);
     padding: var(--input-vpadding) calc(2.4rem - .1rem);
     border: 0;
@@ -2203,6 +2203,7 @@ select {
     border: 1px solid transparent;
     -webkit-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
+    margin-left:5rem;
 }
 
 .ss-custom-select {
@@ -2270,11 +2271,12 @@ select:focus {
 label, legend {
     font-family: var(--font-1);
     font-weight: 600;
-    font-size: var(--text-sm);
+    font-size: var(--text-xl);
     line-height: var(--vspace-0_5);
     margin-bottom: var(--vspace-0_5);
     color: var(--color-text-dark);
     display: block;
+    margin-left: 5rem;
 }
 
 input[type="checkbox"], 
@@ -2358,7 +2360,7 @@ input[type="button"] {
     letter-spacing: .4em;
     height: var(--btn-height);
     line-height: calc(var(--btn-height) - .4rem);
-    padding: 0 3.2rem;
+    padding: 0 1.5rem;
     margin: 0 .4rem 1.6rem 0;
     color: var(--color-btn-text);
     text-decoration: none;
@@ -2369,7 +2371,7 @@ input[type="button"] {
     transition: all .3s;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: var(--color-btn);
+    background-color: var(--color-3);
     border: 0.2rem solid var(--color-btn);
 }
 
@@ -3350,7 +3352,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
     -webkit-box-pack: center;
     /* Canh chỉnh các phần tử con theo trục ngang vào giữa trên các trình duyệt chuẩn. */
     justify-content: center;
-    height: 600px;
+    height: 100rem;
     width: 100%;
     background-color: white;
     padding: var(--vspace-2) 15% var(--vspace-1);
@@ -5336,4 +5338,7 @@ Cụ thể, khi di chuột hover vào các phần tử đó, nền của chúng 
 
 .container h2 {
     margin-left: 8rem;
+}
+.search filter{
+    margin-left: 10rem;
 }

@@ -81,13 +81,13 @@
                             </ul>
                         </li>
                         <li><a href="/blogs/new/<%= user._id %>" title="">New Blog</a></li>
-                        <li><a href="/user/<%= user._id %>/myBlogs" title="">My Blog</a></li>
+                        <!-- <li><a href="/user/<%= user._id %>/myBlogs" title="">My Blog</a></li> -->
                         <li><a href="/user/<%= user._id %>" title="">Profile</a></li>
                         
                         <li><a href="/user/about" title="">About</a></li>
                         <li><a href="/user/contact" title="">Contact</a></li>
                         <li><a href="/user/cart/<%= user._id%>">Cart </a> </li>
-                        <li><a href="/user/addmoney/<%= user._id%>">Add money to wallet</a></li>
+                        <li><a href="/user/addmoney/<%= user._id%>">Add money</a></li>
                     </ul> <!-- end header__nav -->
 
                     <a href="#0" title="Close Menu" class="s-header__overlay-close close-mobile-menu">Close</a>
@@ -120,7 +120,8 @@
                 
             <!-- <input type="submit" class="s-header__search-submit" value="Search"> -->
             </div> <!-- end s-header__content -->
-            <a href="/user/logout" class="btn btn-secondary mt-1">Logout</a>
+            <a href="/user/upgrade/<%= user._id %>" class="btn btn-secondary">Upgrade</a>
+            <a href="/user/logout" class="btn btn-secondary mt-3">Logout</a>
         </header> <!-- end header -->
 
 
@@ -128,8 +129,9 @@
         ================================================== -->
  
         <section class="s-bricks">
+            <div class ="search-filter">
             <form action="/blogs/filter/<%= user._id%>" method="POST">
-                <label for="sortBy">Sort By:</label>
+                <label for="sortBy">Search Filters:</label>
                 <select name="sortBy" id="sortBy">
                   <option value="mostPopular">Most Popular</option>
                   <option value="leastPopular">Least Popular</option>
@@ -138,6 +140,7 @@
                 </select>
                 <button type="submit">Filter</button>
               </form>
+            </div>
             <div class="masonry">
                 <div class="bricks-wrapper h-group">
     
@@ -156,6 +159,7 @@
                         
                         
                                     <% blogs.forEach(blog=>{ %>
+                                        <% if(blog.isPremium){ %>
                                 <div class="featured-post-slide">
                                     <div class="f-slide">
                                         <% if (blog.img && blog.img.contentType && blog.img.data) { %>
@@ -176,17 +180,8 @@
 
                                     </div> <!-- f-slide -->
                                 </div> <!-- featured-post-slide -->
+                                <% }  %>    
                                 <% }) %>
-                                <div class="featured-post-slide">
-                                    <div class="f-slide">
-                                        
-                                        <div class="f-slide__background" style="background-image:url('/images/thumbs/featured/featured-3.jpg');"></div>
-                                        <div class="f-slide__overlay"></div>
-
-                                        
-
-                                    </div> <!-- f-slide -->
-                                </div> <!-- featured-post-slide -->
 
                             </div> <!-- end feature post slider -->
                             
@@ -373,12 +368,11 @@
                         <h5>About Our Site</h5>
 
                         <p>
-                        Lorem ipsum Ut velit dolor Ut labore id fugiat in ut fugiat nostrud qui in dolore commodo eu magna Duis cillum dolor officia esse mollit proident Excepteur exercitation nulla. Lorem ipsum In reprehenderit commodo aliqua irure labore.
-                        </p>
+                            Trang web của chúng tôi là một dự án học tập và đam mê, được xây dựng bởi những con người đam mê về công nghệ và yêu thương động vật. Chúng tôi hi vọng rằng trang web sẽ mang đến sự hiểu biết về thế giới động vật và tạo cơ hội cho mọi người kết nối và chia sẻ đam mê của họ về động vật.                        </p>
 
                     </div> <!-- end s-footer__info -->
 
-                    <div class="column large-2 medium-3 tab-6 s-footer__site-links">
+                    <div class="column large-4 medium-6 tab-12 s-footer__site-links">
 
                         <h5>Site Links</h5>
 
@@ -392,21 +386,21 @@
 
                     </div> <!-- end s-footer__site-links -->  
 
-                    <div class="column large-2 medium-3 tab-6 s-footer__social-links">
+                    <div class="column large-4 medium-6 tab-12 s-footer__social-links">
 
                         <h5>Social</h5>
 
                         <ul>
                             <li><a href="#0">Twitter</a></li>
-                            <li><a href="#0">Facebook</a></li>
-                            <li><a href="#0">Dribbble</a></li>
-                            <li><a href="#0">Pinterest</a></li>
+                            <li><a href="https://www.facebook.com/profile.php?id=100071044693606">Facebook</a></li>
+                            <!-- <li><a href="#0">Dribbble</a></li>
+                            <li><a href="#0">Pinterest</a></li> -->
                             <li><a href="#0">Instagram</a></li>
                         </ul>
 
                     </div> <!-- end s-footer__social links --> 
 
-                    <div class="column large-4 medium-12 s-footer__subscribe">
+                    <!-- <div class="column large-4 medium-12 s-footer__subscribe">
 
                         <h5>Subscribe</h5>
 
@@ -426,7 +420,7 @@
 
                         </div>
 
-                    </div> <!-- end s-footer__subscribe -->
+                    </div>  -->
 
                 </div> <!-- end row -->
 
@@ -436,8 +430,8 @@
                 <div class="row">
                     <div class="column">
                         <div class="ss-copyright">
-                            <span>© Copyright Abstract 2020</span> 
-                            <span>Design by <a href="https://www.styleshout.com/">StyleShout</a></span>		         	
+                            <span>© Copyright Abstract 2023</span> 
+                            <span>Design by <a href="https://www.facebook.com/profile.php?id=100071044693606">Web developers</a></span>		         	
                         </div> <!-- end ss-copyright -->
                     </div>
                 </div> 

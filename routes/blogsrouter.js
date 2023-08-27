@@ -111,7 +111,7 @@ router.get('/new/:id', BlogControllers.getNewBlog);
 router.post('/new/:id', upload.fields([{ name: 'image', maxCount: 1 }, { name: 'video', maxCount: 1 }]), BlogControllers.postNewBlog);
 router.get('/home', BlogControllers.getHome);
 
-
+router.get('/main', BlogControllers.getMain);
 
 
 //route to handle updates

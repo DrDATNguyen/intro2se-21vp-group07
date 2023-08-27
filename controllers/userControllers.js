@@ -8,11 +8,48 @@ const path = require('path');
 const mongoose = require('mongoose');
 
 exports.getContact = (req, res) => {
-  res.render('contact');
+  try{
+    const user = req.session.user;
+    // const blogs = Blog.find().sort({ createdAt: 'desc' });
+    res.render('contact',{
+      user: user,
+      // blogs: blogs,
+    })
+  }
+  catch(err){
+    console.log(err);
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
+  }
 }
 exports.getAbout = (req, res) => {
-  res.render('about');
+  try{
+    const user = req.session.user;
+    // const blogs = Blog.find().sort({ createdAt: 'desc' });
+    res.render('about',{
+      user: user,
+      // blogs: blogs,
+    })
+  }
+  catch(err){
+    console.log(err);
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
+  }
 }
+ 
 exports.getLogin = (req, res) => {
     res.render('login');
 }

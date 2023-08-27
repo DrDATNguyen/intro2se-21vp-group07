@@ -26,8 +26,10 @@ sidebarToggle.addEventListener("click", () => {
     sidebar.classList.toggle("close");
     if(sidebar.classList.contains("close")){
         localStorage.setItem("status", "close");
+        document.querySelector(".logo-image").style.display = "none";
     }else{
         localStorage.setItem("status", "open");
+        document.querySelector(".logo-image").style.display = "block";
     }
 })
 function showDashboard() {

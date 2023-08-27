@@ -141,6 +141,51 @@ router.get('/logout',(req,res) =>{
 //   }
 // });
 
+router.get('/upgrade/:id', async(req,res) =>{
+  try{
+    const user = await User.findById(req.params.id); 
+    console.log(user);
+    res.render('UpdateUser', {
+      user: user,
+    });
+  }
+  catch(err){
+    console.log(err);
+  }
+});
+
+router.get('/upgradeuser/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    if (user.user_wallet < 50000) {
+      return res.status(400).send('Insufficient funds');
+    }
+
+    // Update user data using User.updateOne()
+    await User.updateOne(
+      { _id: userId },
+      {
+        $set: {
+          isUservip: true,
+          user_wallet: user.user_wallet - 50000,
+        },
+      }
+    );
+
+    res.redirect(`/user/${user._id}`) 
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred');
+  }
+});
+
+
 router.get('/:id', UserControllers.getProfile);
 router.get('/:id/editProfile', UserControllers.getEditProfile);
 router.post('/:id/editProfile',upload.single('image'), UserControllers.postEditProfile);
@@ -179,12 +224,12 @@ router.get('/:id/myBlogs', async (req, res) => {
         
         // const searchQuery = req.body.search; // Get the search query from the form data
         // const blogs = await Blog.find({ authorID: userID }).exec();
-        const Blogs = await Blog.find().sort({ createdAt: 'desc' }).limit(1);
+        const Blogs = await Blog.find({ authorID: userID }).sort({ createdAt: 'desc' }).limit(1);
 
         
         res.render('MenuUser2', {
           user: currentUser,
-          blogs: Blogs
+          boughtBlogs: Blogs
         });
       } catch (e) {
         console.log(e);
@@ -250,7 +295,7 @@ router.put('/:userID/editBlogs/:blogID', async (req, res) => {
 
 router.get('/buy-premium/:blogId', async(req,res) => {
     const currentBlog = await Blog.findById(req.params.blogId);
-    if(currentBlog){
+    if(!currentBlog){
         req.flash('message', 'We dont know man, we actually dont know');
         req.flash('title', 'Where is my blog');
         req.flash('href', '/user/home'); 
@@ -318,7 +363,6 @@ router.get('/success/:userId', async (req, res) => {
         } else {
             console.log(JSON.stringify(payment));
             user.user_wallet += paymentAmount;
-            user.isUservip = true;
         }
     });
     
@@ -326,7 +370,6 @@ router.get('/success/:userId', async (req, res) => {
         { _id: userId },
         {
           $inc: { user_wallet: paymentAmount },
-          $set: { isUservip: true },
         }
     );
       const newuser = await User.findById(req.session.user._id);
