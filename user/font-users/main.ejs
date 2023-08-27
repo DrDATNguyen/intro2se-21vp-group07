@@ -49,7 +49,7 @@
             
             <ul class="nav-items">
                 <li class="nav-link">
-                    <a href="/main">Home</a>
+                    <a href="/blogs/main">Home</a>
                 </li>
                 <li class="nav-link">
                     <a href="/user/login">Login</a>
@@ -78,10 +78,10 @@
                     </div> -->
                 </li>
                 <li class="nav-link">
-                    <a href="/user/login">Post</a>
+                    <a href="/user/login">New Blog</a>
                 </li>
                 <li class="nav-link">
-                    <a href="/user/login">My Page</a>
+                    <a href="/user/login">Profile</a>
                 </li>
                 <li class="nav-link">
                     <a href="/user/login">About us</a>
@@ -171,44 +171,30 @@
             <div class="blog">
                 <div class="container">
                     <div class="owl-carousel owl-theme blog-post">
+                        <% if(blogs.length<1){%>
+
+                            <p class="text-white">No posts yet, create a new one</p>
+                
+                            <%  } %>
+                
+                            <% blogs.forEach(blog=>{ %>
+                            
+                        <% if(blog.isPremium){ %>
                         <div class="blog-content" data-aos="fade-right" data-aos-delay="200">
-                            <img src="/chuot.jpg" alt="post-1">
+                            <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="img" alt="...">
                             <div class="blog-title">
-                                <h3>Con chuột đáng yêu chỉ với 20k</h3>
+                                <h3><%= blog.title %></h3>
                                 <button onclick="window.location.href = '/user/login';" class="btn btn-blog">Mua ngay</button>
-                                  <span>2 minutes</span>
+                                  <span><%= blog.timeCreated.toLocaleDateString() %></span>
                             </div>
-                        </div>                 
-                        <div class="blog-content" data-aos="fade-in" data-aos-delay="200">
-                            <img src="/chuot.jpg" alt="post-1">
-                            <div class="blog-title">
-                                <h3>Con chuột đáng yêu chỉ với 20k</h3>
-                                <button onclick="window.location.href = '/user/login';" class="btn btn-blog">Mua ngay</button>
-                                <span>2 minutes</span>
-                            </div>
-                        </div>
-                        <div class="blog-content" data-aos="fade-left" data-aos-delay="200">
-                            <img src="/chuot.jpg" alt="post-1">
-                            <div class="blog-title">
-                                <h3>Con chuột đáng yêu chỉ với 20k</h3>
-                                <button onclick="window.location.href = '/user/login';" class="btn btn-blog">Mua ngay</button>
-                                <span>2 minutes</span>
-                            </div>
-                        </div>
-                        <div class="blog-content" data-aos="fade-right" data-aos-delay="200">
-                            <img src="/chuot.jpg" alt="post-1">
-                            <div class="blog-title">
-                                <h3>Con chuột đáng yêu chỉ với 20k</h3>
-                                <button onclick="window.location.href = '/user/login';" class="btn btn-blog">Mua ngay</button>
-                                <span>2 minutes</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Nút điều hướng trái phải -->
+                        </div>     
+                        <% }  %>    
+                        <% }) %>         
+                    </div>     
                     <div class="owl-navigation">
                         <span class="owl-nav-prev"><i class="fas fa-long-arrow-alt-left"></i></span>
                         <span class="owl-nav-next"><i class="fas fa-long-arrow-alt-right"></i></span>
-                    </div>
+                    </div>  
                 </div>
             </div>
         </section>
@@ -292,7 +278,7 @@
            
                 </div>
                 <aside class="sidebar">
-                    <div class="category">
+                    <!-- <div class="category">
                         <h2>Category</h2>
                         <ul class="category-list">
                             <li class="list-items" data-aos="fade-left" data-aos-delay="100">
@@ -324,22 +310,22 @@
                                 <span>(06)</span>
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
                     <div class="popular-post">
                         <h2>Popular Post</h2>
-                        <% if(blogs.length<1){%>
+                        <% if(popularblogs.length<1){%>
 
                             <p class="text-white">No posts yet, create a new one</p>
                 
                             <%  } %>
                 
                 
-                            <% blogs.forEach(blog=>{ %>
+                            <% popularblogs.forEach(blog=>{ %>
                         <div class="post-content" data-aos="flip-up" data-aos-delay="200">
                             <div class="post-image">
-                                <div>
+                                <div><a href="/blogs/<%=blog.slug %>">
                                     <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="img" alt="...">
-
+                                    </a>
                                 </div>
                                 <div class="post-info flex-row">
                                     <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;<%= blog.timeCreated.toLocaleDateString() %></span>
@@ -351,30 +337,8 @@
                             </div>
                         </div>
                         <% }) %>
-                        <div class="post-content" data-aos="flip-up" data-aos-delay="300">
-                            <div class="post-image">
-                                <div>
-                                    <img src="/rua.jpg" class="img" alt="blog1">
-                                </div>
-                                <div class="post-info flex-row">
-                                    <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14,
-                                        2019</span>
-                                    <span>2 Commets</span>
-                                </div>
-                            </div>
-                            <div class="post-title">
-                                <a href="#">Vùng biển phía Nam Việt Nam xuất hiện loài rùa biển xinh đẹp tuổi thọ lên đến trăm năm và được xem là điềm lành may mắn</a>
-                            </div>
-                        </div>
            
-                    <div class="newsletter" data-aos="fade-up" data-aos-delay="300">
-                        <h2>Newsletter</h2>
-                        <div class="form-element">
-                            <input type="text" class="input-element" placeholder="Email">
-                            <button class="btn form-btn">Register for a vip account</button>
-                        </div>
-                    </div>
-                    <div class="popular-tags">
+                    <!-- <div class="popular-tags">
                         <h2>Popular Tags</h2>
                         <div class="tags flex-row">
                             <span class="tag" data-aos="flip-up" data-aos-delay="100">Động vật</span>
@@ -386,7 +350,7 @@
                             <span class="tag" data-aos="flip-up" data-aos-delay="700">Côn trùng</span>
                             <span class="tag" data-aos="flip-up" data-aos-delay="800">Chăm sóc pets</span>
                         </div>
-                    </div>
+                    </div> -->
                 </aside>
             </div>
         </section>
@@ -400,27 +364,26 @@
         <div class="container">
             <div class="about-us" data-aos="fade-right" data-aos-delay="200">
                 <h2>About us</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quia atque nemo ad modi officiis
-                    iure, autem nulla tenetur repellendus.</p>
+                <p>Trang web của chúng tôi là một dự án học tập và đam mê, được xây dựng bởi những con người đam mê về công nghệ và yêu thương động vật. Chúng tôi hi vọng rằng trang web sẽ mang đến sự hiểu biết về thế giới động vật và tạo cơ hội cho mọi người kết nối và chia sẻ đam mê của họ về động vật.</p>
             </div>
-            <div class="newsletter" data-aos="fade-right" data-aos-delay="200">
+            <!-- <div class="newsletter" data-aos="fade-right" data-aos-delay="200">
                 <h2>Newsletter</h2>
                 <p>Stay update with our latest</p>
                 <div class="form-element">
                     <input type="text" placeholder="Email"><span><i class="fas fa-chevron-right"></i></span>
                 </div>
-            </div>
+            </div> -->
             <div class="instagram" data-aos="fade-left" data-aos-delay="200">
-                <h2>Instagram</h2>
+                <h2>Facebook</h2>
                 <div class="flex-row">
-                    <img src="/instagram/thumb-card3.png" alt="insta1">
-                    <img src="/instagram/thumb-card4.png" alt="insta2">
-                    <img src="/instagram/thumb-card5.png" alt="insta3">
+                    <img src="/instagram/khang.png" alt="insta1">
+                    <img src="/instagram/dat.png" alt="insta2">
+                    <img src="/instagram/kiet.png" alt="insta3">
                 </div>
                 <div class="flex-row">
-                    <img src="/instagram/thumb-card6.png" alt="insta4">
-                    <img src="/instagram/thumb-card7.png" alt="insta5">
-                    <img src="/instagram/thumb-card8.png" alt="insta6">
+                    <img src="/instagram/hoang.png" alt="insta4">
+                    <img src="/instagram/ben.png" alt="insta5">
+                    <!-- <img src="/instagram/thumb-card8.png" alt="insta6"> -->
                 </div>
             </div>
             <div class="follow" data-aos="fade-left" data-aos-delay="200">

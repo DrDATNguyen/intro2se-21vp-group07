@@ -2,16 +2,54 @@ const User = require('../models/usermodel');
 const Blog = require('../models/Blog');
 const Cart = require('../models/cart')
 const Report = require('../models/ReportBlogs');
+const bcrypt = require('bcrypt');
 const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
 
 exports.getContact = (req, res) => {
-  res.render('contact');
+  try{
+    const user = req.session.user;
+    // const blogs = Blog.find().sort({ createdAt: 'desc' });
+    res.render('contact',{
+      user: user,
+      // blogs: blogs,
+    })
+  }
+  catch(err){
+    console.log(err);
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
+  }
 }
 exports.getAbout = (req, res) => {
-  res.render('about');
+  try{
+    const user = req.session.user;
+    // const blogs = Blog.find().sort({ createdAt: 'desc' });
+    res.render('about',{
+      user: user,
+      // blogs: blogs,
+    })
+  }
+  catch(err){
+    console.log(err);
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
+  }
 }
+ 
 exports.getLogin = (req, res) => {
     res.render('login');
 }
@@ -59,9 +97,10 @@ exports.postLogin = async (req, res) => {
             href: req.flash('href')
         });
       }
-      if (user && user.password === req.body.password) {
+      if (user && await bcrypt.compare(req.body.password, user.password)) {
         
         req.session.user = user;
+        res.locals.User = req.session.user;
         console.log('User logged in:', req.session.user);
         res.redirect('/user/home');
       } else {
@@ -92,9 +131,10 @@ exports.getSignup = (req, res) => {
 }
 
 exports.postSignup = async (req, res) => {
+  const hashPassword = await bcrypt.hash(req.body.password, 10);
   const data = {
     username: req.body.username,
-    password: req.body.password,
+    password: hashPassword,
     email: req.body.email,
   };
 

@@ -1,7 +1,6 @@
 const User = require('../models/usermodel');
 const Blog = require('../models/Blog');
 const SearchKeyword = require('../models/SearchKeyword'); // Đảm bảo bạn đã import model SearchKeyword
-const View = require('../models/view');
 
 exports.getBlog = async (request, response) => {
   let blog = await Blog.findOne({ slug: request.params.slug }).populate({
@@ -37,14 +36,12 @@ exports.getBlog = async (request, response) => {
   //      });
   //  });
    
-   // Hiển thị các thông tin kiểm tra trên console để debug
-   console.log('Related Blogs:', relatedBlogs);
-   console.log('Key word tag in my blog:', currentTags);
+   // Hiển thị các thông tin kiểm tra trên console để debu
   //  console.log('Matching Tags:', matchingTags);
   
   if (blog) {
-      
-      response.render('../font-users/single-standard', { blog: blog, relatedBlogs: relatedBlogs });
+
+      response.render('../font-users/single-standard', { blog: blog, relatedBlogs: relatedBlogs, user: request.session.user });
       blog.views += 1;
       // Lưu thay đổi vào cơ sở dữ liệu
     await blog.save();
@@ -113,6 +110,27 @@ exports.getHome = async(req,res) =>{
   }
 }
 
+exports.getMain = async(req,res) =>{
+  try{
+    let Blogs = await Blog.find({ verify: true }).sort({ createdAt: 'desc' });
+    const filteredBlogs = await exports.filterBlogs('mostPopular');
+    res.render('../font-users/main', {
+      blogs: Blogs,
+      popularblogs:filteredBlogs 
+    })
+  }
+  catch(err){
+    console.log(err);
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
+  }
+}
 exports.getLogin = (req, res) => {
     res.render('user/login');
 }
@@ -278,6 +296,8 @@ exports.search1 = async (req, res) => {
     // console.log(userID); // Log the userID for debugging
     
     const searchQuery = req.body.search; // Get the search query from the form data
+    const filteredBlogs = await exports.filterBlogs('mostPopular');
+
     const blogs = await Blog.find({ tags: { $regex: searchQuery, $options: 'i' } }).exec();
     
      // Cập nhật hoặc tạo mới thông tin từ khóa tìm kiếm
@@ -285,7 +305,8 @@ exports.search1 = async (req, res) => {
 
     res.render('../font-users/main', {
       // user: currentUser,
-      blogs: blogs
+      blogs: blogs,
+      popularblogs:filteredBlogs
     });
   } catch (e) {
     console.log(e);

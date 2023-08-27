@@ -567,27 +567,3 @@ $('.move-up span').click(function () {
   })();
 
 })(jQuery);
-function toggleLike(event, likeBtn) {
-    event.preventDefault();
-    const blogId = likeBtn.getAttribute('data-blogid');
-    const userLiked = likeBtn.getAttribute('data-liked') === 'true';
-    const userId = user ? user._id : null;
-
-    fetch(`/like/${blogId}/${userId}`, { method: 'POST' })
-        .then(response => response.json())
-        .then(data => {
-            // Cập nhật số lượt thích trên giao diện
-            const likesSpan = likeBtn.querySelector('span');
-            likesSpan.innerHTML = `<i class="fas fa-thumbs-up"></i>&nbsp;&nbsp;${data.likes}`;
-
-            // Cập nhật trạng thái đã like hoặc chưa like
-            likeBtn.setAttribute('data-liked', !userLiked);
-        })
-        .catch(error => {
-            console.error('Lỗi khi cập nhật lượt thích:', error);
-        });
-}
-
-
-
-

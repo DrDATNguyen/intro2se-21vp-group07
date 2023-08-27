@@ -1,27 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <title>Add Money to Wallet</title>
 </head>
 <body>
 
-<div class="container mt-5">
-  <h1 class="mb-4">Add Money to Wallet</h1>
-  <p>Hello <%= user.username %>, you currently have <%= user.user_wallet %> in your wallet.</p>
+<h1>Add Money to Wallet</h1>
+<p>Hello <%= user.username %>, you currently have <%= user.user_wallet %> in your wallet.</p>
 
-  <form action="/user/process-add-money" method="POST">
-    <div class="form-group">
-      <label for="amount">Enter amount to add:</label>
-      <input type="number" step="10000" min="0" class="form-control" name="amount" id="amount" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Add Money</button>
-  </form>
-
-  <a href="/user/home" class="btn btn-secondary mt-3">Go Back</a>
-</div>
+<form action="/user/process-add-money" method="POST">
+  <label for="amount">Enter amount to add: </label>
+  <input type="number" step="10000" min="0" name="amount" id="amount" required>
+  
+  <!-- Add hidden fields for currency and user ID -->
+  <input type="hidden" name="currency" value="USD">
+  <input type="hidden" name="user_id" value="<%= user._id %>">
+  
+  <button type="submit">Add Money</button>
+</form>
+<a href="/user/home" class="btn btn-secondary mt-3">Go Back</a>
 
 </body>
 </html>

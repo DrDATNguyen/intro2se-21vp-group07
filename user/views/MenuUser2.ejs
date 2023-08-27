@@ -27,20 +27,19 @@
   <body>
       <nav>
           <div class="logo-name">
-              <!-- <div class="logo-image">
-                  <img src="./assets/imagesMenuUser/logo2.png" alt="">
-              </div> -->
+             
               <a href="/user/home">
                   <i class="fa-brands fa-wolf-pack-battalion fa-bounce fa-2xl"></i>
                   <span class="logo_name">Animal World</span>
               </a>
-              <!-- <div class="user-link"> -->
-                    <div class="logo-image"><a href="#"> <img src="data:<%= user.avatarimg.contentType %>;base64,<%= user.avatarimg.data.toString('base64') %>" class="card-img" alt="...">
+              
+          
+                  <div class="logo-image"><a href="#"> <img src="data:<%= user.avatarimg.contentType %>;base64,<%= user.avatarimg.data.toString('base64') %>" class="card-img" alt="...">
                 
                   <div class="logo-image">
                     <h2><%= user.username %></h2>
                   </div>
-              <!-- </div> -->
+         
           </div>
   
           <div class="menu-items">
@@ -64,7 +63,7 @@
               </ul>
               
               <ul class="logout-mode">
-                  <li><a href="main.html">
+                  <li><a href="/user/logout">
                       <i class="uil uil-signout"></i>
                       <span class="link-name">Logout</span>
                   </a></li>
@@ -87,10 +86,10 @@
           <div class="top">
               <i class="uil uil-bars sidebar-toggle"></i>
   
-              <div class="search-box">
+              <!-- <div class="search-box">
                   <i class="uil uil-search"></i>
                   <input type="text" placeholder="Search here...">
-              </div>
+              </div> -->
               <div></div>
           <!-- <div class="user-link">
               <a href="#"></a><img src="./assets/imagesMenuUser/profile2.jpg" alt=""></a>

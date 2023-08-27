@@ -111,7 +111,7 @@ router.get('/new/:id', BlogControllers.getNewBlog);
 router.post('/new/:id', upload.fields([{ name: 'image', maxCount: 1 }, { name: 'video', maxCount: 1 }]), BlogControllers.postNewBlog);
 router.get('/home', BlogControllers.getHome);
 
-
+router.get('/main', BlogControllers.getMain);
 
 
 //route to handle updates
@@ -164,7 +164,6 @@ router.post('/add-comment/:blogSlug', async (req, res) => {
 
 // If you want to access the username of the comment authors
     blog.comments.forEach(comment => {
-      console.log(comment.commentBy.username);
     });
     if (!blog) {
       return res.status(404).send('Blog not found');
@@ -184,10 +183,22 @@ router.post('/add-comment/:blogSlug', async (req, res) => {
     blog.comments.push(newComment);
     await blog.save();
 
-    res.redirect(`/blogs/${blogSlug}`);
+    if (req.xhr) {
+      // If it's an AJAX request, send a JSON response with the new comment
+      return res.json({ success: true, comment: newComment });
+    } else {
+      // If it's a regular form submission, redirect
+      return res.redirect(`/blogs/${blogSlug}`);
+    }
+    
   } catch (error) {
     console.error('Error adding comment:', error);
-    res.status(500).send('An error occurred while adding a comment');
+
+    if (req.xhr) {
+      return res.status(500).json({ success: false, error: 'An error occurred while adding a comment' });
+    } else {
+      return res.status(500).send('An error occurred while adding a comment');
+    }
   }
 });
 

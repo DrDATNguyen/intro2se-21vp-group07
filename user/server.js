@@ -5,6 +5,7 @@ var flash = require('connect-flash');
 const mongoose = require('mongoose');
 
 //bring in method override
+const BlogControllers = require('./controllers/blogControllers')
 const methodOverride = require('method-override');
 const userRouter = require('./routes/userrouter');
 const blogRouter = require('./routes/blogsrouter');
@@ -56,8 +57,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', async (request, response) => {
   try {
     let Blogs = await Blog.find({ verify: true }).sort({ createdAt: 'desc' });
-
-    response.render('../font-users/main', { blogs: Blogs });
+    const filteredBlogs = await BlogControllers.filterBlogs('mostPopular');
+    response.render('../font-users/main', { blogs: Blogs,popularblogs:filteredBlogs });
     await createVisit();
 
   } catch (error) {
