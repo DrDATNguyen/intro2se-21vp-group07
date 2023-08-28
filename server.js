@@ -47,7 +47,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', async (request, response) => {
   try {
     let Blogs = await Blog.find({ verify: true }).sort({ createdAt: 'desc' });
-    const filteredBlogs = await BlogControllers.filterBlogs('mostPopular').limit(5);
+    const filteredBlogs = await BlogControllers.filterBlogs('mostPopular');
     response.render('../font-users/main', { blogs: Blogs,popularblogs:filteredBlogs });
     await createVisit();
 

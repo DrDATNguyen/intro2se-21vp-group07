@@ -160,8 +160,10 @@ exports.postSignup = async (req, res) => {
 
       await User.create(data);
       const newUser = await User.findOne({ username: req.body.username });
+      const message = 'You have successfully signed up';
       res.render('login', {
         user: newUser,
+        message: message,
       });
     }
   } catch (error) {

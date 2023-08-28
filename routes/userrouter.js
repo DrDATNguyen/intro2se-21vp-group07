@@ -34,9 +34,10 @@ router.get('/home', UserControllers.getHome);
 router.get('/contact', UserControllers.getContact);
 router.get('/about', UserControllers.getAbout);
 
-router.post('/resetpassword/:id',async (req,res) =>{
+router.post('/resetpassword/:id', async (req,res) =>{
     try{
         let user = await User.findById(req.params.id);
+        console.log(user);
         if(!user){
                 req.flash('message', 'Cannot find your account');
                 req.flash('title', 'Cannot find your account, create one');
@@ -47,7 +48,15 @@ router.post('/resetpassword/:id',async (req,res) =>{
                     href: req.flash('href')
                 });
         }
-        user = await User.findByIdAndUpdate(user._id,{password: req.body.ForgetPassword});
+        console.log(req.body.ForgetPassword);
+        const hashPassword = await bcrypt.hash(req.body.ForgetPassword, 10);
+        console.log(hashPassword);
+        const updatedUser = await User.findByIdAndUpdate(
+            user._id,
+            { $set: { password: hashPassword } }
+        );
+
+
         res.redirect('/user/login');
     }
     catch(err){
