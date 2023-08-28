@@ -105,42 +105,6 @@ router.get('/logout',(req,res) =>{
 });
 
 
-// Define a new GET route for editing the user's profile
-// router.get('/:id/edit', async (req, res) => {
-//   try {
-//     const userId = req.params.id;
-//     const user = await User.findById(userId);
-//     if (!user) {
-//       // Handle the case where the user is not found
-//       return res.status(404).send('User not found');
-//     }
-//     res.render('editProfile', { user });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send('Internal Server Error');
-//   }
-// });
-
-
-// // Assuming you already have the following route to handle editing the user's profile
-// router.post('/:id/edit', async (req, res) => {
-//   try {
-//     const userId = req.params.id;
-//     const { username, password, email, avatarimg } = req.body;
-
-//     // Find the user by ID and update the fields
-//     newuser = await User.findByIdAndUpdate(userId, { username, password, email, avatarimg });
-//     const articles = await Article.find(); // Wait for the articles to be fetched
-//       res.render('homeUser', {
-//         user: newuser,
-//         articles: [articles]
-//       });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send('Internal Server Error');
-//   }
-// });
-
 router.get('/upgrade/:id', async(req,res) =>{
   try{
     const user = await User.findById(req.params.id); 
@@ -191,30 +155,7 @@ router.get('/:id/editProfile', UserControllers.getEditProfile);
 router.post('/:id/editProfile',upload.single('image'), UserControllers.postEditProfile);
 router.post('/:idUser/report/:idBlog', UserControllers.reportBlog);
 router.get('/:idUser/report/:idBlog', UserControllers.getReport);
-// router.get('/edit', (request, response) => {
-//     res.render('edit');
-//   })
-// router.post('/:id/myBlogs', async (req, res) => {
-//     try {
-//         const userID = req.body.userID; 
-//         console.log(userID);
-//         const currentUser = await User.findById(userID);
-//         console.log(userID); // Log the userID for debugging
-        
-//         const searchQuery = req.body.search; // Get the search query from the form data
-//         const blogs = await Blog.find({ authorID: userID }).exec();
-        
 
-        
-//         res.render('index', {
-//           user: currentUser,
-//           blogs: blogs
-//         });
-//       } catch (e) {
-//         console.log(e);
-//         res.status(500).send('Error searching for blogs.');
-//       }
-// })
 router.get('/:id/myBlogs', async (req, res) => {
     try {
         const userID =  req.params.id;
@@ -380,7 +321,14 @@ router.get('/success/:userId', async (req, res) => {
     } catch (error) {
       console.error(error);
       // Handle the error
-      res.status(500).send('An error occurred');
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     };
   });
   
@@ -433,7 +381,14 @@ router.get('/:blogId', async (req, res) => {
         const blog = await Blog.findById(blogId);
 
         if (!blog) {
-            return res.status(404).send('Bài viết không tồn tại');
+          req.flash('message', 'User or blog cannot be found. Well... just to be sure, get back to login man');
+          req.flash('title', 'Where is my blog');
+          req.flash('href', '/user/login'); 
+          res.render('error', {
+              message: req.flash('message'),
+              title: req.flash('title'),
+              href: req.flash('href')
+          });
         }
 
         // Đoạn mã để kiểm tra xem người dùng đã like bài viết hay chưa
@@ -445,7 +400,14 @@ router.get('/:blogId', async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-        res.status(500).send('Lỗi Server Nội Bộ: ' + error.message);
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 });
 
@@ -457,7 +419,14 @@ router.post('/like/:blogId/:userId', async (req, res) => {
         const blog = await Blog.findById(blogId);
 
         if (!blog) {
-            return res.status(404).send('Bài viết không tồn tại');
+          req.flash('message', 'User or blog cannot be found. Well... just to be sure, get back to login man');
+          req.flash('title', 'Where is my blog');
+          req.flash('href', '/user/login'); 
+          res.render('error', {
+              message: req.flash('message'),
+              title: req.flash('title'),
+              href: req.flash('href')
+          });
         }
 
         const userLikedIndex = blog.likedBy.indexOf(userId);
@@ -476,7 +445,14 @@ router.post('/like/:blogId/:userId', async (req, res) => {
         res.json({ likes: blog.likes });
     } catch (error) {
         console.error(error);
-        res.status(500).send('Lỗi Server Nội Bộ: ' + error.message);
+        req.flash('message', 'Something went wrong');
+        req.flash('title', 'An error occurred while processing your request');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 });
 

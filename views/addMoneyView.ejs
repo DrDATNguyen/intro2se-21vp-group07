@@ -2,23 +2,39 @@
 <html>
 <head>
   <title>Add Money to Wallet</title>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Money to Wallet</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
 </head>
 <body>
 
-<h1>Add Money to Wallet</h1>
-<p>Hello <%= user.username %>, you currently have <%= user.user_wallet %> in your wallet.</p>
-
-<form action="/user/process-add-money" method="POST">
-  <label for="amount">Enter amount to add: </label>
-  <input type="number" step="10000" min="0" name="amount" id="amount" required>
+  <div class="container mt-10">
+      <div class="row justify-content-center">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header">
+                      <h1 class="text-center">Add Money to Wallet</h1>
+                  </div>
+                  <div class="card-body">
+                      <p>Hello <%= user.username %>, you currently have <%= user.user_wallet %> in your wallet.</p>
+                      <form action="/user/process-add-money" method="POST">
+                          <div class="form-group">
+                              <label for="amount">Enter amount to add:</label>
+                              <input type="number" step="10000" min="0" class="form-control" name="amount" id="amount" required>
+                          </div>
+                          <input type="hidden" name="currency" value="USD">
+                          <input type="hidden" name="user_id" value="<%= user._id %>">
+                          <button type="submit" class="btn btn-primary mt-3"><i class="fab fa-cc-paypal fa-sm"></i>&nbsp;&nbsp;</i>Add Money</button>
+                          <a href="/user/home" class="btn btn-primary mt-3">Go Back</a>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
   
-  <!-- Add hidden fields for currency and user ID -->
-  <input type="hidden" name="currency" value="USD">
-  <input type="hidden" name="user_id" value="<%= user._id %>">
-  
-  <button type="submit">Add Money</button>
-</form>
-<a href="/user/home" class="btn btn-secondary mt-3">Go Back</a>
-
-</body>
+  </body>
 </html>

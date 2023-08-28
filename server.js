@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'js')));
 app.use(express.static(path.join(__dirname, 'assets')));
 const Visit = require('./models/visit');
 //connect to mongoose
-mongoose.connect('mongodb+srv://datG:Dat123456@cluster0.kgivcxs.mongodb.net/', {
+mongoose.connect('mongodb+srv://khangvadat:khangvadatdeptrai@webdeveloppersgroup07.t4puhcs.mongodb.net/?retryWrites=true&w=majority', {
   useNewUrlParser: true, useUnifiedTopology: true,
   useCreateIndex: true
 },
@@ -39,30 +39,19 @@ mongoose.connect('mongodb+srv://datG:Dat123456@cluster0.kgivcxs.mongodb.net/', {
 
 //set template engine
 app.set('view engine', 'ejs');
-// app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
-//route for the index
 app.set('views', path.join(__dirname, 'views'))
 app.set('font-users', path.join(__dirname, 'font-users'))
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use('/js', express.static(path.join(__dirname, 'public/js')));
-// app.set('js', path.join(__dirname, 'js'))
-// app.use('/js', express.static(path.join(__dirname, 'public/js'), { "Content-Type": "application/javascript" }));
 
-// app.get('/', async (request, response) => {
-//   let blogs = await Blog.find().sort({ timeCreated: 'desc' });
-
-//   response.render('index', { blogs: blogs });
-// });
 app.get('/', async (request, response) => {
   try {
     let Blogs = await Blog.find({ verify: true }).sort({ createdAt: 'desc' });
-    const filteredBlogs = await BlogControllers.filterBlogs('mostPopular');
+    const filteredBlogs = await BlogControllers.filterBlogs('mostPopular').limit(5);
     response.render('../font-users/main', { blogs: Blogs,popularblogs:filteredBlogs });
     await createVisit();
 
   } catch (error) {
-    // Xử lý lỗi nếu có
     console.error(error);
     response.status(500).send('Internal Server Error');
   }

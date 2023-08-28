@@ -3184,7 +3184,39 @@ button::-moz-focus-inner, input::-moz-focus-inner {
  * ## masonry entries
  * ------------------------------------------------------------------- */
 .bricks-wrapper .entry {
-    margin-bottom: 4rem;
+    margin-bottom: 0.5rem;
+    height: 800px; /* Set a fixed height for consistent box sizes */
+}
+
+
+.bricks-wrapper .entry__buttons {
+    position: relative; /* Establish a positioning context */
+}
+
+.bricks-wrapper .entry__buttons::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px; /* Set the height of the fade-out gradient */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+}
+
+.entry__introduction {
+    height: 150px; /* Set the height for the introduction box */
+    overflow: hidden; /* Hide overflowing content */
+    position: relative; /* Establish a positioning context */
+}
+
+.entry__introduction::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px; /* Set the height of the fade-out gradient */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
 }
 /* Áp dụng shadow (hiệu ứng bóng) cho phần thumb và phần text của bài viết. */
 .bricks-wrapper .entry__thumb, 
@@ -3210,6 +3242,9 @@ button::-moz-focus-inner, input::-moz-focus-inner {
     transition: all 0.3s ease-in-out;
     /* Xóa đi các khoảng trống xung quanh hình ảnh. */
     margin: 0;
+    width: 100%; /* Set a fixed width for the images */
+    height: 200px; /* Set a fixed height for the images */
+    object-fit: cover; /* Maintain aspect ratio and cover the container */
 }
 /* Định dạng cho pseudo-element `before` của phần thumb-link trong bài viết. */
 /* ::before: Pseudo-element này cho phép bạn thêm nội dung vào phần tử trước nội dung chính
@@ -3234,6 +3269,9 @@ button::-moz-focus-inner, input::-moz-focus-inner {
     top: 0;
     left: 0;
 }
+
+
+
 
 .bricks-wrapper .entry__thumb .thumb-link::after {
     z-index: 1;
@@ -3288,7 +3326,20 @@ button::-moz-focus-inner, input::-moz-focus-inner {
     line-height: var(--vspace-1);
     margin-top: 0;
     margin-bottom: var(--vspace-0_5);
+    height: 100px; /* Set a fixed height for the title container */
+    overflow: hidden; /* Hide overflowing content */
+    position: relative; /* Establish a positioning context */
 }
+.entry__title::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px; /* Set the height of the fade-out gradient */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+}
+
 
 .bricks-wrapper .entry__title a, 
 .bricks-wrapper .entry__title a:visited {
@@ -3324,6 +3375,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
     margin-bottom: 0;
 }
 
+
 /* featured post slider 
  * ------------------------------------------------------------------- */
 .featured-grid .entry__content {
@@ -3352,7 +3404,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
     -webkit-box-pack: center;
     /* Canh chỉnh các phần tử con theo trục ngang vào giữa trên các trình duyệt chuẩn. */
     justify-content: center;
-    height: 100rem;
+    height: 75rem;
     width: 100%;
     background-color: white;
     padding: var(--vspace-2) 15% var(--vspace-1);
@@ -5269,57 +5321,53 @@ body.search-is-visible {
         padding-top: var(--vspace-1);
     }
 }
-.blog{
-    /* background: url('../assets/background6.jpg'); */
+.blog {
     background-repeat: no-repeat;
     background-position: center;
     height: 100vh;
     width: 100%;
-     /* background-size: 65%;  */
-}
+  }
 
-.blog .blog-post{
+  .blog .blog-post {
     padding-top: 6rem;
-}
+  }
 
-.blog-content{
+  .blog-content {
     display: flex;
-    /* sắp xếp các phần tử con của một container theo hướng dọc (theo chiều dọc). Điều này có nghĩa là các phần tử con sẽ được xếp chồng lên nhau từ trên xuống dưới thay vì xếp cạnh nhau theo chiều ngang như mặc định. */
     flex-direction: column;
     text-align: center;
     width: 80%;
     margin: 3rem 2rem;
     box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2);
-}
+  }
 
- .blog-content .blog-title{
+  .blog-content .blog-title {
     padding: 2rem 0;
-}
+  }
 
- .blog-content .btn-blog{
+  .blog-content .btn-blog {
     padding: .7rem 2rem;
     background: var(--color-1-ligh);
     margin: .5rem;
-}
+  }
 
-.blog-content span{
+  .blog-content span {
     display: block;
-}
-.container .owl-nav{
-    /* , phần tử sẽ được di chuyển đến vị trí cụ thể bằng cách sử dụng các thuộc tính "top", "bottom", "left", "right". Vị trí này được tính từ phần tử cha gần nhất mà có thuộc tính "position" không phải "static". Phần tử sẽ không ảnh hưởng đến không gian của các phần tử khác trong văn bản. */
+  }
+
+  .container .owl-nav {
     position: absolute;
     top: 0%;
     margin: 0 auto;
     width: 100%;
-}
+  }
 
- .owl-prev.owl-prev .owl-nav-prev,
-.owl-nav .owl-next .owl-nav-next{
+  .owl-prev.owl-prev .owl-nav-prev,
+  .owl-nav .owl-next .owl-nav-next {
     color: black;
     background: transparent;
     font-size: 2rem;
-}
-
+  }
 /* định nghĩa một hiệu ứng hover cho các phần tử con có lớp chứa từ "owl-" trong một carousel được thiết kế bằng Owl Carousel. 
 
 Cụ thể, khi di chuột hover vào các phần tử đó, nền của chúng sẽ trở nên trong suốt (transparent) và màu chữ sẽ thay đổi thành màu đêm (var(--midnight)).  */

@@ -196,6 +196,7 @@
 
                         </div> <!-- end entry content -->
                     </div> <!-- end entry, featured grid -->
+                    
                     <div class="blog-list">
                     <% if(blogs.length<1){%>
 
@@ -231,7 +232,7 @@
                                                 <h1 class="entry__title"><a href="/blogs/<%=blog.slug %>"><%= blog.title %></a></h1>
                                                 
                                             </div>
-                                            <div class="entry__excerpt">
+                                            <div class="entry__introduction">
                                                 <p>
                                                     <%- blog.introduction %>
                                                 </p>
@@ -239,10 +240,10 @@
                                             
                                                 <!-- <a href="/user/buy/<%= blog._id %>" class="buy-button">Buy </a>
                                                 <a href="/user/add-to-cart/<%= blog._id %>" class="add-to-cart-button">Add to Cart </a> -->
-                                                <a href="/user/<%= user._id %>/report/<%= blog._id %>">Report</a> 
-                                                <a href="#" id="likeBtn" data-blogid="<%= blog._id %>" onclick="toggleLike(this)">
-                                                    <span><i class="fas fa-thumbs-up"></i>&nbsp;&nbsp;<%= blog.likes %></span>
-                                                </a>
+                                                <!-- <div class="entry__buttons"> -->
+
+                                                    <a href="/user/<%= user._id %>/report/<%= blog._id %>">Report</a>
+                                                <!-- </div> -->
                                                                                                     
                                         </div> <!-- end entry__text -->
                                     </article> <!-- end entry -->
@@ -271,19 +272,17 @@
                                                 <h1 class="entry__title"><a href="/user/buy-premium/<%= blog._id %>"><%= blog.title %></a></h1>
                                                 
                                             </div>
-                                            <div class="entry__excerpt">
+                                            <div class="entry__introduction">
                                                 <p>
                                                     <%- blog.introduction %>
                                                 </p>
                                             </div>
                                             
+                                            <!-- <div class="entry__buttons"> -->
                                                 <a href="/user/buy-premium/<%= blog._id %>" class="buy-button">Buy </a>
                                                 <a href="/user/add-to-cart/<%= blog._id %>" class="add-to-cart-button">Add to Cart </a>
-                                                <a href="/user/<%= user._id %>/report/<%= blog._id %>">Report</a> 
-                                                <!-- <a href="/user/like/<%= blog._id %>/<%= user._id %>"><span><i class="fas fa-thumbs-up"></i></i>&nbsp;&nbsp;<%= blog.likes.length %></span></a> -->
-                                                <a href="#" id="likeBtn-<%= blog._id %>" data-blogid="<%= blog._id %>" data-liked="<%= user && blog.likedBy.includes(user._id.toString()) ? 'true' : 'false' %>" onclick="toggleLike(event, this)">
-                                                    <span><i class="fas fa-thumbs-up"></i>&nbsp;&nbsp;<%= blog.likes %></span>
-                                                </a>
+                                                <a href="/user/<%= user._id %>/report/<%= blog._id %>">Report</a>
+                                            <!-- </div> -->
                                         </div> <!-- end entry__text -->
                                     </article> <!-- end entry -->
                                 <% } %>
@@ -312,15 +311,14 @@
                                             <h1 class="entry__title"><a href="/blogs/<%=blog.slug %>"><%= blog.title %></a></h1>
                                             
                                         </div>
-                                        <div class="entry__excerpt">
+                                        <div class="entry__introduction">
                                             <p>
                                                 <%- blog.introduction %>
                                             </p>
                                         </div>
-                                            <a href="/user/<%= user._id %>/report/<%= blog._id %>">Report</a> 
-                                            <a href="#" id="likeBtn-<%= blog._id %>" data-blogid="<%= blog._id %>" data-liked="<%= user && blog.likedBy.includes(user._id.toString()) ? 'true' : 'false' %>" onclick="toggleLike(event, this)">
-                                                <span><i class="fas fa-thumbs-up"></i>&nbsp;&nbsp;<%= blog.likes %></span>
-                                            </a>
+                                        
+                                        <a href="/user/<%= user._id %>/report/<%= blog._id %>">Report</a>
+                                    
                                                 
                                     </div> <!-- end entry__text -->
                                 </article> <!-- end entry -->
@@ -329,7 +327,7 @@
                         </div>
                     <%  } %>
              
-            <div class="row">
+            <!-- <div class="row">
                 <div class="column large-12">
                     <nav class="pgn">
                         <ul class="pagination">
@@ -338,8 +336,7 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12.707 17.293L8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z"></path></svg>
                                 </a>
                             </li>
-                           <!-- Page numbers -->
-                           <% let totalPages = Math.ceil(blogs.length / 3); %> <!-- Calculate totalPages -->
+                           <% let totalPages = Math.ceil(blogs.length / 3); %> 
                             <% for (let i = 1; i <= totalPages; i++) { %>
                                 <li><a class="pgn__num" href="#" data-page="<%= i %>"><%= i %></a></li>
                             <% } %>
@@ -348,9 +345,9 @@
                                 </a>
                             </li>
                         </ul>
-                    </nav> <!-- end pgn -->
-                </div> <!-- end column -->
-            </div> <!-- end row -->
+                    </nav> 
+                </div> <
+            </div>  -->
         
         </section> <!-- end s-bricks -->
 

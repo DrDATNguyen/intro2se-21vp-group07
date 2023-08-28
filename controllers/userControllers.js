@@ -179,7 +179,8 @@ exports.postSignup = async (req, res) => {
 
 exports.getHome = async(req,res) =>{
   try{
-    const user = req.session.user;
+    const user = await User.findById(req.session.user._id);
+    req.session.user = user;
     const blogs = await Blog.find().sort({ createdAt: 'desc' });
     // const userLikedBlog = Blog.likes.includes(user._id); // userId là ID của người dùng hiện tại
 
@@ -396,9 +397,11 @@ exports.buyPremiumBlog = async (req, res) => {
           href: req.flash('href')
       });
     }
-
-    user.user_wallet -= blog.price;
-    user.bought_blog.push(blog._id);
+    else{
+      user.user_wallet -= blog.price;
+      user.bought_blog.push(blog._id);
+    }
+    
     await User.findByIdAndUpdate(user._id, user);
 
     res.redirect('/user/home');
@@ -538,10 +541,12 @@ exports.buyFromCart = async (req, res) => {
           title: req.flash('title'),
           href: req.flash('href')
       });
+      const newWalletAmount = user.user_wallet;
     }
-
+    else{
+      const newWalletAmount = user.user_wallet - totalCost;
+    }
     // Deduct the total cost from user's wallet
-    const newWalletAmount = user.user_wallet - totalCost;
     await User.findByIdAndUpdate(user._id, { $set: { user_wallet: newWalletAmount } });
 
     // Add unique blogs from the cart to user's bought_blog array
@@ -670,7 +675,14 @@ exports.deleteBoughtBlog = async (req, res) => {
     const user = await User.findById(userId);
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+        req.flash('message', 'Cannot find your account');
+        req.flash('title', 'Cannot find your account, create one');
+        req.flash('href', '/user/login'); 
+        res.render('error', {
+            message: req.flash('message'),
+            title: req.flash('title'),
+            href: req.flash('href')
+        });
     }
 
     // Tìm index của bài viết trong mảng bought_blog
