@@ -30,6 +30,7 @@ app.set('views', path.join(__dirname, 'views'))
 // Định tuyến cho phần admin
 app.use('/admin', adminRoutes);
 app.use('/user', userRouter);
+app.use(flash());
 // app.get('/', async (request, response) => {
 //   try {
 //     const pendingPosts = await Blog.find({ verify: false }); // Lấy các bài viết chưa được duyệt
@@ -49,6 +50,6 @@ app.get('/', async (req, res) => {
 });
 
 // Server lắng nghe cổng 3000
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+app.listen(5000, () => {
+  console.log('Server is running on port 5000');
 });

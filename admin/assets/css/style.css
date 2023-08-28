@@ -1110,5 +1110,107 @@ h6 {
     cursor: pointer;
     color: blue;
   }
+  
+  .container {
+      /* max-width: 400px; */
+      margin: 0 auto;
+      padding: 50px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .field {
+      margin-bottom: 20px;
+  }
+  
+  input[type="text"],
+  input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+  }
 
+  input[type="text"]:focus,
+  input[type="password"]:focus {
+      outline: none;
+      border-color: #3498db;
+  }
 
+  .btn-layer {
+      /* position: absolute; */
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-color: #3498db;
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: 4px;
+  }
+  
+  .field.btn:hover .btn-layer {
+      opacity: 0.8;
+  }
+  
+  input[type="submit"] {
+      cursor: pointer;
+      background-color: #3498db; 
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      padding: 15px 15px;
+      width: 100%;
+      border-radius: 2px;
+  }
+
+/* Reset default margins and paddings */
+/* body, h1, h2, h3, p, ul, li {
+  margin: 0;
+  padding: 0;
+} */
+
+/* Apply some basic styling */
+.blog-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.blog-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+.s-content__title--post {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.s-content__post-meta {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.s-content__post-meta li {
+  display: inline;
+  margin-right: 20px;
+}
+
+.s-content__post-tags {
+  margin-top: 20px;
+}
+
+.s-content__pagenav {
+  margin-top: 40px;
+}
+
+.prev-nav, .next-nav {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+/* Add more styles as needed */

@@ -328,7 +328,7 @@
     <aside id="sidebar" class="sidebar">
       <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="../index.html">
+          <a class="nav-link" href="/admin/home">
             <i class="bi bi-grid"></i>
             <span>Dashboard</span>
           </a>
@@ -350,12 +350,12 @@
             data-bs-parent="#sidebar-nav"
           >
             <li>
-              <a href="../browsingusers/index.html">
+              <a href="/admin/allUsers">
                 <i class="bi bi-circle"></i><span>All user</span>
               </a>
             </li>
             <li>
-              <a href="../browsingusers/Create.html">
+              <a href="/admin/createUser">
                 <i class="bi bi-circle"></i><span>Create user</span>
               </a>
             </li>
@@ -378,12 +378,12 @@
             data-bs-parent="#sidebar-nav"
           >
             <li>
-              <a href="../browsearticles/Index.html">
+              <a href="/admin/pending-posts">
                 <i class="bi bi-circle"></i><span>All Articles</span>
               </a>
             </li>
             <li>
-              <a href="../browsearticles/Create.html">
+              <a href="/admin/new/<%= admin._id %>">
                 <i class="bi bi-circle"></i><span>Create Articles</span>
               </a>
             </li>
@@ -397,8 +397,7 @@
             data-bs-toggle="collapse"
             href="#"
           >
-            <i class="bi bi-layout-text-window-reverse"></i
-            ><span>Browse report</span
+            <i class="bi bi-layout-text-window-reverse"></i><span>Browse report</span
             ><i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul
@@ -407,7 +406,7 @@
             data-bs-parent="#sidebar-nav"
           >
             <li>
-              <a href="../browsereport/index.html">
+              <a href="/admin/reports">
                 <i class="bi bi-circle"></i><span>All report</span>
               </a>
             </li>
@@ -460,9 +459,12 @@
                   VIP
               <% } %></td>
                 <td>
-                  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <!-- <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Delete
-                  </button>
+                  </button> -->
+                  <form action="/admin/<%= user._id %>/deleteUser" method="POST"> <!-- Sử dụng phương thức POST -->
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
                   <!-- <a href="./Update.html" type="button" class="btn btn-primary">
                     Update
                   </a> -->

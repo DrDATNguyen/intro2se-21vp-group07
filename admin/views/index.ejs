@@ -32,7 +32,7 @@
     <link href="/vendor/quill/quill.bubble.css" rel="stylesheet" />
     <link href="/vendor/remixicon/remixicon.css" rel="stylesheet" />
     <link href="/vendor/simple-datatables/style.css" rel="stylesheet" />
-
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <link href="/css/style.css" rel="stylesheet" />
   </head>
 
@@ -564,11 +564,8 @@
                       <li><a class="dropdown-item" href="#">This Month</a></li>
                       <li><a class="dropdown-item" href="#">This Year</a></li>
                     </ul>
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title">Reports <span>/Today</span></h5>
-
-                    <div id="reportsChart"></div> -->
+                  </div> -->
+                  
                     <div class="container">
                       <div class="row">
                         <div class="col-md-4">
@@ -600,73 +597,88 @@
                         </div>
                       </div>
                     </div>
-                    <script>
-                      document.addEventListener("DOMContentLoaded", () => {
-                        new ApexCharts(
-                          document.querySelector("#reportsChart"),
-                          {
-                            series: [
-                              {
-                                name: "Posts ",
-                                data: [31, 40, 28, 51, 42, 82, 56],
-                              },
-                              {
-                                name: "Customers ",
-                                data: [11, 32, 45, 32, 34, 52, 41],
-                              },
-                            ],
-                            chart: {
-                              height: 350,
-                              type: "area",
-                              toolbar: {
-                                show: false,
-                              },
-                            },
-                            markers: {
-                              size: 4,
-                            },
-                            colors: ["#4154f1", "#2eca6a", "#ff771d"],
-                            fill: {
-                              type: "gradient",
-                              gradient: {
-                                shadeIntensity: 1,
-                                opacityFrom: 0.3,
-                                opacityTo: 0.4,
-                                stops: [0, 90, 100],
-                              },
-                            },
-                            dataLabels: {
-                              enabled: false,
-                            },
-                            stroke: {
-                              curve: "smooth",
-                              width: 2,
-                            },
-                            xaxis: {
-                              type: "datetime",
-                              categories: [
-                                "2018-09-19T00:00:00.000Z",
-                                "2018-09-19T01:30:00.000Z",
-                                "2018-09-19T02:30:00.000Z",
-                                "2018-09-19T03:30:00.000Z",
-                                "2018-09-19T04:30:00.000Z",
-                                "2018-09-19T05:30:00.000Z",
-                                "2018-09-19T06:30:00.000Z",
-                              ],
-                            },
-                            tooltip: {
-                              x: {
-                                format: "dd/MM/yy HH:mm",
-                              },
-                            },
+                    <div class="card-body">
+                      <h5 class="card-title">User Visits / Today</h5>
+                      
+                      <div id="visitsChart"></div>
+                      
+                      <script>
+                        document.addEventListener("DOMContentLoaded", async () => {
+                          const chartContainer = document.querySelector("#visitsChart");
+                          const chartMessage = document.createElement('p');
+                          chartMessage.textContent = 'Fetching data...';
+                          chartContainer.appendChild(chartMessage);
+                  
+                          try {
+                            const response = await fetch('/admin/getUserVisits'); // Change the URL accordingly
+                            const userVisitsData = await response.json();
+                  
+                            if (userVisitsData.length === 0) {
+                              chartMessage.textContent = 'No data available to render the chart.';
+                            } else {
+                              const timestamps = userVisitsData.map(entry => new Date(entry.timestamp));
+                              const userVisits = userVisitsData.map(entry => entry.visits);
+                  
+                              new ApexCharts(
+                                chartContainer,
+                                {
+                                  series: [
+                                    {
+                                      name: "User Visits",
+                                      data: userVisits,
+                                    },
+                                  ],
+                                  chart: {
+                                    height: 350,
+                                    type: "area",
+                                    toolbar: {
+                                      show: false,
+                                    },
+                                  },
+                                  markers: {
+                                    size: 4,
+                                  },
+                                  colors: ["#4154f1"],
+                                  fill: {
+                                    type: "gradient",
+                                    gradient: {
+                                      shadeIntensity: 1,
+                                      opacityFrom: 0.3,
+                                      opacityTo: 0.4,
+                                      stops: [0, 90, 100],
+                                    },
+                                  },
+                                  dataLabels: {
+                                    enabled: false,
+                                  },
+                                  stroke: {
+                                    curve: "smooth",
+                                    width: 2,
+                                  },
+                                  xaxis: {
+                                    type: "datetime",
+                                    categories: timestamps,
+                                  },
+                                  tooltip: {
+                                    x: {
+                                      format: "dd/MM/yy HH:mm",
+                                    },
+                                  },
+                                }
+                              ).render();
+                  
+                              chartMessage.textContent = ''; // Remove the message
+                            }
+                          } catch (error) {
+                            console.error(error);
+                            chartMessage.textContent = 'An error occurred while fetching data.';
                           }
-                        ).render();
-                      });
-                    </script>
-                  </div>
-                </div>
+                        });
+                      </script>
+                    </div>
+                    
               </div>
-
+              
               <div class="col-12">
                 <div class="card recent-sales overflow-auto">
                   <div class="filter">

@@ -7,7 +7,9 @@
     <title>Dashboard - Admin</title>
     <meta content="" name="description" />
     <meta content="" name="keywords" />
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <!-- Favicons -->
     <link href="/img/favicon.png" rel="icon" />
     <link href="/img/apple-touch-icon.png" rel="apple-touch-icon" />
@@ -328,7 +330,7 @@
     <aside id="sidebar" class="sidebar">
       <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="../index.html">
+          <a class="nav-link" href="/admin/home">
             <i class="bi bi-grid"></i>
             <span>Dashboard</span>
           </a>
@@ -350,12 +352,12 @@
             data-bs-parent="#sidebar-nav"
           >
             <li>
-              <a href="../browsingusers/index.html">
+              <a href="/admin/allUsers">
                 <i class="bi bi-circle"></i><span>All user</span>
               </a>
             </li>
             <li>
-              <a href="../browsingusers/Create.html">
+              <a href="/admin/createUser">
                 <i class="bi bi-circle"></i><span>Create user</span>
               </a>
             </li>
@@ -378,12 +380,12 @@
             data-bs-parent="#sidebar-nav"
           >
             <li>
-              <a href="../browsearticles/Index.html">
+              <a href="/admin/pending-posts">
                 <i class="bi bi-circle"></i><span>All Articles</span>
               </a>
             </li>
             <li>
-              <a href="../browsearticles/Create.html">
+              <a href="/admin/new/<%= admin._id %>">
                 <i class="bi bi-circle"></i><span>Create Articles</span>
               </a>
             </li>
@@ -397,8 +399,7 @@
             data-bs-toggle="collapse"
             href="#"
           >
-            <i class="bi bi-layout-text-window-reverse"></i
-            ><span>Browse report</span
+            <i class="bi bi-layout-text-window-reverse"></i><span>Browse report</span
             ><i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul
@@ -407,7 +408,7 @@
             data-bs-parent="#sidebar-nav"
           >
             <li>
-              <a href="../browsereport/index.html">
+              <a href="/admin/reports">
                 <i class="bi bi-circle"></i><span>All report</span>
               </a>
             </li>
@@ -427,21 +428,23 @@
         </nav>
       </div>
 
-      <form action="/admin/createUser"  method="post">
-        <div class="field">
-          <input type="text" id="username" name="username" placeholder="Enter your name" required>
-        </div>
-        <div class="field">
-          <input type="text" id="email" name="email" placeholder="Enter your email" required>
-        </div>
-        <div class="field">
-          <input type="password" id="password" name="password" placeholder="Enter your password" required>
-        </div>
-        <div class="field btn">
-          <div class="btn-layer"></div>
-          <input type="submit">
-        </div>
-      </form>
+      <div class="container">
+        <form action="/admin/createUser" method="post">
+            <div class="field">
+                <input type="text" id="username" name="username" placeholder="Enter your name" required>
+            </div>
+            <div class="field">
+                <input type="text" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="field">
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <div class="field btn">
+                <div class="btn-layer"></div>
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
     </main>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">

@@ -5,11 +5,14 @@ const SearchKeyword = require('../models/searchKeyword'); // Đảm bảo bạn 
 const Visit = require('../models/visit');
 const fs = require('fs');
 const path = require('path');
-
+const bcrypt = require('bcrypt');
+const flash = require('connect-flash');
+const Report = require('../models/reports'); 
 exports.getPendingPosts = async (req, res) => {
     try {
         const pendingPosts = await Blog.find({ verify: false }); // Lấy các bài viết chưa được duyệt
-        res.render('IndexPendingBlog', { pendingPosts:pendingPosts });
+        const admin = req.session.admin;
+        res.render('IndexPendingBlog', { pendingPosts:pendingPosts,admin:admin });
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
@@ -18,10 +21,11 @@ exports.getPendingPosts = async (req, res) => {
 
 exports.approvePost = async (req, res) => {
     const postId = req.params.id;
+    const admin = req.session.admin;
     try {
         const post = await Blog.findByIdAndUpdate(postId, { verify: true });
         const pendingPosts = await Blog.find({ verify: false });
-        res.render('IndexPendingBlog',{ pendingPosts:pendingPosts }); // Điều hướng sau khi duyệt
+        res.render('IndexPendingBlog',{ pendingPosts:pendingPosts,admin:admin }); // Điều hướng sau khi duyệt
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
@@ -30,8 +34,9 @@ exports.approvePost = async (req, res) => {
 
 exports.gettablespendingUser = async (req, res) => {
     try {
-        const pendingUsers = await User.find({ isUservip: false }); 
-        res.render('tables-pending', { pendingUsers });
+        const pendingUsers = await User.find({ isUservip: false });
+        const admin = req.session.admin; 
+        res.render('tables-pending', { pendingUsers,admin:admin }); //
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
@@ -42,9 +47,10 @@ exports.approvetablespendingUser = async (req, res) => {
     const userId = req.params.id;
     try {
         const post = await User.findByIdAndUpdate(userId, { isUservip: true });
+        const admin = req.session.admin;
         // const pendingUsers = await User.find({ isUservip: false }); 
         const users = await User.find();
-        res.render('indexPendingUser', { users:users }); // Điều hướng sau khi duyệt
+        res.render('indexPendingUser', { users:users,admin:admin }); // Điều hướng sau khi duyệt
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
@@ -65,9 +71,9 @@ exports.listPopularKeywords = async (req, res) => {
   exports.getAllUsers = async (req, res) => {
     try {
         const users = await User.find(); // Lấy danh sách tất cả người dùng
-
+        const admin = req.session.admin;
         // Render trang hiển thị danh sách người dùng
-        res.render('indexPendingUser', { users:users }); // Thay đổi tên view và biến context tùy theo yêu cầu của bạn
+        res.render('indexPendingUser', { users:users,admin:admin }); // Thay đổi tên view và biến context tùy theo yêu cầu của bạn
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
@@ -75,10 +81,11 @@ exports.listPopularKeywords = async (req, res) => {
 };
 exports.getNewBlog = async (request, response) => {
     const adminID = request.params.id;
+    // const admin = request.session.admin;
     console.log(adminID);
     const currentAdmin = await Admin.findById(adminID);
-    if(currentAdmin){
-      console.log(currentAdmin);
+    if(currentAdmin ){
+      console.log(currentAdmin );
     }
     else{
         request.flash('message', 'You have logged in and still see this error ? Well... Ooops');
@@ -244,6 +251,7 @@ try {
 exports.getHome = async(req,res) =>{
 try{
   const admin = req.session.admin;
+  console.log(admin);
   // const blogs = await Blog.find().sort({ createdAt: 'desc' });
   // const userLikedBlog = Blog.likes.includes(user._id); // userId là ID của người dùng hiện tại
   const totalPosts = await Blog.countDocuments(); // Đếm tổng số bài viết
@@ -298,12 +306,15 @@ async function listPopularKeywords() {
   }
 }
 exports.getcreateUser  = (req, res) => {
-  res.render('createUser');
+  const admin = req.session.admin;
+  res.render('createUser',{
+    admin: admin});
 }
 exports.postcreateUser = async (req, res) => {
+  const hashPassword = await bcrypt.hash(req.body.password, 10);
   const data = {
     username: req.body.username,
-    password: req.body.password,
+    password: hashPassword,
     email: req.body.email,
   };
   console.log(data);
@@ -328,8 +339,9 @@ exports.postcreateUser = async (req, res) => {
       };
   
       await User.create(data);
+      const users = await User.find();
       // const newAdmin = await Admin.findOne({ adminname: req.body.adminname });
-      res.render('indexPendingUser');
+      res.render('indexPendingUser',{users:users});
     }
   } catch (error) {
         console.log(error);
@@ -343,3 +355,81 @@ exports.postcreateUser = async (req, res) => {
         });
   }
   };
+  exports.deleteBlog = async (req, res) => {
+    const blogId = req.params.id; // Lấy blogId từ tham số trong URL
+    // const AdminId = req.session.admin.id;
+    
+    try {
+      // Tìm bài viết cần xóa trong cơ sở dữ liệu
+      const blogToDelete = await Blog.findById(blogId);
+     
+      if (!blogToDelete) {
+        return res.status(404).json({ message: 'Blog not found' });
+      }
+  
+      // Xóa bài viết
+      await blogToDelete.remove();
+      res.redirect(`/admin/pending-posts`);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error deleting blog', error: error.message });
+    }
+  };
+  exports.deleteUser = async (req, res) => {
+    const userId = req.params.userId; // Lấy blogId từ tham số trong URL
+    // const AdminId = req.session.admin.id;
+    
+    try {
+      // Tìm bài viết cần xóa trong cơ sở dữ liệu
+      const userToDelete = await User.findById(userId);
+      console.log(userToDelete);
+      if (!userToDelete) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      // Xóa bài viết
+      await userToDelete.remove();
+      res.redirect(`/admin/allUsers`);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error deleting user', error: error.message });
+    }
+  };
+  exports.deleteReports = async (req, res) => {
+    const reportId = req.params.reportId; // Lấy blogId từ tham số trong URL
+    // const AdminId = req.session.admin.id;
+    
+    try {
+      // Tìm bài viết cần xóa trong cơ sở dữ liệu
+      const reportToDelete = await Report.findById(reportId);
+      console.log(reportToDelete);
+      if (!reportToDelete) {
+        return res.status(404).json({ message: 'Report not found' });
+      }
+  
+      // Xóa bài viết
+      await reportToDelete.remove();
+      res.redirect(`/admin/reports`);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error deleting report', error: error.message });
+    }
+  };
+
+  exports.getBlog = async (request, response) => {
+    let blog = await Blog.findOne({ slug: request.params.slug })
+    if (blog) {
+  
+        response.render('viewblog', { blog: blog});
+        // Lưu thay đổi vào cơ sở dữ liệu
+    } else {
+        request.flash('message', 'Connot found this blog... why ?');
+        request.flash('title', 'We wonder the same thing, why ?');
+        request.flash('href', '/admin/home'); 
+        response.render('error', {
+            message: request.flash('message'),
+            title: request.flash('title'),
+            href: request.flash('href')
+        });
+    }
+  }

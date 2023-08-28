@@ -144,8 +144,9 @@ router.get('/logout',(req,res) =>{
   // }
   router.get('/reports', async (req, res) => {
     try {
+      const admin = req.session.admin;
       const reports = await Report.find();
-      res.render('indexPendingReport', { reports:reports });
+      res.render('indexPendingReport', { reports:reports,admin:admin });
     } catch (error) {
       console.error(error);
       res.status(500).send('Internal Server Error'+ error.message);
@@ -191,5 +192,27 @@ router.get('/reports/:blogId', async (req, res) => {
 });
 router.get('/allUsers', adminController.getAllUsers);
 router.get('/home', adminController.getHome);
+router.get('/getUserVisits', async (req, res) => {
+  try {
+    // Fetch user visit data from the database
+    const userVisits = await Visit.find({}, 'timestamp visits').sort({ timestamp: 1 });
 
+    // Prepare the data in the required format
+    const userVisitsData = userVisits.map(visit => ({
+      timestamp: visit.timestamp,
+      visits: visit.visits,
+    }));
+
+    // Send the data as JSON response
+    res.json(userVisitsData);
+  } catch (error) {
+    // Handle errors
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+router.get('/:slug', adminController.getBlog);
+router.post('/:id/delete', adminController.deleteBlog);
+router.post('/:userId/deleteUser', adminController.deleteUser);
+router.post('/:reportId/deleteReports', adminController.deleteReports);
 module.exports = router;
