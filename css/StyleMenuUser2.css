@@ -453,7 +453,7 @@ nav.close ~ .dashboard .top{
     position: relative;
     transition: all 0.3s ease-in-out;
     /* margin-left: 1rem; */
-    display: none;
+    /* display: none; */
 }
 .post-title {
     position: relative;

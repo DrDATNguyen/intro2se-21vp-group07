@@ -1,6 +1,6 @@
 const User = require('../models/usermodel');
 const Blog = require('../models/Blog');
-const Cart = require('../models/cart')
+const Cart = require('../models/cart');
 const Report = require('../models/ReportBlogs');
 const bcrypt = require('bcrypt');
 const fs = require('fs');
@@ -183,7 +183,7 @@ exports.getHome = async(req,res) =>{
   try{
     const user = await User.findById(req.session.user._id);
     req.session.user = user;
-    const blogs = await Blog.find().sort({ createdAt: 'desc' });
+    const blogs = await Blog.find({verify: true}).sort({ createdAt: 'desc' });
     // const userLikedBlog = Blog.likes.includes(user._id); // userId là ID của người dùng hiện tại
 
     res.render('index', {
@@ -261,30 +261,12 @@ exports.getEditProfile = async (req, res) => {
 exports.postEditProfile = async (req, res) => {
   try {
       req.user = await User.findById(req.params.id);
-
-      if (!user) {
-        req.flash('message', 'Cannot find your account');
-        req.flash('title', 'Cannot find your account, create one');
-        req.flash('href', '/user/login'); 
-        res.render('error', {
-            message: req.flash('message'),
-            title: req.flash('title'),
-            href: req.flash('href')
-        });
-      }
-
       let user = req.user;
       const userId = req.params.id;
       const username = req.body.username;
       const password = req.body.password;
       const email = req.body.email;
-      const avatarImg = req.file
-
-      console.log('User ID:', user);
-      console.log('Username:', username);
-      console.log('Password:',  password);
-      console.log('Email:', email);
-      console.log('Avatar Image:', avatarImg);
+      const avatarImg = req.file;
 
       // Tạo một đối tượng để cập nhật
       const updatedFields = {
@@ -307,68 +289,56 @@ exports.postEditProfile = async (req, res) => {
 
       console.log(newuser);
 
-      const Blogs = await Blog.find().sort({ createdAt: 'desc' }).limit(1);; // Wait for the articles to be fetched
+      const userID = req.params.id;
+      const currentUser = await User.findById(userID); 
+      const blog = await Blog.find({ authorID: userID }).exec();
+      const boughtBlogs = await Blog.find({ _id: { $in: currentUser.bought_blog } }).exec();
       res.render('MenuUser2', {
-          user: newuser,
-          blogs: Blogs
+        user: currentUser,
+        boughtBlogs: boughtBlogs,
+        blogs: blog
       });
   } catch (err) {
       console.error(err);
-        req.flash('message', 'Something went wrong');
-        req.flash('title', 'An error occurred while processing your request');
-        req.flash('href', '/user/login'); 
-        res.render('error', {
-            message: req.flash('message'),
-            title: req.flash('title'),
-            href: req.flash('href')
-        });
+      res.status(500).send('Internal Server Error'+ err.message);
   }
 
 };
+
+
 
 exports.reportBlog = async (req, res) => {
   try {
     const user = await User.findById(req.params.idUser);
 
     if (!user) {
-        req.flash('message', 'Cannot find your account');
-        req.flash('title', 'Cannot find your account, create one');
-        req.flash('href', '/user/login'); 
-        res.render('error', {
-            message: req.flash('message'),
-            title: req.flash('title'),
-            href: req.flash('href')
-        });
+      return res.status(404).send('Người dùng không tồn tại');
     }
 
-    const blogId = req.params.idBlog; // ID của bài viết
-    const userId = user._id; // ID người dùng báo cáo
-    const reportReasons = req.body.reportReasons; // Mảng lý do báo cáo
-    const additionalDescription = req.body.additionalDescription; // Mô tả báo cáo thêm (tùy chọn)
-    // const user = await User.findById(userId);
+    const blogId = req.params.idBlog;
+    const userId = user._id;
+    const reportReasons = req.body.reportReasons;
+    const additionalDescription = req.body.additionalDescription;
+
     const blog = await Blog.findById(blogId);
-    // Tạo một bản ghi mới trong collection "reports"
-    const report = new Report({
+
+    const newReportData = {
       user: userId,
-      reportedBy: blog.author, // ID người viết bài
+      reportedBy: blog.authorID,
       blog: blogId,
       reasons: reportReasons,
       additionalDescription: additionalDescription
-    });
+    };
+    console.log('Report created:', newReportData);
 
-    await report.save();
-      // Lấy thông tin user và blog từ cơ sở dữ liệu
-    res.render('report', { user, blog }); // Truyền user và blog vào template
+    const createdReport = await Report.create(newReportData);
+
+    console.log('Report created:', createdReport);
+    res.render('report', { user, blog });
+    
   } catch (error) {
     console.error(error);
-        req.flash('message', 'Something went wrong');
-        req.flash('title', 'An error occurred while processing your request');
-        req.flash('href', '/user/login'); 
-        res.render('error', {
-            message: req.flash('message'),
-            title: req.flash('title'),
-            href: req.flash('href')
-        });
+    res.status(500).send('Lỗi Server Nội Bộ');
   }
 };
 
@@ -532,6 +502,7 @@ exports.buyFromCart = async (req, res) => {
     for (const blog of cart.blogs) {
       totalCost += blog.price;
     }
+    let newWalletAmount = user.user_wallet;
 
     // Check if user has enough funds in user_wallet
     if (user.user_wallet < totalCost) {
@@ -543,10 +514,9 @@ exports.buyFromCart = async (req, res) => {
           title: req.flash('title'),
           href: req.flash('href')
       });
-      const newWalletAmount = user.user_wallet;
     }
     else{
-      const newWalletAmount = user.user_wallet - totalCost;
+        newWalletAmount = user.user_wallet - totalCost;
     }
     // Deduct the total cost from user's wallet
     await User.findByIdAndUpdate(user._id, { $set: { user_wallet: newWalletAmount } });

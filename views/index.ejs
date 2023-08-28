@@ -127,20 +127,25 @@
 
         <!-- masonry
         ================================================== -->
+
+        
  
         <section class="s-bricks">
-            <div class ="search-filter">
-            <form action="/blogs/filter/<%= user._id%>" method="POST">
-                <label for="sortBy">Search Filters:</label>
-                <select name="sortBy" id="sortBy">
-                  <option value="mostPopular">Most Popular</option>
-                  <option value="leastPopular">Least Popular</option>
-                  <option value="oldest">Oldest</option>
-                  <option value="newest">Newest</option>
-                </select>
-                <button type="submit">Filter</button>
-              </form>
-            </div>
+            
+            <div class="blog-list">
+                <div class ="search-filter">
+                    <form action="/blogs/filter/<%= user._id%>" method="POST">
+                        <label for="sortBy">Search Filters:</label>
+                        <select name="sortBy" id="sortBy">
+                          <option value="mostPopular">Most Popular</option>
+                          <option value="leastPopular">Least Popular</option>
+                          <option value="oldest">Oldest</option>
+                          <option value="newest">Newest</option>
+                        </select>
+                        <button type="submit">Filter</button>
+                    </form>
+                </div>
+    
             <div class="masonry">
                 <div class="bricks-wrapper h-group">
     
@@ -185,6 +190,7 @@
 
                             </div> <!-- end feature post slider -->
                             
+                            
                             <div class="featured-post-nav">
                                 <button class="featured-post-nav__prev">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12.707 17.293L8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z"></path></svg>
@@ -196,8 +202,10 @@
 
                         </div> <!-- end entry content -->
                     </div> <!-- end entry, featured grid -->
+
                     
-                    <div class="blog-list">
+                    
+                    
                     <% if(blogs.length<1){%>
 
                         <p class="text-white">No posts yet, create a new one</p>
@@ -374,11 +382,9 @@
                         <h5>Site Links</h5>
 
                         <ul>
-                            <li><a href="#0">About Us</a></li>
-                            <li><a href="#0">Blog</a></li>
-                            <li><a href="#0">FAQ</a></li>
-                            <li><a href="#0">Terms</a></li>
-                            <li><a href="#0">Privacy Policy</a></li>
+                            <li><a href="/user/about">About Us</a></li>
+                            <li><a href="/user/home">Blog</a></li>
+                            <li><a href="/user/contact">FAQ</a></li>
                         </ul>
 
                     </div> <!-- end s-footer__site-links -->  
@@ -388,11 +394,8 @@
                         <h5>Social</h5>
 
                         <ul>
-                            <li><a href="#0">Twitter</a></li>
                             <li><a href="https://www.facebook.com/profile.php?id=100071044693606">Facebook</a></li>
-                            <!-- <li><a href="#0">Dribbble</a></li>
-                            <li><a href="#0">Pinterest</a></li> -->
-                            <li><a href="#0">Instagram</a></li>
+                            <li><a href="https://www.instagram.com/khanggg_3011/">Instagram</a></li>
                         </ul>
 
                     </div> <!-- end s-footer__social links --> 

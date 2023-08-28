@@ -131,13 +131,18 @@ router.get('/upgradeuser/:id', async (req, res) => {
   try {
     const userId = req.params.id;
     const user = await User.findById(userId);
-
     if (!user) {
       return res.status(404).send('User not found');
     }
 
+    let newuser_wallet = user.user_wallet; // Initialize with the existing wallet value
+
     if (user.user_wallet < 50000) {
       return res.status(400).send('Insufficient funds');
+    }
+    else {
+      // Update the wallet value based on the condition
+      newuser_wallet = user.user_wallet - 50000; 
     }
 
     // Update user data using User.updateOne()
@@ -146,7 +151,7 @@ router.get('/upgradeuser/:id', async (req, res) => {
       {
         $set: {
           isUservip: true,
-          user_wallet: user.user_wallet - 50000,
+          user_wallet: newuser_wallet,
         },
       }
     );
@@ -157,6 +162,7 @@ router.get('/upgradeuser/:id', async (req, res) => {
     res.status(500).send('An error occurred');
   }
 });
+
 
 
 router.get('/:id', UserControllers.getProfile);
@@ -216,32 +222,45 @@ router.get('/:userID/editBlogs/:blogID', async (req, res) => {
     }
 });
 
-router.put('/:userID/editBlogs/:blogID', async (req, res) => {
+router.put('/:userID/editBlogs/:blogID',upload.single('image'), async (req, res) => {
 
-    try {
-        const blogId = req.params.blogID;
-        const updatedData = {
-            title: req.body.title,
-            author: req.body.author,
-            introduction: req.body.introduction,
-            description: req.body.description,
-            img: req.body.img,
-            video: req.body.video,
-            tags: req.body.tags
-        };
+  try {
+      const blogId = req.params.blogID;
+      const updatedData = {
+          title: req.body.title,
+          author: req.body.author,
+          introduction: req.body.introduction,
+          description: req.body.description,
+          // img: req.body.img,
+          // video: req.body.video,
+          tags: req.body.tags
+      };
+      console.log('title:', req.body.title);
+      console.log(' author:', req.body.author);
+      
+      if (req.file) {
+          updatedData.img = {
+              data: req.file.buffer,
+              contentType: req.file.mimetype
+          };
+      }
+      console.log('IMG:', req.file.buffer);
+      const updatedBlog = await Blog.findByIdAndUpdate(blogId, updatedData, { new: true });
 
-        const updatedBlog = await Blog.findByIdAndUpdate(blogId, updatedData, { new: true });
-
-        if (updatedBlog) {
-            res.redirect(`/blogs/${updatedBlog.slug}`);
-        } else {
-            res.status(404).send('Blog not found');
-        }
-    } catch (error) {
-        console.log(error);
-        res.redirect(`/user/${req.params.userID}/editBlogs/${req.params.blogID}`, { blog: req.body });
-    }
-})
+      if (updatedBlog) {
+          console.log('Updated Blog:', updatedBlog);
+          console.log(req.params.userID);
+          res.redirect(`/blogs/${updatedBlog.slug}`);
+      } else {
+          res.status(404).send('Blog not found');
+      }
+  } catch (error) {
+      console.log(error);
+      console.log('User:', req.params.userID); // Add this line to check req.user
+      console.log('Blog ID:', req.params.blogID); // Add this line to check blog ID
+      res.redirect(`/user/${req.params.userID}/editBlogs/${req.params.blogID}`);
+  }
+});
 
 router.get('/buy-premium/:blogId', async(req,res) => {
     const currentBlog = await Blog.findById(req.params.blogId);

@@ -184,7 +184,12 @@
                   <div class="blog-title">
                     <h3><%= relatedBlog.title %></h3>
                     <h4><%= relatedBlog.author %></h4>
-                    <p><%- relatedBlog.introduction %></p>
+                    <div class="entry__introduction">
+                        <p>
+                            <p><%- relatedBlog.introduction %></p>
+                        </p>
+                    </div>
+
                     <button onclick="window.location.href = '/blogs/<%=relatedBlog.slug %>';" class="btn btn-blog">Read more</button>
                   </div>
                 </div>

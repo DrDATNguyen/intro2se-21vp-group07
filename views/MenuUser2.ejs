@@ -38,7 +38,9 @@
                 
                   <div class="logo-image">
                     <h2><%= user.username %></h2>
-                    <i class="fas fa-star fa-sm"></i>
+                    <% if(user.isUservip){%>
+                      <i class="fas fa-star fa-sm"></i>
+                    <%}%>
                   </div>
 
          
@@ -48,16 +50,16 @@
               <ul class="nav-links">
                   <li><a href="#" onclick="showDashboard()">
                     <i class="fas fa-home"></i>
-                      <span class="link-name">Dahsboard</span>
+                      <span class="link-name">Dashboard</span>
                   </a></li>
-                  <li><a href="#"onclick="showBookmark()">
+                  <!-- <li><a href="#"onclick="showBookmark()">
                     <i class="fas fa-regular fa-newspaper"></i>
                       <span class="link-name">My articles</span>
                   </a></li>
                   <li><a href="/user/<%= user._id %>/myBlogs">
                         <i class="fas fa-regular fa-bell"></i>
                       <span class="link-name">Notifications</span>
-                  </a></li>
+                  </a></li> -->
                   <li><a href="/user/<%= user._id %>/editProfile">
                         <i class="fas fa-user-edit"></i>
                       <span class="link-name">Edit profile</span>
@@ -164,11 +166,6 @@
                         </div>
                         <div class="btn-group">
                             <div class="btn-row">
-                        <a href="/user/<%= user._id %>/editBlogs/<%= blog._id %>" ><button class="btn-article">Edit</button></a>
-                        <!-- <a href="/blogs/<%= blog._id %>/delete" ><button class="btn-article">Delete</button></a> -->
-                        <form action="/user/<%= blog._id %>/deleteBoughtBlog/<%= user._id %>" method="POST"> <!-- Sử dụng phương thức POST -->
-                            <button type="submit" class="btn-article">Delete</button>
-                          </form>
                         <a href="/blogs/<%=blog.slug %>" ><button class="btn-article">Read more</button></a>
                             </div>
                         </div>
@@ -178,36 +175,41 @@
               </div>
                   
                 </div>
-          <% if(blogs.length<1){%>
-
-            <p class="text-white">No posts yet, create a new one</p>
-
-            <%  } %>
-
-
-            <% blogs.forEach(blog=>{ %>
-          <div id="bookmark" class = "bookmark">
-            
-              <div class="img">
-                <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="img" alt="...">
-      
+                <div class="activity">
+                  <div class="title">
+                    <i class="far fa-newspaper"></i>
+                      <span class="text">My blogs</span>
+                  </div>
+  
+                  <% if (blogs.length < 1) { %>
+                    <p class="text-white">You haven't written posts yet.</p>
+                  <% } else { %>
+                    <% blogs.forEach(blog => { %>
+                      <div class="Purchased-article">
+                        <div class="img-article">
+                          <% if (blog.img && blog.img.data) { %>
+                            <img src="data:<%= blog.img.contentType %>;base64,<%= blog.img.data.toString('base64') %>" class="card-img" alt="...">
+                          <% } %>
+                        </div>
+                        <div class="post-title-article">
+                          <a href="/blogs/<%= blog._id %>"><%= blog.title %></a>
+                          <p><%- blog.introduction %></p>
+                        </div>
+                        <div class="btn-group">
+                            <div class="btn-row">
+                              <a href="/blogs/<%=blog.slug %>" ><button class="btn">Read more</button></a>
+                              <a href="/user/<%= user._id %>/editBlogs/<%= blog._id %>" ><button class ="btn">Edit</button></a>
+                              <form action="/blogs/<%= blog._id %>/delete" method="POST"> <!-- Sử dụng phương thức POST -->
+                                  <button type="submit" class="btn">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                      </div>
+                    <% }) %>
+                  <% } %>
               </div>
-              <div class="post-title">
-                  <a href="#bookmark"><%= blog.title %>
-                  </a>
-                  <p><%- blog.introduction %>
-                  </p>
-              </div>
-              <!-- <button class ="btn">Edit</button> -->
-                <a href="/blogs/<%=blog.slug %>" ><button class="btn">Read more</button></a>
-                <a href="/user/<%= user._id %>/editBlogs/<%= blog._id %>" ><button class ="btn">Edit</button></a>
-                <form action="/blogs/<%= blog._id %>/delete" method="POST"> <!-- Sử dụng phương thức POST -->
-                    <button type="submit" class="btn">Delete</button>
-                  </form>
-                
-          </div>
-          <% }) %>
       </section>
+      
       
       <script src="/fontawesome.js"></script>
       <script src="/fontawesome.min.js"></script>
