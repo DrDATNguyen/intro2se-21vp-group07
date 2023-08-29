@@ -464,7 +464,9 @@
                 
                 
                 <% if (post && post.img) { %>
-                  <td class="col-2"><img src="data:<%= post.img.contentType %>;base64,<%= post.img.data.toString('base64') %>" class="section-img" alt="..."></td>
+                  <% if (post.img.contentType && post.img.data) { %>
+                    <td class="col-2"><img src="data:<%= post.img.contentType %>;base64,<%= post.img.data.toString('base64') %>" class="section-img" alt="..."></td>
+                  <% } %>
               <% } else { %>
                   <td class="col-2">No Image</td>
               <% } %>

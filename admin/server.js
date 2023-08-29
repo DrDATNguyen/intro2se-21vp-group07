@@ -11,7 +11,7 @@ app.set('view engine', 'ejs');
 const session = require('express-session');
 var flash = require('connect-flash');
 // Kết nối tới cơ sở dữ liệu MongoDB
-mongoose.connect('mongodb+srv://datG:Dat123456@cluster0.kgivcxs.mongodb.net/', {
+mongoose.connect('mongodb+srv://khangvadat:khangvadatdeptrai@webdeveloppersgroup07.t4puhcs.mongodb.net/?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });

@@ -146,6 +146,8 @@ router.get('/logout',(req,res) =>{
     try {
       const admin = req.session.admin;
       const reports = await Report.find();
+      console.log('reports',reports);
+      
       res.render('indexPendingReport', { reports:reports,admin:admin });
     } catch (error) {
       console.error(error);
@@ -180,11 +182,12 @@ router.get('/reports/:blogId', async (req, res) => {
   try {
     // const report = await Report.find();
     const blogId = req.params.blogId;
+    const admin = req.session.admin;
     const post = await Blog.findById(blogId);
     if (!post) {
       return res.status(404).send('Blog not found');
     }
-    res.render('IndexPendingBlog', {pendingPosts:[post] });
+    res.render('IndexPendingBlog', {pendingPosts:[post],admin:admin });
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error'+error.message);
@@ -195,12 +198,23 @@ router.get('/home', adminController.getHome);
 router.get('/getUserVisits', async (req, res) => {
   try {
     // Fetch user visit data from the database
-    const userVisits = await Visit.find({}, 'timestamp visits').sort({ timestamp: 1 });
+    const userVisits = await Visit.find({}, 'timestamp').sort({ timestamp: 1 });
+
+    // Calculate total visits per day
+    const visitsPerDay = {};
+    userVisits.forEach(visit => {
+      const date = new Date(visit.timestamp).toLocaleDateString();
+      if (!visitsPerDay[date]) {
+        visitsPerDay[date] = 1;
+      } else {
+        visitsPerDay[date]++;
+      }
+    });
 
     // Prepare the data in the required format
-    const userVisitsData = userVisits.map(visit => ({
-      timestamp: visit.timestamp,
-      visits: visit.visits,
+    const userVisitsData = Object.keys(visitsPerDay).map(date => ({
+      timestamp: new Date(date).getTime(),
+      visits: visitsPerDay[date],
     }));
 
     // Send the data as JSON response
@@ -211,6 +225,7 @@ router.get('/getUserVisits', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 router.get('/:slug', adminController.getBlog);
 router.post('/:id/delete', adminController.deleteBlog);
 router.post('/:userId/deleteUser', adminController.deleteUser);

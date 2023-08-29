@@ -56,18 +56,18 @@ exports.approvetablespendingUser = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 }
-exports.listPopularKeywords = async (req, res) => {
-    try {
-      const popularKeywords = await SearchKeyword.find()
-        .sort({ count: -1 }) // Sắp xếp từ nhiều xuống ít
-        .exec();
+// exports.listPopularKeywords = async (req, res) => {
+//     try {
+//       const popularKeywords = await SearchKeyword.find()
+//         .sort({ count: -1 }) // Sắp xếp từ nhiều xuống ít
+//         .exec().limit(5);
   
-      res.render('popular-keywords', { popularKeywords });
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('Error listing popular keywords.');
-    }
-  }
+//       res.render('index', { popularKeywords:popularKeywords });
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).send('Error listing popular keywords.');
+//     }
+//   }
   exports.getAllUsers = async (req, res) => {
     try {
         const users = await User.find(); // Lấy danh sách tất cả người dùng
@@ -250,7 +250,8 @@ try {
 
 exports.getHome = async(req,res) =>{
 try{
-  const admin = req.session.admin;
+  const admin = await Admin.findById(req.session.admin._id);
+  req.session.admin = admin;
   console.log(admin);
   // const blogs = await Blog.find().sort({ createdAt: 'desc' });
   // const userLikedBlog = Blog.likes.includes(user._id); // userId là ID của người dùng hiện tại
@@ -259,12 +260,14 @@ try{
     // Giả sử bạn đã có một cơ chế lưu lượt truy cập và đếm số lượt truy cập
   const totalVisits = await countTotalVisits(); // Đếm tổng số lượt truy cập
   const popularKeywords = await listPopularKeywords(); // Gọi hàm thống kê từ khóa phổ biến
+  
   const report = {
     totalPosts,
     totalUsers,
-    totalVisits
+    totalVisits,
+    popularKeywords
   };
-
+  console.log(report);
   res.render('index', {
     admin: admin,
     // blogs: blogs,
@@ -337,11 +340,11 @@ exports.postcreateUser = async (req, res) => {
         data: fs.readFileSync(defaultAvatarPath),
         contentType: 'image/jpeg' 
       };
-  
+      const admin = req.session.admin;
       await User.create(data);
       const users = await User.find();
       // const newAdmin = await Admin.findOne({ adminname: req.body.adminname });
-      res.render('indexPendingUser',{users:users});
+      res.render('indexPendingUser',{users:users,admin:admin});
     }
   } catch (error) {
         console.log(error);
